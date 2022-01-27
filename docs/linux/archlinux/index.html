@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-cn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Archlinux 安装小记 | Hydroakri&#39;s Site</title>
+
+
+
+<link rel="stylesheet" href="/css/style.css"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://hydroakri.github.io/linux/archlinux/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
+</head>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://hydroakri.github.io/">
+          <h1 id="nav-heading" class="title is-4">Hydroakri&#39;s Site</h1>
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"></nav>
+      </div>
+    </nav>
+
+    <nav class="nav">
+      
+
+      
+    </nav>
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+    </div>
+    <h2 class="subtitle is-6">January 27, 2022</h2>
+    <h1 class="title">Archlinux 安装小记</h1>
+    
+    <div class="content">
+      <h1 id="创建安装介质">创建安装介质</h1>
+<p>工具：rufus<br>
+环境：windows<br>
+去<a href="https://archlinux.org/">archlinux</a>官网安装即可，推荐使用qBittorrent，下载速度会比直链快，毕竟是开源软件（去镜像站下载也可以）</p>
+<h1 id="安装">安装</h1>
+<p>保持安装u盘不用拔出，重启进入bios设置u盘启动优先<br>
+再次重启就是arch安装u盘的界面了</p>
+<p>Q：但是我的archlinux安装盘在不断重启啊<br>
+A：小问题，在grub选择页面按 <code>e</code> 然后在 <code>linux</code> 那一行的最后加上<code>nomodeset</code>来设置内核不加载容易出错的内核模块</p>
+<p>一切顺利的话就会看到红色的<code>archiso</code>
+接着我们输入：</p>
+<pre tabindex="0"><code>archinstall  
+</code></pre><p>注意：archinstall 仅支持 UEFI 系统</p>
+<p>按照安装脚本给出的提示即可，这里提一些值得注意的</p>
+<ul>
+<li>ssd固态硬盘用户建议使用brtfs文件系统</li>
+<li>时区手动输入的话是<code>Asia/Shanghai</code></li>
+<li>要让你的系统支持休眠/睡眠的话就要让zram的大小<code>&gt;=</code>物理内存</li>
+</ul>
+<p>安装完成后他会询问你是否要立即重启，此时你安装的如果是nvidia的闭源驱动，我们不要立刻重启<br>
+在<code>/etc/modprobe.d/</code>下面新建<code>.conf</code>结尾的配置文件屏蔽内核中自带的<code>nouveau</code>开源驱动<br>
+操作如下：</p>
+<pre tabindex="0"><code>cd /etc/modprobe.d/  
+nano blacklist.conf #系统只识别.conf的文件，所以文件名随意  
+</code></pre><p>添加内容如下：</p>
+<pre tabindex="0"><code> blacklist nouveau  
+ blacklist lbm-nouveau  
+ options nouveau modeset=0  
+</code></pre><p>即可重启</p>
+<h1 id="配置">配置</h1>
+<h2 id="lightdm黑屏-在其他显示器显示">lightdm黑屏 在其他显示器显示</h2>
+<p>等我装完重启进入桌面后通过运行<code>nvidia-setting</code>报错发现我的RTX 3060并没有工作<br>
+bing搜索得解决办法 于是使用<code>nvidia-xconfig</code>配置<code>/etc/X11/xorg.conf</code><br>
+遂重启，然后这个archlinux怎么又双叒黑屏寄了<br>
+我一开始还以为是amdgpu+nvidia的显卡配置问题<br>
+后来才发现是lightdm这玩意压根就不支持多显示屏（我使用xfce4桌面，默认使用lightdm作为登录管理器），这就导致了我的登录界面在一颗虚空显示屏上面</p>
+<p>解决方法：<a href="https://qastack.cn/ubuntu/119843/how-to-force-multiple-monitors-correct-resolutions-for-lightdm">如何强制多个显示器为LightDM设置正确的分辨率？</a><br>
+我的方法：垃圾lightdm狗都不用 遂卸载lightdm 每天使用<code>startx</code>启动桌面</p>
+<h2 id="apu加nvidia用户在双屏的时候只有单屏显示">apu加nvidia用户在双屏的时候只有单屏显示</h2>
+<p>这个东西我看了半天xorg的英文文档和archlinux的<a href="https://wiki.archlinux.org/title/AMDGPU_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#Xorg_configuration">Amdgpu</a>页面 搞得我快一口老血吐出来</p>
+<p>按照archwiki的说法要创建<code>/etc/X11/xorg.conf.d/20-amdgpu.conf</code>添加如下内容：</p>
+<pre tabindex="0"><code> Section &quot;Device&quot;  
+     Identifier &quot;AMD&quot;  
+     Driver &quot;amdgpu&quot;  
+ EndSection
+</code></pre><p>我也给arcwiki在nvidia页面贡献了此次issue</p>
+<h2 id="安装输入法">安装输入法</h2>
+<p>我选择fcitx 毕竟这个项目的名字意思都是中文输入法<br>
+安装fcitx5：</p>
+<pre tabindex="0"><code>sudo pacman -Sy fcitx5 fcitx5-chinese-addons fcitx5-configtool fcitx5-gtk fcitx5-rime fcitx5-qt
+</code></pre><p>配置过程参见<a href="https://wiki.archlinux.org/title/Fcitx5_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E5%AE%89%E8%A3%85">archwiki_fcitx5</a></p>
+<h2 id="安装yay以及timeshift备份管理软件">安装yay以及timeshift备份管理软件</h2>
+<p>安装yay</p>
+<pre tabindex="0"><code>sudo pacman -Sy archlinuxcn-mirrorlist
+sudo pacman -Sy yay
+</code></pre><p>yay安装时如果报错就尝试<br>
+原理见<a href="https://www.archlinuxcn.org/gnupg-2-1-and-the-pacman-keyring/">GnuPG-2.1 与 pacman 密钥环</a></p>
+<pre tabindex="0"><code>pacman -Syu haveged
+systemctl start haveged
+systemctl enable haveged
+
+rm -fr /etc/pacman.d/gnupg
+pacman-key --init
+pacman-key --populate archlinux
+pacman-key --populate archlinuxcn
+</code></pre><p>安装timeshift备份工具<br>
+timeshift比windows那羸弱的系统还原点高到不知道哪里去了<br>
+rsync对比更改文件建立镜像就可以一键回滚，再也不用担心系统滚挂重装的烦恼了</p>
+<pre tabindex="0"><code>yay -S timeshift
+</code></pre><h2 id="更换内核">更换内核</h2>
+<p>linux-zen内核是g胖支持的，对steam上的wine游戏经过了<a href="https://github.com/ValveSoftware/Proton/issues/3706#issuecomment-636632984">特殊的优化</a></p>
+<pre tabindex="0"><code>sudo pacman -S linux-zen linux-zen-headers
+</code></pre><p><code>内核名-headers</code>这种包一定要装哦 不然定制内核的模块编译不进去的</p>
+<blockquote>
+<p>DKMS，即 Dynamic Kernel Module System。可以使内核变更（如升级）后自动编译模块，适配新内核。</p>
+</blockquote>
+<p>要注意使用非默认内核时部分包是不支持的需要安装dkms包<br>
+比如:<br>
+<code>nvidia</code>是针对默认内核的，定制内核需要安装<code>nvidia-dkms</code><br>
+<code>virtualbox-host</code>是针对默认内核的，定制内核需要安装<code>virtualbox-host-dkms</code></p>
+<p>如果你直接换内核而不换nvidia驱动的话你在启动图形界面的时候就会发现：</p>
+<pre tabindex="0"><code>xf86EnableIOPorts: failed to set IOPL for I/O (Operation not permitted)
+</code></pre><p>（就像我一样</p>
+<h2 id="挂起后无法唤醒">挂起后无法唤醒</h2>
+<p><a href="https://bbs.archlinux.org/viewtopic.php?id=271468">在这里千辛万苦找到的解决办法</a><br>
+创建<code>/etc/modprobe.d/</code>添加如下内容即可：</p>
+<pre tabindex="0"><code>blacklist nvidia-uvm
+</code></pre><blockquote>
+<h3 id="参考资料">参考资料</h3>
+<p><a href="https://arch.icekylin.online">arch简明指南</a><br>
+<a href="https://wiki.archlinux.org/">archlinux wiki</a><br>
+<a href="https://wiki.archlinux.org/title/NVIDIA_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E5%AF%B9%E4%BA%8E%E5%90%8C%E6%97%B6%E6%8B%A5%E6%9C%89amd%E6%A0%B8%E6%98%BE%E5%92%8Cnvidia%E7%8B%AC%E7%AB%8B%E6%98%BE%E5%8D%A1%E7%9A%84%E7%94%A8%E6%88%B7">NVIDIA (简体中文) </a><br>
+<a href="https://wiki.archlinux.org/title/GRUB_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)">GRUB (简体中文) - ArchWiki</a><br>
+<a href="https://wiki.archlinux.org/title/Mkinitcpio_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E6%A8%A1%E5%9D%97%EF%BC%88MODULES%EF%BC%89">mkinitcpio (简体中文) - ArchWiki</a><br>
+<a href="https://wiki.archlinux.org/title/Kernel_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)">Kernel (简体中文) - ArchWiki</a><br>
+<a href="https://wiki.archlinux.org/title/Xinit_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E9%85%8D%E7%BD%AE">xinit (简体中文) - ArchWiki</a>  <a href="https://wiki.archlinux.org/title/Xorg_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E9%85%8D%E7%BD%AE">Xorg (简体中文) - ArchWiki</a></p>
+</blockquote>
+
+      
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+    
+  </div>
+</section>
+
+
+
+
+
+</body>
+</html>
+
