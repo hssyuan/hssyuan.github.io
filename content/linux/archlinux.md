@@ -118,11 +118,35 @@ xf86EnableIOPorts: failed to set IOPL for I/O (Operation not permitted)
 （就像我一样
 
 ## 挂起后无法唤醒
-[在这里千辛万苦找到的解决办法](https://bbs.archlinux.org/viewtopic.php?id=271468)  
-创建`/etc/modprobe.d/`添加如下内容即可：  
+~~[在这里千辛万苦找到的解决办法](https://bbs.archlinux.org/viewtopic.php?id=271468)~~  
+~~创建`/etc/modprobe.d/`添加如下内容即可:~~  
+~~`blacklist nvidia-uvm`~~
+  
+2022.02.04更新  
+经过论坛询问，解决挂起后无法唤醒的要看nvidia的文档，详见[这里](https://download.nvidia.com/XFree86/Linux-x86_64/435.17/README/powermanagement.html)  
 ```
-blacklist nvidia-uvm
+    sudo systemctl enable nvidia-suspend.service
+
+    sudo systemctl enable nvidia-hibernate.service
+
+    sudo systemctl enable nvidia-resume.service
+
 ```
+
+# dwm使用配置
+我懒得折腾直接使用默认官方配置
+```
+窗口管理器：dwm  
+终端：st，tilda  
+应用启动器：dmenu  
+系统托盘：trayer  
+    托盘应用：nm-applet（网络管理器）
+            pasystray（声音管理器）  
+            blueman-applet（蓝牙）  
+            fcitx5（输入法）
+            cfw（魔法上网）  
+```
+
 
 
 > ### 参考资料

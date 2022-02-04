@@ -133,9 +133,28 @@ rsync对比更改文件建立镜像就可以一键回滚，再也不用担心系
 <pre tabindex="0"><code>xf86EnableIOPorts: failed to set IOPL for I/O (Operation not permitted)
 </code></pre><p>（就像我一样</p>
 <h2 id="挂起后无法唤醒">挂起后无法唤醒</h2>
-<p><a href="https://bbs.archlinux.org/viewtopic.php?id=271468">在这里千辛万苦找到的解决办法</a><br>
-创建<code>/etc/modprobe.d/</code>添加如下内容即可：</p>
-<pre tabindex="0"><code>blacklist nvidia-uvm
+<p><del><a href="https://bbs.archlinux.org/viewtopic.php?id=271468">在这里千辛万苦找到的解决办法</a></del><br>
+<del>创建<code>/etc/modprobe.d/</code>添加如下内容即可:</del><br>
+<del><code>blacklist nvidia-uvm</code></del></p>
+<p>2022.02.04更新<br>
+经过论坛询问，解决挂起后无法唤醒的要看nvidia的文档，详见<a href="https://download.nvidia.com/XFree86/Linux-x86_64/435.17/README/powermanagement.html">这里</a></p>
+<pre tabindex="0"><code>    sudo systemctl enable nvidia-suspend.service
+
+    sudo systemctl enable nvidia-hibernate.service
+
+    sudo systemctl enable nvidia-resume.service
+
+</code></pre><h1 id="dwm使用配置">dwm使用配置</h1>
+<p>我懒得折腾直接使用默认官方配置</p>
+<pre tabindex="0"><code>窗口管理器：dwm  
+终端：st，tilda  
+应用启动器：dmenu  
+系统托盘：trayer  
+    托盘应用：nm-applet（网络管理器）
+            pasystray（声音管理器）  
+            blueman-applet（蓝牙）  
+            fcitx5（输入法）
+            cfw（魔法上网）  
 </code></pre><blockquote>
 <h3 id="参考资料">参考资料</h3>
 <p><a href="https://arch.icekylin.online">arch简明指南</a><br>
