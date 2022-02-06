@@ -191,7 +191,7 @@ sudo pacman -S virtio-win
 ```
 然后安装好win10后进入计算机找到已经挂载的磁盘，运行最下面的驱动安装程序即可，安装好就能体验到自动调整窗口大小和kvm的丝滑了
 
-接下来为kvm添加文件拖拽共享功能  
+## 接下来为kvm添加文件拖拽共享功能  
 csdn上的各种不靠谱还互相抄，我在[ubuntu论坛](https://askubuntu.com/questions/885264/kvm-copy-drag-and-drop-files-between-ubuntu-host-to-windows-7-guest)找到了  
 要下载[spice驱动](https://www.spice-space.org/download/windows/spice-guest-tools/spice-guest-tools-latest.exe)随后重启虚拟机即可完美实现拖放和剪贴板共享
 
