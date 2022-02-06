@@ -133,6 +133,9 @@ xf86EnableIOPorts: failed to set IOPL for I/O (Operation not permitted)
 
 ```
 
+2022.02.06更新
+我是amd笔记本，这样的休眠黑屏的bug大概率是5.15之前的linux内核bug 现在已经修复，不用管了
+
 # dwm使用配置
 我懒得折腾直接使用默认官方配置
 ```
