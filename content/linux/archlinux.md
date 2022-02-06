@@ -147,7 +147,53 @@ xf86EnableIOPorts: failed to set IOPL for I/O (Operation not permitted)
             cfw（魔法上网）  
 ```
 
+# KVM虚拟机折腾
+  
+```
+# 检测宿主机cpu是否支持虚拟化，如果flags里有vmx 或者svm就说明支持VT
+grep -E "(vmx|svm)" --color=always /proc/cpuinfo
 
+# 检查内核的KVM和VirtIO模块是否可用
+zgrep KVM /proc/config.gz
+zgrep VIRTIO /proc/config.gz 
+
+# 查看内核模块是否装载
+lsmod | grep kvm 
+lsmod | grep virtio
+
+# 手动加载内核模块
+sudo modprobe virtio
+
+# 当前用户加入组kvm
+sudo usermod -a -G kvm YOURSUSERNAME
+
+# 安装qemu以及图形化客户端
+sudo pacman -S qemu libvirt ovmf virt-manager
+
+# 为kvm开启网络支持
+sudo pacman -S ebtables dnsmasq bridge-utils openbsd-netcat
+
+# 启动服务
+sudo systemctl enable libvirtd
+sudo systemctl start libvirtd
+
+sudo systemctl enable virtlogd
+sudo systemctl start virtlogd
+```
+* 注意事项  
+每次启动虚拟机的时候都要手动启动虚拟机的网络，很麻烦  
+我们在virt-manager里面右键`QEMU/KVM`，点击`虚拟网络`在`自动启动`这一行勾选`引导时`
+
+## 为kvm里的win10安装驱动
+首先：
+```
+sudo pacman -S virtio-win
+```
+然后安装好win10后进入计算机找到已经挂载的磁盘，运行最下面的驱动安装程序即可，安装好就能体验到自动调整窗口大小和kvm的丝滑了
+
+接下来为kvm添加文件拖拽共享功能  
+csdn上的各种不靠谱还互相抄，我在[ubuntu论坛](https://askubuntu.com/questions/885264/kvm-copy-drag-and-drop-files-between-ubuntu-host-to-windows-7-guest)找到了  
+要下载[spice驱动](https://www.spice-space.org/download/windows/spice-guest-tools/spice-guest-tools-latest.exe)随后重启虚拟机即可完美实现拖放和剪贴板共享
 
 > ### 参考资料
 > [arch简明指南](https://arch.icekylin.online)  
