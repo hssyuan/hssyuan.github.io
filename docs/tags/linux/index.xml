@@ -9,10 +9,10 @@
     <lastBuildDate>Wed, 16 Feb 2022 00:16:27 +0800</lastBuildDate><atom:link href="https://hydroakri.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Archlinux安装小记</title>
-      <link>https://hydroakri.github.io/linux/archlinux/</link>
+      <link>https://hydroakri.github.io/posts/linux/archlinux/</link>
       <pubDate>Wed, 16 Feb 2022 00:16:27 +0800</pubDate>
       
-      <guid>https://hydroakri.github.io/linux/archlinux/</guid>
+      <guid>https://hydroakri.github.io/posts/linux/archlinux/</guid>
       <description>创建安装介质 工具：rufus
 环境：windows
 去archlinux官网安装即可，推荐使用qBittorrent，下载速度会比直链快，毕竟是开源软件（去镜像站下载也可以）
@@ -38,15 +38,6 @@ bing搜索得解决办法 于是使用nvidia-xconfig配置/etc/X11/xorg.conf
 apu加nvidia用户在双屏的时候只有单屏显示 这个东西我看了半天xorg的英文文档和archlinux的Amdgpu页面 搞得我快一口老血吐出来
 按照archwiki的说法要创建/etc/X11/xorg.conf.d/20-amdgpu.conf添加如下内容：
  Section &amp;quot;Device&amp;quot; Identifier &amp;quot;AMD&amp;quot; Driver &amp;quot;amdgpu&amp;quot; EndSection 我也给arcwiki在nvidia页面贡献了此次issue</description>
-    </item>
-    
-    <item>
-      <title>kvm</title>
-      <link>https://hydroakri.github.io/linux/kvm/</link>
-      <pubDate>Wed, 16 Feb 2022 00:16:27 +0800</pubDate>
-      
-      <guid>https://hydroakri.github.io/linux/kvm/</guid>
-      <description> title: &amp;ldquo;Archlinux安装小记&amp;rdquo; date: 2022-02-16T00:16:27+08:00 draft: false tags: [&amp;ldquo;linux&amp;rdquo;] </description>
     </item>
     
   </channel>

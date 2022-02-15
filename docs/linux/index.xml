@@ -40,14 +40,5 @@ apu加nvidia用户在双屏的时候只有单屏显示 这个东西我看了半�
  Section &amp;quot;Device&amp;quot; Identifier &amp;quot;AMD&amp;quot; Driver &amp;quot;amdgpu&amp;quot; EndSection 我也给arcwiki在nvidia页面贡献了此次issue</description>
     </item>
     
-    <item>
-      <title>kvm</title>
-      <link>https://hydroakri.github.io/linux/kvm/</link>
-      <pubDate>Wed, 16 Feb 2022 00:16:27 +0800</pubDate>
-      
-      <guid>https://hydroakri.github.io/linux/kvm/</guid>
-      <description> title: &amp;ldquo;Archlinux安装小记&amp;rdquo; date: 2022-02-16T00:16:27+08:00 draft: false tags: [&amp;ldquo;linux&amp;rdquo;] </description>
-    </item>
-    
   </channel>
 </rss>

@@ -209,6 +209,3 @@ csdn上的各种不靠谱还互相抄，我在[ubuntu论坛](https://askubuntu.c
 [mkinitcpio (简体中文) - ArchWiki](https://wiki.archlinux.org/title/Mkinitcpio_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E6%A8%A1%E5%9D%97%EF%BC%88MODULES%EF%BC%89)  
 [Kernel (简体中文) - ArchWiki](https://wiki.archlinux.org/title/Kernel_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))  
 [xinit (简体中文) - ArchWiki](https://wiki.archlinux.org/title/Xinit_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E9%85%8D%E7%BD%AE)  [Xorg (简体中文) - ArchWiki](https://wiki.archlinux.org/title/Xorg_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E9%85%8D%E7%BD%AE)
-
-
-

@@ -1,12 +1,45 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>哲学 on Hydroakri&#39;s Blog</title>
-    <link>https://hydroakri.github.io/tags/%E5%93%B2%E5%AD%A6/</link>
-    <description>Recent content in 哲学 on Hydroakri&#39;s Blog</description>
+    <title>Posts on Hydroakri&#39;s Blog</title>
+    <link>https://hydroakri.github.io/posts/</link>
+    <description>Recent content in Posts on Hydroakri&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 27 Jan 2022 19:39:27 +0800</lastBuildDate><atom:link href="https://hydroakri.github.io/tags/%E5%93%B2%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 16 Feb 2022 00:16:27 +0800</lastBuildDate><atom:link href="https://hydroakri.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Archlinux安装小记</title>
+      <link>https://hydroakri.github.io/posts/linux/archlinux/</link>
+      <pubDate>Wed, 16 Feb 2022 00:16:27 +0800</pubDate>
+      
+      <guid>https://hydroakri.github.io/posts/linux/archlinux/</guid>
+      <description>创建安装介质 工具：rufus
+环境：windows
+去archlinux官网安装即可，推荐使用qBittorrent，下载速度会比直链快，毕竟是开源软件（去镜像站下载也可以）
+安装 保持安装u盘不用拔出，重启进入bios设置u盘启动优先
+再次重启就是arch安装u盘的界面了
+Q：但是我的archlinux安装盘在不断重启啊
+A：小问题，在grub选择页面按 e 然后在 linux 那一行的最后加上nomodeset来设置内核不加载容易出错的内核模块
+一切顺利的话就会看到红色的archiso 接着我们输入：
+archinstall 注意：archinstall 仅支持 UEFI 系统
+按照安装脚本给出的提示即可，这里提一些值得注意的
+ ssd固态硬盘用户建议使用brtfs文件系统 时区手动输入的话是Asia/Shanghai 要让你的系统支持休眠/睡眠的话就要让zram的大小&amp;gt;=物理内存  安装完成后他会询问你是否要立即重启，此时你安装的如果是nvidia的闭源驱动，我们不要立刻重启
+在/etc/modprobe.d/下面新建.conf结尾的配置文件屏蔽内核中自带的nouveau开源驱动
+操作如下：
+cd /etc/modprobe.d/ nano blacklist.conf #系统只识别.conf的文件，所以文件名随意 添加内容如下：
+ blacklist nouveau blacklist lbm-nouveau options nouveau modeset=0 即可重启
+配置 lightdm黑屏 在其他显示器显示 等我装完重启进入桌面后通过运行nvidia-setting报错发现我的RTX 3060并没有工作
+bing搜索得解决办法 于是使用nvidia-xconfig配置/etc/X11/xorg.conf
+遂重启，然后这个archlinux怎么又双叒黑屏寄了
+我一开始还以为是amdgpu+nvidia的显卡配置问题
+后来才发现是lightdm这玩意压根就不支持多显示屏（我使用xfce4桌面，默认使用lightdm作为登录管理器），这就导致了我的登录界面在一颗虚空显示屏上面
+解决方法：如何强制多个显示器为LightDM设置正确的分辨率？
+我的方法：垃圾lightdm狗都不用 遂卸载lightdm 每天使用startx启动桌面
+apu加nvidia用户在双屏的时候只有单屏显示 这个东西我看了半天xorg的英文文档和archlinux的Amdgpu页面 搞得我快一口老血吐出来
+按照archwiki的说法要创建/etc/X11/xorg.conf.d/20-amdgpu.conf添加如下内容：
+ Section &amp;quot;Device&amp;quot; Identifier &amp;quot;AMD&amp;quot; Driver &amp;quot;amdgpu&amp;quot; EndSection 我也给arcwiki在nvidia页面贡献了此次issue</description>
+    </item>
+    
     <item>
       <title>德勒兹：欲望机器</title>
       <link>https://hydroakri.github.io/posts/philo/%E5%BE%B7%E5%8B%92%E5%85%B9%E6%AC%B2%E6%9C%9B%E6%9C%BA%E5%99%A8/</link>
