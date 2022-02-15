@@ -4,24 +4,5 @@ title = "Hydroakri's Blog"
 theme = "kiss"
 publishDir = 'docs'
 
-[menu]
- 
- [[menu.main]]
-      identifier = 'Tags'
-      name = 'Tags'
-      url = '/Tags/'
-      weight = '20'
 
-[[menu.main]]
-      identifier = 'archives'
-      name = 'Archives'
-      url = 'archives'
-      weight = '20'
-
- 
-
-[params]
-    [params.homeInfoParams]
-        Title = 'Hey there'
-        Content = '为何一切尚未消失？'
 
