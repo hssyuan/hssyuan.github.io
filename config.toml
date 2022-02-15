@@ -3,4 +3,3 @@ languageCode = 'zh-cn'
 title = "Hydroakri's Blog"
 theme = "kiss"
 publishDir = 'docs'
-paginate = '5'
