@@ -2,7 +2,6 @@
 title: "Archlinux安装小记"
 date: '2022-02-14'
 draft: false
-tags: ["linux"]
 ---
 
 # 创建安装介质
