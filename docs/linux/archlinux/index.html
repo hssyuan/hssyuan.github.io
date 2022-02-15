@@ -1,59 +1,267 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-cn">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="en" dir="auto">
 
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
 <title>Archlinux安装小记 | Hydroakri&#39;s Blog</title>
+<meta name="keywords" content="" />
+<meta name="description" content="创建安装介质 工具：rufus
+环境：windows
+去archlinux官网安装即可，推荐使用qBittorrent，下载速度会比直链快，毕竟是开源软件（去镜像站下载也可以）
+安装 保持安装u盘不用拔出，重启进入bios设置u盘启动优先
+再次重启就是arch安装u盘的界面了
+Q：但是我的archlinux安装盘在不断重启啊
+A：小问题，在grub选择页面按 e 然后在 linux 那一行的最后加上nomodeset来设置内核不加载容易出错的内核模块
+一切顺利的话就会看到红色的archiso 接着我们输入：
+archinstall 注意：archinstall 仅支持 UEFI 系统
+按照安装脚本给出的提示即可，这里提一些值得注意的
+ ssd固态硬盘用户建议使用brtfs文件系统 时区手动输入的话是Asia/Shanghai 要让你的系统支持休眠/睡眠的话就要让zram的大小&gt;=物理内存  安装完成后他会询问你是否要立即重启，此时你安装的如果是nvidia的闭源驱动，我们不要立刻重启
+在/etc/modprobe.d/下面新建.conf结尾的配置文件屏蔽内核中自带的nouveau开源驱动
+操作如下：
+cd /etc/modprobe.d/ nano blacklist.conf #系统只识别.conf的文件，所以文件名随意 添加内容如下：
+ blacklist nouveau blacklist lbm-nouveau options nouveau modeset=0 即可重启
+配置 lightdm黑屏 在其他显示器显示 等我装完重启进入桌面后通过运行nvidia-setting报错发现我的RTX 3060并没有工作
+bing搜索得解决办法 于是使用nvidia-xconfig配置/etc/X11/xorg.conf
+遂重启，然后这个archlinux怎么又双叒黑屏寄了
+我一开始还以为是amdgpu&#43;nvidia的显卡配置问题
+后来才发现是lightdm这玩意压根就不支持多显示屏（我使用xfce4桌面，默认使用lightdm作为登录管理器），这就导致了我的登录界面在一颗虚空显示屏上面
+解决方法：如何强制多个显示器为LightDM设置正确的分辨率？
+我的方法：垃圾lightdm狗都不用 遂卸载lightdm 每天使用startx启动桌面
+apu加nvidia用户在双屏的时候只有单屏显示 这个东西我看了半天xorg的英文文档和archlinux的Amdgpu页面 搞得我快一口老血吐出来
+按照archwiki的说法要创建/etc/X11/xorg.conf.d/20-amdgpu.conf添加如下内容：
+ Section &quot;Device&quot; Identifier &quot;AMD&quot; Driver &quot;amdgpu&quot; EndSection 我也给arcwiki在nvidia页面贡献了此次issue">
+<meta name="author" content="">
+<link rel="canonical" href="https://hydroakri.github.io/linux/archlinux/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://hydroakri.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://hydroakri.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://hydroakri.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://hydroakri.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://hydroakri.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.92.2" />
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Archlinux安装小记" />
+<meta property="og:description" content="创建安装介质 工具：rufus
+环境：windows
+去archlinux官网安装即可，推荐使用qBittorrent，下载速度会比直链快，毕竟是开源软件（去镜像站下载也可以）
+安装 保持安装u盘不用拔出，重启进入bios设置u盘启动优先
+再次重启就是arch安装u盘的界面了
+Q：但是我的archlinux安装盘在不断重启啊
+A：小问题，在grub选择页面按 e 然后在 linux 那一行的最后加上nomodeset来设置内核不加载容易出错的内核模块
+一切顺利的话就会看到红色的archiso 接着我们输入：
+archinstall 注意：archinstall 仅支持 UEFI 系统
+按照安装脚本给出的提示即可，这里提一些值得注意的
+ ssd固态硬盘用户建议使用brtfs文件系统 时区手动输入的话是Asia/Shanghai 要让你的系统支持休眠/睡眠的话就要让zram的大小&gt;=物理内存  安装完成后他会询问你是否要立即重启，此时你安装的如果是nvidia的闭源驱动，我们不要立刻重启
+在/etc/modprobe.d/下面新建.conf结尾的配置文件屏蔽内核中自带的nouveau开源驱动
+操作如下：
+cd /etc/modprobe.d/ nano blacklist.conf #系统只识别.conf的文件，所以文件名随意 添加内容如下：
+ blacklist nouveau blacklist lbm-nouveau options nouveau modeset=0 即可重启
+配置 lightdm黑屏 在其他显示器显示 等我装完重启进入桌面后通过运行nvidia-setting报错发现我的RTX 3060并没有工作
+bing搜索得解决办法 于是使用nvidia-xconfig配置/etc/X11/xorg.conf
+遂重启，然后这个archlinux怎么又双叒黑屏寄了
+我一开始还以为是amdgpu&#43;nvidia的显卡配置问题
+后来才发现是lightdm这玩意压根就不支持多显示屏（我使用xfce4桌面，默认使用lightdm作为登录管理器），这就导致了我的登录界面在一颗虚空显示屏上面
+解决方法：如何强制多个显示器为LightDM设置正确的分辨率？
+我的方法：垃圾lightdm狗都不用 遂卸载lightdm 每天使用startx启动桌面
+apu加nvidia用户在双屏的时候只有单屏显示 这个东西我看了半天xorg的英文文档和archlinux的Amdgpu页面 搞得我快一口老血吐出来
+按照archwiki的说法要创建/etc/X11/xorg.conf.d/20-amdgpu.conf添加如下内容：
+ Section &quot;Device&quot; Identifier &quot;AMD&quot; Driver &quot;amdgpu&quot; EndSection 我也给arcwiki在nvidia页面贡献了此次issue" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hydroakri.github.io/linux/archlinux/" /><meta property="article:section" content="linux" />
+<meta property="article:published_time" content="2022-02-14T19:39:27&#43;08:00" />
+<meta property="article:modified_time" content="2022-02-14T19:39:27&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Archlinux安装小记"/>
+<meta name="twitter:description" content="创建安装介质 工具：rufus
+环境：windows
+去archlinux官网安装即可，推荐使用qBittorrent，下载速度会比直链快，毕竟是开源软件（去镜像站下载也可以）
+安装 保持安装u盘不用拔出，重启进入bios设置u盘启动优先
+再次重启就是arch安装u盘的界面了
+Q：但是我的archlinux安装盘在不断重启啊
+A：小问题，在grub选择页面按 e 然后在 linux 那一行的最后加上nomodeset来设置内核不加载容易出错的内核模块
+一切顺利的话就会看到红色的archiso 接着我们输入：
+archinstall 注意：archinstall 仅支持 UEFI 系统
+按照安装脚本给出的提示即可，这里提一些值得注意的
+ ssd固态硬盘用户建议使用brtfs文件系统 时区手动输入的话是Asia/Shanghai 要让你的系统支持休眠/睡眠的话就要让zram的大小&gt;=物理内存  安装完成后他会询问你是否要立即重启，此时你安装的如果是nvidia的闭源驱动，我们不要立刻重启
+在/etc/modprobe.d/下面新建.conf结尾的配置文件屏蔽内核中自带的nouveau开源驱动
+操作如下：
+cd /etc/modprobe.d/ nano blacklist.conf #系统只识别.conf的文件，所以文件名随意 添加内容如下：
+ blacklist nouveau blacklist lbm-nouveau options nouveau modeset=0 即可重启
+配置 lightdm黑屏 在其他显示器显示 等我装完重启进入桌面后通过运行nvidia-setting报错发现我的RTX 3060并没有工作
+bing搜索得解决办法 于是使用nvidia-xconfig配置/etc/X11/xorg.conf
+遂重启，然后这个archlinux怎么又双叒黑屏寄了
+我一开始还以为是amdgpu&#43;nvidia的显卡配置问题
+后来才发现是lightdm这玩意压根就不支持多显示屏（我使用xfce4桌面，默认使用lightdm作为登录管理器），这就导致了我的登录界面在一颗虚空显示屏上面
+解决方法：如何强制多个显示器为LightDM设置正确的分辨率？
+我的方法：垃圾lightdm狗都不用 遂卸载lightdm 每天使用startx启动桌面
+apu加nvidia用户在双屏的时候只有单屏显示 这个东西我看了半天xorg的英文文档和archlinux的Amdgpu页面 搞得我快一口老血吐出来
+按照archwiki的说法要创建/etc/X11/xorg.conf.d/20-amdgpu.conf添加如下内容：
+ Section &quot;Device&quot; Identifier &quot;AMD&quot; Driver &quot;amdgpu&quot; EndSection 我也给arcwiki在nvidia页面贡献了此次issue"/>
 
 
-
-<link rel="stylesheet" href="/css/style.css"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-<link rel="canonical" href="https://hydroakri.github.io/linux/archlinux/">
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="theme-color" content="#ffffff">
-</head>
-<body>
-<section class="section">
-  <div class="container">
-    <nav id="nav-main" class="nav">
-      <div id="nav-name" class="nav-left">
-        <a id="nav-anchor" class="nav-item" href="https://hydroakri.github.io/">
-          <h1 id="nav-heading" class="title is-4">Hydroakri&#39;s Blog</h1>
-        </a>
-      </div>
-      <div class="nav-right">
-        <nav id="nav-items" class="nav-item level is-mobile"></nav>
-      </div>
-    </nav>
-
-    <nav class="nav">
-      
-
-      
-    </nav>
-
-  </div>
-  <script src="/js/navicon-shift.js"></script>
-</section>
-<section class="section">
-  <div class="container">
-    <div class="subtitle tags is-6 is-pulled-right">
-      
-    </div>
-    <h2 class="subtitle is-6">February 14, 2022</h2>
-    <h1 class="title">Archlinux安装小记</h1>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Linuxes",
+      "item": "https://hydroakri.github.io/linux/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Archlinux安装小记",
+      "item": "https://hydroakri.github.io/linux/archlinux/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Archlinux安装小记",
+  "name": "Archlinux安装小记",
+  "description": "创建安装介质 工具：rufus\n环境：windows\n去archlinux官网安装即可，推荐使用qBittorrent，下载速度会比直链快，毕竟是开源软件（去镜像站下载也可以）\n安装 保持安装u盘不用拔出，重启进入bios设置u盘启动优先\n再次重启就是arch安装u盘的界面了\nQ：但是我的archlinux安装盘在不断重启啊\nA：小问题，在grub选择页面按 e 然后在 linux 那一行的最后加上nomodeset来设置内核不加载容易出错的内核模块\n一切顺利的话就会看到红色的archiso 接着我们输入：\narchinstall 注意：archinstall 仅支持 UEFI 系统\n按照安装脚本给出的提示即可，这里提一些值得注意的\n ssd固态硬盘用户建议使用brtfs文件系统 时区手动输入的话是Asia/Shanghai 要让你的系统支持休眠/睡眠的话就要让zram的大小\u0026gt;=物理内存  安装完成后他会询问你是否要立即重启，此时你安装的如果是nvidia的闭源驱动，我们不要立刻重启\n在/etc/modprobe.d/下面新建.conf结尾的配置文件屏蔽内核中自带的nouveau开源驱动\n操作如下：\ncd /etc/modprobe.d/ nano blacklist.conf #系统只识别.conf的文件，所以文件名随意 添加内容如下：\n blacklist nouveau blacklist lbm-nouveau options nouveau modeset=0 即可重启\n配置 lightdm黑屏 在其他显示器显示 等我装完重启进入桌面后通过运行nvidia-setting报错发现我的RTX 3060并没有工作\nbing搜索得解决办法 于是使用nvidia-xconfig配置/etc/X11/xorg.conf\n遂重启，然后这个archlinux怎么又双叒黑屏寄了\n我一开始还以为是amdgpu+nvidia的显卡配置问题\n后来才发现是lightdm这玩意压根就不支持多显示屏（我使用xfce4桌面，默认使用lightdm作为登录管理器），这就导致了我的登录界面在一颗虚空显示屏上面\n解决方法：如何强制多个显示器为LightDM设置正确的分辨率？\n我的方法：垃圾lightdm狗都不用 遂卸载lightdm 每天使用startx启动桌面\napu加nvidia用户在双屏的时候只有单屏显示 这个东西我看了半天xorg的英文文档和archlinux的Amdgpu页面 搞得我快一口老血吐出来\n按照archwiki的说法要创建/etc/X11/xorg.conf.d/20-amdgpu.conf添加如下内容：\n Section \u0026quot;Device\u0026quot; Identifier \u0026quot;AMD\u0026quot; Driver \u0026quot;amdgpu\u0026quot; EndSection 我也给arcwiki在nvidia页面贡献了此次issue",
+  "keywords": [
     
-    <div class="content">
-      <h1 id="创建安装介质">创建安装介质</h1>
+  ],
+  "articleBody": "创建安装介质 工具：rufus\n环境：windows\n去archlinux官网安装即可，推荐使用qBittorrent，下载速度会比直链快，毕竟是开源软件（去镜像站下载也可以）\n安装 保持安装u盘不用拔出，重启进入bios设置u盘启动优先\n再次重启就是arch安装u盘的界面了\nQ：但是我的archlinux安装盘在不断重启啊\nA：小问题，在grub选择页面按 e 然后在 linux 那一行的最后加上nomodeset来设置内核不加载容易出错的内核模块\n一切顺利的话就会看到红色的archiso 接着我们输入：\narchinstall 注意：archinstall 仅支持 UEFI 系统\n按照安装脚本给出的提示即可，这里提一些值得注意的\n ssd固态硬盘用户建议使用brtfs文件系统 时区手动输入的话是Asia/Shanghai 要让你的系统支持休眠/睡眠的话就要让zram的大小=物理内存  安装完成后他会询问你是否要立即重启，此时你安装的如果是nvidia的闭源驱动，我们不要立刻重启\n在/etc/modprobe.d/下面新建.conf结尾的配置文件屏蔽内核中自带的nouveau开源驱动\n操作如下：\ncd /etc/modprobe.d/ nano blacklist.conf #系统只识别.conf的文件，所以文件名随意 添加内容如下：\n blacklist nouveau blacklist lbm-nouveau options nouveau modeset=0 即可重启\n配置 lightdm黑屏 在其他显示器显示 等我装完重启进入桌面后通过运行nvidia-setting报错发现我的RTX 3060并没有工作\nbing搜索得解决办法 于是使用nvidia-xconfig配置/etc/X11/xorg.conf\n遂重启，然后这个archlinux怎么又双叒黑屏寄了\n我一开始还以为是amdgpu+nvidia的显卡配置问题\n后来才发现是lightdm这玩意压根就不支持多显示屏（我使用xfce4桌面，默认使用lightdm作为登录管理器），这就导致了我的登录界面在一颗虚空显示屏上面\n解决方法：如何强制多个显示器为LightDM设置正确的分辨率？\n我的方法：垃圾lightdm狗都不用 遂卸载lightdm 每天使用startx启动桌面\napu加nvidia用户在双屏的时候只有单屏显示 这个东西我看了半天xorg的英文文档和archlinux的Amdgpu页面 搞得我快一口老血吐出来\n按照archwiki的说法要创建/etc/X11/xorg.conf.d/20-amdgpu.conf添加如下内容：\n Section \"Device\" Identifier \"AMD\" Driver \"amdgpu\" EndSection 我也给arcwiki在nvidia页面贡献了此次issue\n安装输入法 我选择fcitx 毕竟这个项目的名字意思都是中文输入法\n安装fcitx5：\nsudo pacman -Sy fcitx5 fcitx5-chinese-addons fcitx5-configtool fcitx5-gtk fcitx5-rime fcitx5-qt 配置过程参见archwiki_fcitx5\n安装yay以及timeshift备份管理软件 安装yay\nsudo pacman -Sy archlinuxcn-mirrorlist sudo pacman -Sy yay yay安装时如果报错就尝试\n原理见GnuPG-2.1 与 pacman 密钥环\npacman -Syu haveged systemctl start haveged systemctl enable haveged rm -fr /etc/pacman.d/gnupg pacman-key --init pacman-key --populate archlinux pacman-key --populate archlinuxcn 安装timeshift备份工具\ntimeshift比windows那羸弱的系统还原点高到不知道哪里去了\nrsync对比更改文件建立镜像就可以一键回滚，再也不用担心系统滚挂重装的烦恼了\nyay -S timeshift 更换内核 linux-zen内核是g胖支持的，对steam上的wine游戏经过了特殊的优化\nsudo pacman -S linux-zen linux-zen-headers 内核名-headers这种包一定要装哦 不然定制内核的模块编译不进去的\n DKMS，即 Dynamic Kernel Module System。可以使内核变更（如升级）后自动编译模块，适配新内核。\n 要注意使用非默认内核时部分包是不支持的需要安装dkms包\n比如:\nnvidia是针对默认内核的，定制内核需要安装nvidia-dkms\nvirtualbox-host是针对默认内核的，定制内核需要安装virtualbox-host-dkms\n如果你直接换内核而不换nvidia驱动的话你在启动图形界面的时候就会发现：\nxf86EnableIOPorts: failed to set IOPL for I/O (Operation not permitted) （就像我一样\n挂起后无法唤醒 在这里千辛万苦找到的解决办法\n创建/etc/modprobe.d/添加如下内容即可:\nblacklist nvidia-uvm\n2022.02.04更新\n经过论坛询问，解决挂起后无法唤醒的要看nvidia的文档，详见这里\n sudo systemctl enable nvidia-suspend.service sudo systemctl enable nvidia-hibernate.service sudo systemctl enable nvidia-resume.service 2022.02.06更新 我是amd笔记本，这样的休眠黑屏的bug大概率是5.15之前的linux内核bug 现在已经修复，不用管了\ndwm使用配置 我懒得折腾直接使用默认官方配置\n窗口管理器：dwm 终端：st，tilda 应用启动器：dmenu 系统托盘：trayer 托盘应用：nm-applet（网络管理器） pasystray（声音管理器） blueman-applet（蓝牙） fcitx5（输入法） cfw（魔法上网） KVM虚拟机折腾 # 检测宿主机cpu是否支持虚拟化，如果flags里有vmx 或者svm就说明支持VT grep -E \"(vmx|svm)\" --color=always /proc/cpuinfo # 检查内核的KVM和VirtIO模块是否可用 zgrep KVM /proc/config.gz zgrep VIRTIO /proc/config.gz # 查看内核模块是否装载 lsmod | grep kvm lsmod | grep virtio # 手动加载内核模块 sudo modprobe virtio # 当前用户加入组kvm sudo usermod -a -G kvm YOURSUSERNAME # 安装qemu以及图形化客户端 sudo pacman -S qemu libvirt ovmf virt-manager # 为kvm开启网络支持 sudo pacman -S ebtables dnsmasq bridge-utils openbsd-netcat # 启动服务 sudo systemctl enable libvirtd sudo systemctl start libvirtd sudo systemctl enable virtlogd sudo systemctl start virtlogd  注意事项\n每次启动虚拟机的时候都要手动启动虚拟机的网络，很麻烦\n我们在virt-manager里面右键QEMU/KVM，点击虚拟网络在自动启动这一行勾选引导时  为kvm里的win10安装驱动 首先：\nsudo pacman -S virtio-win 然后安装好win10后进入计算机找到已经挂载的磁盘，运行最下面的驱动安装程序即可，安装好就能体验到自动调整窗口大小和kvm的丝滑了\n接下来为kvm添加文件拖拽共享功能 csdn上的各种不靠谱还互相抄，我在ubuntu论坛找到了\n要下载spice驱动随后重启虚拟机即可完美实现拖放和剪贴板共享\n 参考资料 arch简明指南\narchlinux wiki\nNVIDIA (简体中文) \nGRUB (简体中文) - ArchWiki\nmkinitcpio (简体中文) - ArchWiki\nKernel (简体中文) - ArchWiki\nxinit (简体中文) - ArchWiki Xorg (简体中文) - ArchWiki\n ",
+  "wordCount" : "300",
+  "inLanguage": "en",
+  "datePublished": "2022-02-14T19:39:27+08:00",
+  "dateModified": "2022-02-14T19:39:27+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://hydroakri.github.io/linux/archlinux/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Hydroakri's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://hydroakri.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://hydroakri.github.io/" accesskey="h" title="Hydroakri&#39;s Blog (Alt + H)">Hydroakri&#39;s Blog</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://hydroakri.github.io/archives" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://hydroakri.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      Archlinux安装小记
+    </h1>
+    <div class="post-meta"><span title='2022-02-14 19:39:27 +0800 CST'>February 14, 2022</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="创建安装介质">创建安装介质<a hidden class="anchor" aria-hidden="true" href="#创建安装介质">#</a></h1>
 <p>工具：rufus<br>
 环境：windows<br>
 去<a href="https://archlinux.org/">archlinux</a>官网安装即可，推荐使用qBittorrent，下载速度会比直链快，毕竟是开源软件（去镜像站下载也可以）</p>
-<h1 id="安装">安装</h1>
+<h1 id="安装">安装<a hidden class="anchor" aria-hidden="true" href="#安装">#</a></h1>
 <p>保持安装u盘不用拔出，重启进入bios设置u盘启动优先<br>
 再次重启就是arch安装u盘的界面了</p>
 <p>Q：但是我的archlinux安装盘在不断重启啊<br>
@@ -78,8 +286,8 @@ nano blacklist.conf #系统只识别.conf的文件，所以文件名随意
  blacklist lbm-nouveau  
  options nouveau modeset=0  
 </code></pre><p>即可重启</p>
-<h1 id="配置">配置</h1>
-<h2 id="lightdm黑屏-在其他显示器显示">lightdm黑屏 在其他显示器显示</h2>
+<h1 id="配置">配置<a hidden class="anchor" aria-hidden="true" href="#配置">#</a></h1>
+<h2 id="lightdm黑屏-在其他显示器显示">lightdm黑屏 在其他显示器显示<a hidden class="anchor" aria-hidden="true" href="#lightdm黑屏-在其他显示器显示">#</a></h2>
 <p>等我装完重启进入桌面后通过运行<code>nvidia-setting</code>报错发现我的RTX 3060并没有工作<br>
 bing搜索得解决办法 于是使用<code>nvidia-xconfig</code>配置<code>/etc/X11/xorg.conf</code><br>
 遂重启，然后这个archlinux怎么又双叒黑屏寄了<br>
@@ -87,7 +295,7 @@ bing搜索得解决办法 于是使用<code>nvidia-xconfig</code>配置<code>/et
 后来才发现是lightdm这玩意压根就不支持多显示屏（我使用xfce4桌面，默认使用lightdm作为登录管理器），这就导致了我的登录界面在一颗虚空显示屏上面</p>
 <p>解决方法：<a href="https://qastack.cn/ubuntu/119843/how-to-force-multiple-monitors-correct-resolutions-for-lightdm">如何强制多个显示器为LightDM设置正确的分辨率？</a><br>
 我的方法：垃圾lightdm狗都不用 遂卸载lightdm 每天使用<code>startx</code>启动桌面</p>
-<h2 id="apu加nvidia用户在双屏的时候只有单屏显示">apu加nvidia用户在双屏的时候只有单屏显示</h2>
+<h2 id="apu加nvidia用户在双屏的时候只有单屏显示">apu加nvidia用户在双屏的时候只有单屏显示<a hidden class="anchor" aria-hidden="true" href="#apu加nvidia用户在双屏的时候只有单屏显示">#</a></h2>
 <p>这个东西我看了半天xorg的英文文档和archlinux的<a href="https://wiki.archlinux.org/title/AMDGPU_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#Xorg_configuration">Amdgpu</a>页面 搞得我快一口老血吐出来</p>
 <p>按照archwiki的说法要创建<code>/etc/X11/xorg.conf.d/20-amdgpu.conf</code>添加如下内容：</p>
 <pre tabindex="0"><code> Section &quot;Device&quot;  
@@ -95,12 +303,12 @@ bing搜索得解决办法 于是使用<code>nvidia-xconfig</code>配置<code>/et
      Driver &quot;amdgpu&quot;  
  EndSection
 </code></pre><p>我也给arcwiki在nvidia页面贡献了此次issue</p>
-<h2 id="安装输入法">安装输入法</h2>
+<h2 id="安装输入法">安装输入法<a hidden class="anchor" aria-hidden="true" href="#安装输入法">#</a></h2>
 <p>我选择fcitx 毕竟这个项目的名字意思都是中文输入法<br>
 安装fcitx5：</p>
 <pre tabindex="0"><code>sudo pacman -Sy fcitx5 fcitx5-chinese-addons fcitx5-configtool fcitx5-gtk fcitx5-rime fcitx5-qt
 </code></pre><p>配置过程参见<a href="https://wiki.archlinux.org/title/Fcitx5_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E5%AE%89%E8%A3%85">archwiki_fcitx5</a></p>
-<h2 id="安装yay以及timeshift备份管理软件">安装yay以及timeshift备份管理软件</h2>
+<h2 id="安装yay以及timeshift备份管理软件">安装yay以及timeshift备份管理软件<a hidden class="anchor" aria-hidden="true" href="#安装yay以及timeshift备份管理软件">#</a></h2>
 <p>安装yay</p>
 <pre tabindex="0"><code>sudo pacman -Sy archlinuxcn-mirrorlist
 sudo pacman -Sy yay
@@ -118,7 +326,7 @@ pacman-key --populate archlinuxcn
 timeshift比windows那羸弱的系统还原点高到不知道哪里去了<br>
 rsync对比更改文件建立镜像就可以一键回滚，再也不用担心系统滚挂重装的烦恼了</p>
 <pre tabindex="0"><code>yay -S timeshift
-</code></pre><h2 id="更换内核">更换内核</h2>
+</code></pre><h2 id="更换内核">更换内核<a hidden class="anchor" aria-hidden="true" href="#更换内核">#</a></h2>
 <p>linux-zen内核是g胖支持的，对steam上的wine游戏经过了<a href="https://github.com/ValveSoftware/Proton/issues/3706#issuecomment-636632984">特殊的优化</a></p>
 <pre tabindex="0"><code>sudo pacman -S linux-zen linux-zen-headers
 </code></pre><p><code>内核名-headers</code>这种包一定要装哦 不然定制内核的模块编译不进去的</p>
@@ -132,7 +340,7 @@ rsync对比更改文件建立镜像就可以一键回滚，再也不用担心系
 <p>如果你直接换内核而不换nvidia驱动的话你在启动图形界面的时候就会发现：</p>
 <pre tabindex="0"><code>xf86EnableIOPorts: failed to set IOPL for I/O (Operation not permitted)
 </code></pre><p>（就像我一样</p>
-<h2 id="挂起后无法唤醒">挂起后无法唤醒</h2>
+<h2 id="挂起后无法唤醒">挂起后无法唤醒<a hidden class="anchor" aria-hidden="true" href="#挂起后无法唤醒">#</a></h2>
 <p><del><a href="https://bbs.archlinux.org/viewtopic.php?id=271468">在这里千辛万苦找到的解决办法</a></del><br>
 <del>创建<code>/etc/modprobe.d/</code>添加如下内容即可:</del><br>
 <del><code>blacklist nvidia-uvm</code></del></p>
@@ -146,7 +354,7 @@ rsync对比更改文件建立镜像就可以一键回滚，再也不用担心系
 
 </code></pre><p>2022.02.06更新
 我是amd笔记本，这样的休眠黑屏的bug大概率是5.15之前的linux内核bug 现在已经修复，不用管了</p>
-<h1 id="dwm使用配置">dwm使用配置</h1>
+<h1 id="dwm使用配置">dwm使用配置<a hidden class="anchor" aria-hidden="true" href="#dwm使用配置">#</a></h1>
 <p>我懒得折腾直接使用默认官方配置</p>
 <pre tabindex="0"><code>窗口管理器：dwm  
 终端：st，tilda  
@@ -157,7 +365,7 @@ rsync对比更改文件建立镜像就可以一键回滚，再也不用担心系
             blueman-applet（蓝牙）  
             fcitx5（输入法）
             cfw（魔法上网）  
-</code></pre><h1 id="kvm虚拟机折腾">KVM虚拟机折腾</h1>
+</code></pre><h1 id="kvm虚拟机折腾">KVM虚拟机折腾<a hidden class="anchor" aria-hidden="true" href="#kvm虚拟机折腾">#</a></h1>
 <pre tabindex="0"><code># 检测宿主机cpu是否支持虚拟化，如果flags里有vmx 或者svm就说明支持VT
 grep -E &quot;(vmx|svm)&quot; --color=always /proc/cpuinfo
 
@@ -192,15 +400,15 @@ sudo systemctl start virtlogd
 每次启动虚拟机的时候都要手动启动虚拟机的网络，很麻烦<br>
 我们在virt-manager里面右键<code>QEMU/KVM</code>，点击<code>虚拟网络</code>在<code>自动启动</code>这一行勾选<code>引导时</code></li>
 </ul>
-<h2 id="为kvm里的win10安装驱动">为kvm里的win10安装驱动</h2>
+<h2 id="为kvm里的win10安装驱动">为kvm里的win10安装驱动<a hidden class="anchor" aria-hidden="true" href="#为kvm里的win10安装驱动">#</a></h2>
 <p>首先：</p>
 <pre tabindex="0"><code>sudo pacman -S virtio-win
 </code></pre><p>然后安装好win10后进入计算机找到已经挂载的磁盘，运行最下面的驱动安装程序即可，安装好就能体验到自动调整窗口大小和kvm的丝滑了</p>
-<h2 id="接下来为kvm添加文件拖拽共享功能">接下来为kvm添加文件拖拽共享功能</h2>
+<h2 id="接下来为kvm添加文件拖拽共享功能">接下来为kvm添加文件拖拽共享功能<a hidden class="anchor" aria-hidden="true" href="#接下来为kvm添加文件拖拽共享功能">#</a></h2>
 <p>csdn上的各种不靠谱还互相抄，我在<a href="https://askubuntu.com/questions/885264/kvm-copy-drag-and-drop-files-between-ubuntu-host-to-windows-7-guest">ubuntu论坛</a>找到了<br>
 要下载<a href="https://www.spice-space.org/download/windows/spice-guest-tools/spice-guest-tools-latest.exe">spice驱动</a>随后重启虚拟机即可完美实现拖放和剪贴板共享</p>
 <blockquote>
-<h3 id="参考资料">参考资料</h3>
+<h3 id="参考资料">参考资料<a hidden class="anchor" aria-hidden="true" href="#参考资料">#</a></h3>
 <p><a href="https://arch.icekylin.online">arch简明指南</a><br>
 <a href="https://wiki.archlinux.org/">archlinux wiki</a><br>
 <a href="https://wiki.archlinux.org/title/NVIDIA_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E5%AF%B9%E4%BA%8E%E5%90%8C%E6%97%B6%E6%8B%A5%E6%9C%89amd%E6%A0%B8%E6%98%BE%E5%92%8Cnvidia%E7%8B%AC%E7%AB%8B%E6%98%BE%E5%8D%A1%E7%9A%84%E7%94%A8%E6%88%B7">NVIDIA (简体中文) </a><br>
@@ -210,25 +418,82 @@ sudo systemctl start virtlogd
 <a href="https://wiki.archlinux.org/title/Xinit_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E9%85%8D%E7%BD%AE">xinit (简体中文) - ArchWiki</a>  <a href="https://wiki.archlinux.org/title/Xorg_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E9%85%8D%E7%BD%AE">Xorg (简体中文) - ArchWiki</a></p>
 </blockquote>
 
-      
-    </div>
-    
+
   </div>
-</section>
 
-
-
-<section class="section">
-  <div class="container has-text-centered">
-    <p></p>
+  <footer class="post-footer">
+  </footer>
+</article>
+    </main>
     
-  </div>
-</section>
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://hydroakri.github.io/">Hydroakri&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
 
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
 
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
 
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
 
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
 
+</script>
 </body>
-</html>
 
+</html>
