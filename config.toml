@@ -26,6 +26,3 @@ paginate = '5'
         Title = 'Hey there'
         Content = '为何一切尚未消失？'
 
-    [socialIcons]
-            name = 'github'
-            url = "https://github.com/adityatelange/hugo-PaperMod"
