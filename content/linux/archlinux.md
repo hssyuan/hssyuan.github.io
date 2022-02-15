@@ -9,6 +9,7 @@ tags: ["linux"]
 工具：rufus  
 环境：windows  
 去[archlinux](https://archlinux.org/)官网安装即可，推荐使用qBittorrent，下载速度会比直链快，毕竟是开源软件（去镜像站下载也可以）
+
 # 安装
 保持安装u盘不用拔出，重启进入bios设置u盘启动优先  
 再次重启就是arch安装u盘的界面了

@@ -1,9 +1,8 @@
-baseURL = 'https://hydroakri.github.io/'
+baseURL = "https://hydroakri.github.io/"
 languageCode = 'zh-cn'
 title = "Hydroakri's Blog"
 theme = "PaperMod"
 publishDir = 'docs'
-paginate = '5'
 
 [menu]
  
