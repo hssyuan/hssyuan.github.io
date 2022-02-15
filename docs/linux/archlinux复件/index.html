@@ -33,7 +33,7 @@ apu加nvidia用户在双屏的时候只有单屏显示 这个东西我看了半�
 按照archwiki的说法要创建/etc/X11/xorg.conf.d/20-amdgpu.conf添加如下内容：
  Section &quot;Device&quot; Identifier &quot;AMD&quot; Driver &quot;amdgpu&quot; EndSection 我也给arcwiki在nvidia页面贡献了此次issue">
 <meta name="author" content="">
-<link rel="canonical" href="https://hydroakri.github.io/linux/archlinux/" />
+<link rel="canonical" href="https://hydroakri.github.io/linux/archlinux%E5%A4%8D%E4%BB%B6/" />
 <link crossorigin="anonymous" href="/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.min.7680afc38aa6b15ddf158a4f3780b7b1f7dde7e91d26f073e6229bb7a0793c92.js" integrity="sha256-doCvw4qmsV3fFYpPN4C3sffd5&#43;kdJvBz5iKbt6B5PJI="
     onload="hljs.initHighlightingOnLoad();"></script>
@@ -108,9 +108,9 @@ apu加nvidia用户在双屏的时候只有单屏显示 这个东西我看了半�
 按照archwiki的说法要创建/etc/X11/xorg.conf.d/20-amdgpu.conf添加如下内容：
  Section &quot;Device&quot; Identifier &quot;AMD&quot; Driver &quot;amdgpu&quot; EndSection 我也给arcwiki在nvidia页面贡献了此次issue" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://hydroakri.github.io/linux/archlinux/" /><meta property="article:section" content="linux" />
-<meta property="article:published_time" content="2022-02-16T00:16:27&#43;08:00" />
-<meta property="article:modified_time" content="2022-02-16T00:16:27&#43;08:00" />
+<meta property="og:url" content="https://hydroakri.github.io/linux/archlinux%E5%A4%8D%E4%BB%B6/" /><meta property="article:section" content="linux" />
+<meta property="article:published_time" content="2022-02-15T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2022-02-15T00:00:00&#43;00:00" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Archlinux安装小记"/>
@@ -156,7 +156,7 @@ apu加nvidia用户在双屏的时候只有单屏显示 这个东西我看了半�
       "@type": "ListItem",
       "position":  2 ,
       "name": "Archlinux安装小记",
-      "item": "https://hydroakri.github.io/linux/archlinux/"
+      "item": "https://hydroakri.github.io/linux/archlinux%E5%A4%8D%E4%BB%B6/"
     }
   ]
 }
@@ -174,11 +174,11 @@ apu加nvidia用户在双屏的时候只有单屏显示 这个东西我看了半�
   "articleBody": "创建安装介质 工具：rufus\n环境：windows\n去archlinux官网安装即可，推荐使用qBittorrent，下载速度会比直链快，毕竟是开源软件（去镜像站下载也可以）\n安装 保持安装u盘不用拔出，重启进入bios设置u盘启动优先\n再次重启就是arch安装u盘的界面了\nQ：但是我的archlinux安装盘在不断重启啊\nA：小问题，在grub选择页面按 e 然后在 linux 那一行的最后加上nomodeset来设置内核不加载容易出错的内核模块\n一切顺利的话就会看到红色的archiso 接着我们输入：\narchinstall 注意：archinstall 仅支持 UEFI 系统\n按照安装脚本给出的提示即可，这里提一些值得注意的\n ssd固态硬盘用户建议使用brtfs文件系统 时区手动输入的话是Asia/Shanghai 要让你的系统支持休眠/睡眠的话就要让zram的大小=物理内存  安装完成后他会询问你是否要立即重启，此时你安装的如果是nvidia的闭源驱动，我们不要立刻重启\n在/etc/modprobe.d/下面新建.conf结尾的配置文件屏蔽内核中自带的nouveau开源驱动\n操作如下：\ncd /etc/modprobe.d/ nano blacklist.conf #系统只识别.conf的文件，所以文件名随意 添加内容如下：\n blacklist nouveau blacklist lbm-nouveau options nouveau modeset=0 即可重启\n配置 lightdm黑屏 在其他显示器显示 等我装完重启进入桌面后通过运行nvidia-setting报错发现我的RTX 3060并没有工作\nbing搜索得解决办法 于是使用nvidia-xconfig配置/etc/X11/xorg.conf\n遂重启，然后这个archlinux怎么又双叒黑屏寄了\n我一开始还以为是amdgpu+nvidia的显卡配置问题\n后来才发现是lightdm这玩意压根就不支持多显示屏（我使用xfce4桌面，默认使用lightdm作为登录管理器），这就导致了我的登录界面在一颗虚空显示屏上面\n解决方法：如何强制多个显示器为LightDM设置正确的分辨率？\n我的方法：垃圾lightdm狗都不用 遂卸载lightdm 每天使用startx启动桌面\napu加nvidia用户在双屏的时候只有单屏显示 这个东西我看了半天xorg的英文文档和archlinux的Amdgpu页面 搞得我快一口老血吐出来\n按照archwiki的说法要创建/etc/X11/xorg.conf.d/20-amdgpu.conf添加如下内容：\n Section \"Device\" Identifier \"AMD\" Driver \"amdgpu\" EndSection 我也给arcwiki在nvidia页面贡献了此次issue\n安装输入法 我选择fcitx 毕竟这个项目的名字意思都是中文输入法\n安装fcitx5：\nsudo pacman -Sy fcitx5 fcitx5-chinese-addons fcitx5-configtool fcitx5-gtk fcitx5-rime fcitx5-qt 配置过程参见archwiki_fcitx5\n安装yay以及timeshift备份管理软件 安装yay\nsudo pacman -Sy archlinuxcn-mirrorlist sudo pacman -Sy yay yay安装时如果报错就尝试\n原理见GnuPG-2.1 与 pacman 密钥环\npacman -Syu haveged systemctl start haveged systemctl enable haveged rm -fr /etc/pacman.d/gnupg pacman-key --init pacman-key --populate archlinux pacman-key --populate archlinuxcn 安装timeshift备份工具\ntimeshift比windows那羸弱的系统还原点高到不知道哪里去了\nrsync对比更改文件建立镜像就可以一键回滚，再也不用担心系统滚挂重装的烦恼了\nyay -S timeshift 更换内核 linux-zen内核是g胖支持的，对steam上的wine游戏经过了特殊的优化\nsudo pacman -S linux-zen linux-zen-headers 内核名-headers这种包一定要装哦 不然定制内核的模块编译不进去的\n DKMS，即 Dynamic Kernel Module System。可以使内核变更（如升级）后自动编译模块，适配新内核。\n 要注意使用非默认内核时部分包是不支持的需要安装dkms包\n比如:\nnvidia是针对默认内核的，定制内核需要安装nvidia-dkms\nvirtualbox-host是针对默认内核的，定制内核需要安装virtualbox-host-dkms\n如果你直接换内核而不换nvidia驱动的话你在启动图形界面的时候就会发现：\nxf86EnableIOPorts: failed to set IOPL for I/O (Operation not permitted) （就像我一样\n挂起后无法唤醒 在这里千辛万苦找到的解决办法\n创建/etc/modprobe.d/添加如下内容即可:\nblacklist nvidia-uvm\n2022.02.04更新\n经过论坛询问，解决挂起后无法唤醒的要看nvidia的文档，详见这里\n sudo systemctl enable nvidia-suspend.service sudo systemctl enable nvidia-hibernate.service sudo systemctl enable nvidia-resume.service 2022.02.06更新 我是amd笔记本，这样的休眠黑屏的bug大概率是5.15之前的linux内核bug 现在已经修复，不用管了\ndwm使用配置 我懒得折腾直接使用默认官方配置\n窗口管理器：dwm 终端：st，tilda 应用启动器：dmenu 系统托盘：trayer 托盘应用：nm-applet（网络管理器） pasystray（声音管理器） blueman-applet（蓝牙） fcitx5（输入法） cfw（魔法上网） KVM虚拟机折腾 # 检测宿主机cpu是否支持虚拟化，如果flags里有vmx 或者svm就说明支持VT grep -E \"(vmx|svm)\" --color=always /proc/cpuinfo # 检查内核的KVM和VirtIO模块是否可用 zgrep KVM /proc/config.gz zgrep VIRTIO /proc/config.gz # 查看内核模块是否装载 lsmod | grep kvm lsmod | grep virtio # 手动加载内核模块 sudo modprobe virtio # 当前用户加入组kvm sudo usermod -a -G kvm YOURSUSERNAME # 安装qemu以及图形化客户端 sudo pacman -S qemu libvirt ovmf virt-manager # 为kvm开启网络支持 sudo pacman -S ebtables dnsmasq bridge-utils openbsd-netcat # 启动服务 sudo systemctl enable libvirtd sudo systemctl start libvirtd sudo systemctl enable virtlogd sudo systemctl start virtlogd  注意事项\n每次启动虚拟机的时候都要手动启动虚拟机的网络，很麻烦\n我们在virt-manager里面右键QEMU/KVM，点击虚拟网络在自动启动这一行勾选引导时  为kvm里的win10安装驱动 首先：\nsudo pacman -S virtio-win 然后安装好win10后进入计算机找到已经挂载的磁盘，运行最下面的驱动安装程序即可，安装好就能体验到自动调整窗口大小和kvm的丝滑了\n接下来为kvm添加文件拖拽共享功能 csdn上的各种不靠谱还互相抄，我在ubuntu论坛找到了\n要下载spice驱动随后重启虚拟机即可完美实现拖放和剪贴板共享\n 参考资料 arch简明指南\narchlinux wiki\nNVIDIA (简体中文) \nGRUB (简体中文) - ArchWiki\nmkinitcpio (简体中文) - ArchWiki\nKernel (简体中文) - ArchWiki\nxinit (简体中文) - ArchWiki Xorg (简体中文) - ArchWiki\n ",
   "wordCount" : "300",
   "inLanguage": "en",
-  "datePublished": "2022-02-16T00:16:27+08:00",
-  "dateModified": "2022-02-16T00:16:27+08:00",
+  "datePublished": "2022-02-15T00:00:00Z",
+  "dateModified": "2022-02-15T00:00:00Z",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://hydroakri.github.io/linux/archlinux/"
+    "@id": "https://hydroakri.github.io/linux/archlinux%E5%A4%8D%E4%BB%B6/"
   },
   "publisher": {
     "@type": "Organization",
@@ -253,7 +253,7 @@ apu加nvidia用户在双屏的时候只有单屏显示 这个东西我看了半�
     <h1 class="post-title">
       Archlinux安装小记
     </h1>
-    <div class="post-meta"><span title='2022-02-16 00:16:27 +0800 CST'>February 16, 2022</span>
+    <div class="post-meta"><span title='2022-02-15 00:00:00 +0000 UTC'>February 15, 2022</span>
 
 </div>
   </header> 
