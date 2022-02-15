@@ -40,5 +40,14 @@ apu加nvidia用户在双屏的时候只有单屏显示 这个东西我看了半�
  Section &amp;quot;Device&amp;quot; Identifier &amp;quot;AMD&amp;quot; Driver &amp;quot;amdgpu&amp;quot; EndSection 我也给arcwiki在nvidia页面贡献了此次issue</description>
     </item>
     
+    <item>
+      <title></title>
+      <link>https://hydroakri.github.io/linux/1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://hydroakri.github.io/linux/1/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
