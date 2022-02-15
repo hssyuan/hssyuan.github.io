@@ -1,152 +1,56 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-cn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
 <title>Philoes | Hydroakri&#39;s Blog</title>
-<meta name="keywords" content="" />
-<meta name="description" content="Philoes - Hydroakri&#39;s Blog">
-<meta name="author" content="">
-<link rel="canonical" href="https://hydroakri.github.io/philo/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://hydroakri.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://hydroakri.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://hydroakri.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://hydroakri.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://hydroakri.github.io/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<meta name="generator" content="Hugo 0.92.2" />
-<link rel="alternate" type="application/rss+xml" href="https://hydroakri.github.io/philo/index.xml">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript><meta property="og:title" content="Philoes" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://hydroakri.github.io/philo/" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Philoes"/>
-<meta name="twitter:description" content=""/>
 
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Philoes",
-      "item": "https://hydroakri.github.io/philo/"
-    }
-  ]
-}
-</script>
+
+<link rel="stylesheet" href="/css/style.css"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://hydroakri.github.io/philo/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
 </head>
-
-<body class="list" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://hydroakri.github.io/" accesskey="h" title="Hydroakri&#39;s Blog (Alt + H)">Hydroakri&#39;s Blog</a>
-            <span class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </span>
-        </div>
-        <ul id="menu">
-            <li>
-                <a href="https://hydroakri.github.io/archives" title="Archives">
-                    <span>Archives</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://hydroakri.github.io/tags/" title="Tags">
-                    <span>Tags</span>
-                </a>
-            </li>
-        </ul>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://hydroakri.github.io/">
+          <h1 id="nav-heading" class="title is-4">Hydroakri&#39;s Blog</h1>
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"></nav>
+      </div>
     </nav>
-</header>
-<main class="main"> 
-<header class="page-header">
-  <h1>Philoes</h1>
-</header>
 
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>德勒兹：欲望机器
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>原文地址：https://zhuanlan.zhihu.com/p/37930670 读书笔记一则，特点是清晰易懂。《反俄狄浦斯：资本主义与精神分裂症》中的一部分。
+    <nav class="nav">
+      
+
+      
+    </nav>
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    
+    <article>
+      <div class="subtitle tags is-6 is-pulled-right">
+        
+      </div>
+      <h2 class="subtitle is-6 date">January 27, 2022</h2>
+      <h1 class="title"><a href="https://hydroakri.github.io/philo/%E5%BE%B7%E5%8B%92%E5%85%B9%E6%AC%B2%E6%9C%9B%E6%9C%BA%E5%99%A8/">德勒兹：欲望机器</a></h1>
+      <div class="content">
+        原文地址：https://zhuanlan.zhihu.com/p/37930670 读书笔记一则，特点是清晰易懂。《反俄狄浦斯：资本主义与精神分裂症》中的一部分。
 德勒兹首先强调无处不在的欲望机器不是比喻性的而是真正的机器，生产性的机器。
 无论涉及自然还是人，只存在一个生产过程，不存在相对独立的范围和流程，德勒兹接下来说了生产过程中“过程”这个概念的三个含义。首先，一切都是生产，有：生产的生产，（行为与激情的生产）、记录过程的生产（作为参照点的分配与参照物的生产）、消费的生产（感官快感、焦虑、疼痛的生产）这么三种，而“过程”指的就是在生产中融合了记录与消费，因而使它们成为同一个过程的不同生产。其次，不该把人与自然看成对峙的相反的，而是同一个基本事实，即生产者-产品。德勒兹用了如下的动人语句“人类不是创造之王，而只是一个存在者，他与各种形式的深奥生命或者各种类型的存在者密切联系，他甚至掌管星体与运动的生命，不断的把器官机器插进能源机器中，把一棵树放在体内，把乳房放到口里，把太阳放到他的肛门里（这里是说一德国精神病患者幻象其五脏发挥着与太阳相联系的神圣功能）：他永远是这些宇宙机器的管理人”。第三，所谓过程就不能看成是一个自反目的，它没有自身无限的永恒。
 欲望机器是二元机器，遵循二元法则：一台机器总是和另一台机器搭配，期间有着生产流的流动和中断。如身体里有分泌作用的腺体和其他器官，“每个客体都决定一股流体的连续性，每个流体都决定腺体的破碎化”。每一台器官机器都根据自己的流动前景、从这台机器流出的能源的角度来阐释整个世界。也可以说这是一种“产品/生产”，生产总是嫁接在产品上的某事物，所以欲望的生产是生产的生产。生产的生产即不断生产产品，把生产嫁接在产品上。做零活的人把某个东西插进电源插座，或改变水流方向所体验的满足感很少能以违反禁忌的快感来解释，这不过是像一幅名为《机器旁边的男孩儿》中表现的，男孩儿轻易的就将一台小小的欲望机器与一台巨大的技术的社会机器挂钩了。注意！这个“欲望机器”与“技术/社会机器”的二元关系将是此后文章的主题。
@@ -157,144 +61,111 @@
 再说幻想。幻想衍生于在任何特定环境下两类机器同一的本质。因此幻想从不是个体的：是群体的幻想。例如，19世纪伟大的社会主义乌托邦不是作为理想的模式而是作为群体幻想发挥作用的，欲望生产力真实的代表使革命制度成为可能。
 然而德勒兹又说，技术机器与欲望机器也是有一点差异的，即体制上的差异。体现在两点：首先，提到了技术机器会发生的磨损，有时这是欲望机器对技术机器的剥削。德勒兹举了艺术的例子，有一段的精辟分析。在艺术创造的群体幻想中，欲望生产被用于短周期社会生产，通过进入功能紊乱的因素来干涉技术机器的再生产。如先锋音乐家“宁肯选择利用突然的插曲、停顿、颤音、不和谐音符与未决定的和弦来结束他的曲子，而不会让这些曲子慢慢婉转而下以至结束，或者逐渐消失以至无声”。这就是欲望机器发挥作用使技术机器出故障。但是悖论在于，艺术作品本身就是一台欲望机器，所以对艺术家而言，应该迅速发生的破坏作用未能发生。技术机器与欲望机器机制上的第二点差异是：欲望机器完全依靠自身产生反生产，技术机器的反生产仅在其外在再生产的条件下产生。如马克思所说的生产力是一种技术机器，总是对应一台与技术机器大相径庭的社会机器（生产关系），后者制约再生产。因此一台技术机器不是成因只是社会生产一般形式的表征：于是就有手工机器与原始社会、液压机器与“亚洲”形式社会、工业机器与资本主义。技术机器不是一个经济范畴。而欲望机器是欲望经济的基本范畴，完全依靠自身产生无器官身体没有在代表与自身、生产关系与它们自己、社会秩序与技术之间做出区别。
 接下来又牵涉到无器官身体。无器官身体不是一个最初的原始实体，即社会机器不是无器官身体的投射。相反，无器官身体是非地域化了的对应物（社会机器）的终极残余。。存在这么一些社会机器：从原始的地域机器，到专制机器，再到资本主义机器。资本主义机器面临的任务就是对流动（生产）进行解码、对社会场所解辖域，这也是资本主义最富特色、最重要的倾向。如前面所述，结果就是产生无器官身体，并将欲望活动当作一个解辖域化的领域释放在这个身体上，于是产生了精神分裂症！资本主义产生了精神分裂症的能量或负荷的积累，又利用巨大的压制力量承受这个能量或负荷的积累。另一方面，资本主义又在进行重新辖域化！设立或恢复各种各样残留与人造的、虚构的或象征的地域，重新编码、引导那些根据抽象量被编码的人们。解辖域化与重新辖域化的程度是成正比的。解辖域化程度越高，将流动解码并公理化、从中榨取的剩余价值越多，其辅助型机器，像政府官僚机构与法律制度势力将流动重新辖域化的程度就越高，在这个过程中吸纳越来越大份额的剩余价值。
-德勒兹提出“唯物主义精神病学”，即把生产概念引入到对欲望问题的思考中。精神病患者、性变态者必须根据现在地域性予以界定，而非欲望机器自身的内驱力。精神病患者落入地域性的陷阱中，并将所有地域性还原为俄狄浦斯情结，视之为终极地域性。</p>
-  </section>
-  <footer class="entry-footer"><span title='2022-01-27 19:39:27 +0800 CST'>January 27, 2022</span></footer>
-  <a class="entry-link" aria-label="post link to 德勒兹：欲望机器" href="https://hydroakri.github.io/philo/%E5%BE%B7%E5%8B%92%E5%85%B9%E6%AC%B2%E6%9C%9B%E6%9C%BA%E5%99%A8/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>两种庸俗主体
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>两种庸俗主体  能动者、主动的个体（agent）————去掀翻笛卡尔/康德式的纯粹理性主体 （与科学实在论合谋）在这种主体观中：主体和客体发生关系的意向性会变成现象（phenomenon），错误地把相互的关系把握成单向的关系——主体悬空于场域之上（这是把主体当成了独立于宇宙的玩意，试图用自身这个主体去主宰世界，那以此为基础的自私自利就很好理解了。），是衍射的客体实体化的中心（具身化的主体），实际上主体不是具身化的 主体（subject）——object——substance  哲学意义上的主体（subject） 一定要在主体和实体和客体之间的关系把握主体性主体——客体（对象）主体——实体主体和实体的关系（康德和黑格尔的对比） 康德哲学的实体是物自体，这个物自体是无法被主体的先验统觉直接观察到的，你只能用先验统觉观察到这些物自体自己的生成和涌现出的现象。就无法看到物自体本身，因为能看到就代表着，能更改，能影响物自体的属性。而这是只有上帝（人做不到）才能做的得非常规操作。 到了黑格尔是主体和实体是一体的。主体通过能动的精神这个中介把实体涌现出来（主体化）。即实体的内核就是主体性。 康德 现象（世界）被实体所支撑，中间的观察者是为主体，这个主体整合了实体所涌现的，从而形成主体所观察到的世界。所以作为整合者的主体体的实体无法被主体自己所观察，或者说你这个主体的实体就不存在了。 黑格尔意义上的现象（世界），主体，实体就都被概括为实体。因为主体无法把握实体和自己这个实体的这种无能，就表现了主体的实体性。所以主体在认识整个现象的世界时候，主体实际上就是在自己认识自己。也就是说的主体就是实体的自我把握。 到了物自体本身，物自体其实是说明了他是实体的一部分。因为如果物自体真的无法被观察，那么你又是怎么感觉到对物自体的无能那。这个无能就是这个实体在认识自己这个主体。 总结黑格尔的 实体是主体化的中介化的，这里主体就成了实体我不可认识的我自己。但是这里实体就能依靠主体，这个现象化的自我去把握现象世界了以完成实体的自我实现。 这即是主体不是实体，实体是主体。 顺序不可逆，因为主体不能是实体，因为主体在这里只是实体自我认识的中介。 康德是实体支撑现象，黑格尔是实体主体化以完成现象的塑造，也就是说黑格尔这里主体可以通过的认识实体的现象来认识实体，以完成主体的升级。科学，哲学等学科就得以在这个名为绝对精神的运动中产生。</p>
-  </section>
-  <footer class="entry-footer"><span title='2021-07-12 19:39:27 +0800 CST'>July 12, 2021</span></footer>
-  <a class="entry-link" aria-label="post link to 两种庸俗主体" href="https://hydroakri.github.io/philo/%E4%B8%A4%E7%A7%8D%E4%B8%BB%E4%BD%93%E4%B9%8B%E5%BA%B8%E4%BF%97%E7%9A%84%E4%B8%BB%E4%BD%93/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>哲学的最基本问题
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>1. 哲学的最基本问题  世界本源/孰为第一性的问题不是哲学的基本问题(预设了世界中本源的存在，预设了空间性和时间性，实际上是场域优先于本源)，是价值立场的基本问题 哲学的最基本问题：自反性的疑问（为什么我在，为什么我有为什么，为什么不是什么都没有）  2. 真理之路 存在者存在，不存在者不存在：我存在于这个世界上，而不是成为虚无
+德勒兹提出“唯物主义精神病学”，即把生产概念引入到对欲望问题的思考中。精神病患者、性变态者必须根据现在地域性予以界定，而非欲望机器自身的内驱力。精神病患者落入地域性的陷阱中，并将所有地域性还原为俄狄浦斯情结，视之为终极地域性。
+        
+      </div>
+    </article>
+    
+    <article>
+      <div class="subtitle tags is-6 is-pulled-right">
+        
+      </div>
+      <h2 class="subtitle is-6 date">July 12, 2021</h2>
+      <h1 class="title"><a href="https://hydroakri.github.io/philo/%E4%B8%A4%E7%A7%8D%E4%B8%BB%E4%BD%93%E4%B9%8B%E5%BA%B8%E4%BF%97%E7%9A%84%E4%B8%BB%E4%BD%93/">两种庸俗主体</a></h1>
+      <div class="content">
+        两种庸俗主体  能动者、主动的个体（agent）————去掀翻笛卡尔/康德式的纯粹理性主体 （与科学实在论合谋）在这种主体观中：主体和客体发生关系的意向性会变成现象（phenomenon），错误地把相互的关系把握成单向的关系——主体悬空于场域之上（这是把主体当成了独立于宇宙的玩意，试图用自身这个主体去主宰世界，那以此为基础的自私自利就很好理解了。），是衍射的客体实体化的中心（具身化的主体），实际上主体不是具身化的 主体（subject）——object——substance  哲学意义上的主体（subject） 一定要在主体和实体和客体之间的关系把握主体性主体——客体（对象）主体——实体主体和实体的关系（康德和黑格尔的对比） 康德哲学的实体是物自体，这个物自体是无法被主体的先验统觉直接观察到的，你只能用先验统觉观察到这些物自体自己的生成和涌现出的现象。就无法看到物自体本身，因为能看到就代表着，能更改，能影响物自体的属性。而这是只有上帝（人做不到）才能做的得非常规操作。 到了黑格尔是主体和实体是一体的。主体通过能动的精神这个中介把实体涌现出来（主体化）。即实体的内核就是主体性。 康德 现象（世界）被实体所支撑，中间的观察者是为主体，这个主体整合了实体所涌现的，从而形成主体所观察到的世界。所以作为整合者的主体体的实体无法被主体自己所观察，或者说你这个主体的实体就不存在了。 黑格尔意义上的现象（世界），主体，实体就都被概括为实体。因为主体无法把握实体和自己这个实体的这种无能，就表现了主体的实体性。所以主体在认识整个现象的世界时候，主体实际上就是在自己认识自己。也就是说的主体就是实体的自我把握。 到了物自体本身，物自体其实是说明了他是实体的一部分。因为如果物自体真的无法被观察，那么你又是怎么感觉到对物自体的无能那。这个无能就是这个实体在认识自己这个主体。 总结黑格尔的 实体是主体化的中介化的，这里主体就成了实体我不可认识的我自己。但是这里实体就能依靠主体，这个现象化的自我去把握现象世界了以完成实体的自我实现。 这即是主体不是实体，实体是主体。 顺序不可逆，因为主体不能是实体，因为主体在这里只是实体自我认识的中介。 康德是实体支撑现象，黑格尔是实体主体化以完成现象的塑造，也就是说黑格尔这里主体可以通过的认识实体的现象来认识实体，以完成主体的升级。科学，哲学等学科就得以在这个名为绝对精神的运动中产生。
+        
+      </div>
+    </article>
+    
+    <article>
+      <div class="subtitle tags is-6 is-pulled-right">
+        
+      </div>
+      <h2 class="subtitle is-6 date">July 9, 2021</h2>
+      <h1 class="title"><a href="https://hydroakri.github.io/philo/%E5%AD%98%E5%9C%A8%E4%B8%BB%E4%B9%89/">哲学的最基本问题</a></h1>
+      <div class="content">
+        1. 哲学的最基本问题  世界本源/孰为第一性的问题不是哲学的基本问题(预设了世界中本源的存在，预设了空间性和时间性，实际上是场域优先于本源)，是价值立场的基本问题 哲学的最基本问题：自反性的疑问（为什么我在，为什么我有为什么，为什么不是什么都没有）  2. 真理之路 存在者存在，不存在者不存在：我存在于这个世界上，而不是成为虚无
 3. 谬误之路 存在者不存在，不存在者存在：事物的存在仅限于静态的停留（存在者是惰性的、无法开启自己的时间，必须有时间带着它存在）、预设场域和虚无的存在（x）&lt;==这预设了一个心理的时间，把心理的第一人称的时间投射给世界本身,时间和空间只是先验感性形式事物是不断涌现自身的，不断地give itself（v）
-4. 形而上学的最基本问题  究竟为什么存在者存在，“无”不存在，“无”可以作为概念存在，为什么本身并没有办法存在。  5. 海德格尔：究竟为什么存在者存在，“无”存在，无 不存在 场本身不存在，场是通过存在者的存在来推测、臆想出来的哲学的心法：为什么一切（包括我自己）都在不停地呈现出来，为什么心灵无法直接创造一个东西存在，而必须进入到存在者的秩序中存在，无不可能存在 为什么存在者存在——把握存在者整体（胡塞尔的悬置），把能动的主体抛在一边，不把主体性和自我意识投射到任何东西上  缸中之脑：科学实在论 感知的基础有多重的可实现性（功能主义），预设了缸和脑的实在，预设了实在不变的物理学定律的存在，如果存在不变的法则就需要一个底层不变的存在，这与它缸-脑无限嵌套相悖</p>
-  </section>
-  <footer class="entry-footer"><span title='2021-07-09 19:39:27 +0800 CST'>July 9, 2021</span></footer>
-  <a class="entry-link" aria-label="post link to 哲学的最基本问题" href="https://hydroakri.github.io/philo/%E5%AD%98%E5%9C%A8%E4%B8%BB%E4%B9%89/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>如何破解（庸俗）虚无主义
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>如何破解（庸俗）虚无主义？ 对开展出场域力量不加以反思的：1）大他者存在 2）元语言存在，自以为心里的逻辑就是事情的真实情况 3）社会式安宁的：对于社会动荡只能把握到次要矛盾或外部威胁虚无主义者的存在是一种矛盾，是对既定秩序的否定性
+4. 形而上学的最基本问题  究竟为什么存在者存在，“无”不存在，“无”可以作为概念存在，为什么本身并没有办法存在。  5. 海德格尔：究竟为什么存在者存在，“无”存在，无 不存在 场本身不存在，场是通过存在者的存在来推测、臆想出来的哲学的心法：为什么一切（包括我自己）都在不停地呈现出来，为什么心灵无法直接创造一个东西存在，而必须进入到存在者的秩序中存在，无不可能存在 为什么存在者存在——把握存在者整体（胡塞尔的悬置），把能动的主体抛在一边，不把主体性和自我意识投射到任何东西上  缸中之脑：科学实在论 感知的基础有多重的可实现性（功能主义），预设了缸和脑的实在，预设了实在不变的物理学定律的存在，如果存在不变的法则就需要一个底层不变的存在，这与它缸-脑无限嵌套相悖
+        
+      </div>
+    </article>
+    
+    <article>
+      <div class="subtitle tags is-6 is-pulled-right">
+        
+      </div>
+      <h2 class="subtitle is-6 date">July 9, 2021</h2>
+      <h1 class="title"><a href="https://hydroakri.github.io/philo/%E5%A6%82%E4%BD%95%E7%A0%B4%E9%99%A4%E8%99%9A%E6%97%A0%E4%B8%BB%E4%B9%89/">如何破解（庸俗）虚无主义</a></h1>
+      <div class="content">
+        如何破解（庸俗）虚无主义？ 对开展出场域力量不加以反思的：1）大他者存在 2）元语言存在，自以为心里的逻辑就是事情的真实情况 3）社会式安宁的：对于社会动荡只能把握到次要矛盾或外部威胁虚无主义者的存在是一种矛盾，是对既定秩序的否定性
 1-1 科学实在论 1-1-1-4 宇宙悲观主义（cosmocism） 第1个一 代表他心中认为的场域是一个完整的场域，没有结构性冲突矛盾的第2个一 代表本体论，与前面场域论结合代表物理实在，1-1是科学实在论（只有物理实在是本质的）第3个一 代表认为认识论的主观维度也是受着场域中主导性的秩序（认为意识活动受神经电位影响）==&gt;物理主义 还原消解一切文化心理现象，认为一切有主导性的秩序第4个四 代表目的论的维度——一切是没有意义的——自暴自弃式的物理毁灭
 1-1-2-4 建构主义（constructism） 1-1-2 建构主义（constructism）：科学知识不是纯粹的，是社会文化介入其中的，物理学能被解构那么内在世界（价值）也会被解构=解构性的建构论（与德里达不同）会走向宋江式的虚无主义，这是资本主义教育霸权下与科学实在论的分赃不均，膨胀的主体性
 1-1-3-4 认知主义 1-1-3 3代表中心化 认知主义1-1-3-4 认知无我论 不存在个体化的自我,另外一种科学实在论，他们因为把一切消解所以无法找到自我存在的机制（乔布斯）。在科学实在论和资本主义的社会背景下来寻求心灵和意识的方法注定会失败，因为没有反思整个秩序本身现象家的直观：自己看自己意识内容有一种透明性，凝视自我中有一种沉默，是无书写痕迹的
 1-1-4-4 行为主义心理学 1-1-4：不存在第一人称，通过行为角度的观察，忽视患者的感受，用第三人称的训诫矫正（厌恶疗法） 把人当成动物，把动物当成物宰治1-1-4-4 社会行为主义 一切东西只看外部行为，预设了行为主义心理学家利益共同体的权威性。（如果所有第一人称视角都是不可信的，那么你这个行为主义心理学家的视角可信性在哪里？）把心灵，目的论和价值的场域消解为符号性的互动网络（eg.社交媒体是在资本和权力控制下来决定人的符号学死亡的）
-1-2 宗教 1-2代表本体有分裂的两种：造物主和造物（宗教实在论）</p>
-  </section>
-  <footer class="entry-footer"><span title='2021-07-09 19:39:27 +0800 CST'>July 9, 2021</span></footer>
-  <a class="entry-link" aria-label="post link to 如何破解（庸俗）虚无主义" href="https://hydroakri.github.io/philo/%E5%A6%82%E4%BD%95%E7%A0%B4%E9%99%A4%E8%99%9A%E6%97%A0%E4%B8%BB%E4%B9%89/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>齐泽克的三种愚蠢
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>齐泽克的三种愚蠢    不懂规矩 不懂人之常情    墨守成规 只懂规矩（老好人）    不讲规矩（imbecile） 知道规则本身是漏洞百出的，玩弄规矩     维特根斯坦晚期玩弄语词：我们说的话的确定性有没有一个保障
+1-2 宗教 1-2代表本体有分裂的两种：造物主和造物（宗教实在论）
+        
+      </div>
+    </article>
+    
+    <article>
+      <div class="subtitle tags is-6 is-pulled-right">
+        
+      </div>
+      <h2 class="subtitle is-6 date">July 9, 2021</h2>
+      <h1 class="title"><a href="https://hydroakri.github.io/philo/%E9%BD%90%E6%B3%BD%E5%85%8B/">齐泽克的三种愚蠢</a></h1>
+      <div class="content">
+        齐泽克的三种愚蠢    不懂规矩 不懂人之常情    墨守成规 只懂规矩（老好人）    不讲规矩（imbecile） 知道规则本身是漏洞百出的，玩弄规矩     维特根斯坦晚期玩弄语词：我们说的话的确定性有没有一个保障
  这暴露出了符号系统（symbolic order）本身/语言规则本身的内在具有一种不一致性拉康：要朝向一个新的能指，就是要获得思维上的解放，要突破能指链和语言系统对于思想的束缚，这代表了朝向一个新的能指的可能性（并不是要获得超越语言系统的新的东西）。一个人永远只是相对的愚蠢 ==进一步倒转==&gt; 不可能彻底的蠢，符号系统不可能彻底的无意义，因此要获得智慧不是去追寻一个超脱于符号系统的东西（当自己变的不能再蠢时，系统的内在不一致性就显现出来了，这样才能获得哲学意义上的智慧，哲学的智慧不是超越性的）
 意识形态基本逻辑  一方面：哪怕否认日心说，但是地球还是在绕着太阳转，人们虚构的事实无法改变真相本身。 另一方面：哪怕日心说本身是虚构的，但是它还会一直流传，人们会把它当作“真的”去看待。假的东西可以起到真的作用  资本主义意识形态的生效机制并不是掩盖现实，虽然人们不信这一套，知道是假的，但资本主义的剥削剩余价值的模式是起作用的，因此有人相信别人相信意识形态起作用的方式不是让你自己相信，而是让你相信有别人会相信
-剥削者：“虽然我知道资本主义是赤裸裸的剥削，虽然我不相信资本主义，但我剥削他们的时候，他们就是自愿的，只要他们不痛苦我就是无罪的”（为了让别人信服，自己也就不得不假装信服，在行为上服从意识形态）被剥削者为了生活也会假装服从这套意识形态吊诡的是，没有人相信，但所有人都以为别人相信，这样才可以利用别人愚蠢的状态从中获利，只要服从规则就无法逃脱，资本主义统治是以景观的方式进行的</p>
-  </section>
-  <footer class="entry-footer"><span title='2021-07-09 19:39:27 +0800 CST'>July 9, 2021</span></footer>
-  <a class="entry-link" aria-label="post link to 齐泽克的三种愚蠢" href="https://hydroakri.github.io/philo/%E9%BD%90%E6%B3%BD%E5%85%8B/"></a>
-</article>
-<footer class="page-footer">
-  <nav class="pagination">
-    <a class="next" href="https://hydroakri.github.io/philo/page/2/">Next Page »</a>
-  </nav>
-</footer>
-    </main>
+剥削者：“虽然我知道资本主义是赤裸裸的剥削，虽然我不相信资本主义，但我剥削他们的时候，他们就是自愿的，只要他们不痛苦我就是无罪的”（为了让别人信服，自己也就不得不假装信服，在行为上服从意识形态）被剥削者为了生活也会假装服从这套意识形态吊诡的是，没有人相信，但所有人都以为别人相信，这样才可以利用别人愚蠢的状态从中获利，只要服从规则就无法逃脱，资本主义统治是以景观的方式进行的
+        
+      </div>
+    </article>
     
-<footer class="footer">
-    <span>&copy; 2022 <a href="https://hydroakri.github.io/">Hydroakri&#39;s Blog</a></span>
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
-</a>
+    <article>
+      <div class="subtitle tags is-6 is-pulled-right">
+        
+      </div>
+      <h2 class="subtitle is-6 date">July 6, 2021</h2>
+      <h1 class="title"><a href="https://hydroakri.github.io/philo/%E8%BE%A9%E8%AF%81%E6%B3%95/">辩证法</a></h1>
+      <div class="content">
+        虚假的辩证法 整体主义（看问题不要片面 一分为二 舍小我成就大我）牺牲个人利益和立场 A+非A==&gt;合题 鸡生蛋生鸡无穷循环 庸俗的实践论：主观能动性+物质世界受客观规律控制（机械决定论）————让“实践”改变物质世界，物质世界是惰性的，只有人能“改造”世界 机械的决定论：人发明的概念决定物质世界，过去决定现在，现在决定未来。这是前康德主义，错误的把心灵的时间性强加到客观世界上，如果认为过去决定未来即认为过去存在一个真正正确的造物者（淫秽的）。未来决定过去，那么规律并不需要人为维护，人所发现的规律是不断发展的 科学主义——把事物还原成统计学或庸俗决定论意义上的“定律” 神秘主义：对生命的重新赋魅 庸俗合题：新世纪运动（科学外皮的神秘主义） 个人主义-集体主义:个人决定社会&amp;社会优先于个人 庸俗合题：和谐社会，社会和个人的和谐相处——中产阶级化的文明礼仪，这是对有否定性的个体的压制，对矛盾的掩盖真正的合题：阿尔都塞主义：所谓的“个人优先于社会”是意识形态灌输的对自我的认知（询唤）原子化的资本主义主体观  真正的辩证法： 正题：A 反题：非A 找合题就是找A的内在的不一致性 即A指代的事物本身与A这个符号的分裂 事物内部本身的矛盾 真正的辩证法是凸显差异的（鸡创造蛋，蛋转化为鸡） 实践论：未来询唤我，未来回溯的确定过去（反向的因果性） 辩证的决定论：未来的必然性，规律和法则存在于未来，这种必然性是通过人这一中介显现出来，世界驱使有一定惰性的人来实现人的自由意志 神秘主义：对生命的重新赋魅 我思故我在同拉康：“自恋性认同的两个方面：它决定了人的自我以及人的世界所特有的实体域的形式结构。即（1）自我通过认同于与自身相异化的的镜像而将一个‘他人’引入了自己的形式结构中，在这个意义上说 自我就是一个他人。（2）另一方面，这一认同也是自我对对象实施的一种‘形式的凝定’（formal stagnation)&hellip;自恋性认同不仅构建了想象的自我，而且构建了想象的对象” 《阅读你的症状》133 黑格尔的辩证法   黑格尔的辩证法中的扬弃是这样的： 扬弃分为一阶和二阶的：一阶扬弃：它相当于“还原”，就是人通过自己的知性能力，把纷繁复杂的直接的物质现实、感性体验，抽象地还原成概念性的规定性（conceptual determination）。比如看到一堆红苹果，人的知性可以抽象出“红”、“甜”、“水果”乃至“苹果”这样的抽象概念出来，而把那对红苹果上的疤痕、露水、虫子、光线、箩筐等等的具体的存在的细节统统丢弃掉。 简单来说：扬其概念，弃其现实。黑格尔在《精神现象学》中说，人的知性有一个非凡的能力，就是会歇斯底里、不可抑制地不停地在具体、直接的一团糟糕的事物中，把抽象的属性抽象、分析出来。比如你在街边看到一小团黑影闪过，就会猜它是个猫，还是条狗，断不会仅仅当做这团黑影本身；而且就算你把他当做“一团黑影”，这也已经是从那团黑乎乎的图像感受中抽象出来的一个概念了，只不过还可以进一步去抽象成“什么的黑影”罢了。人的这种不可抑制的知性能力，就叫做扬弃。什么是二阶扬弃（扬弃之扬弃）：请注意，这里就是真正的黑格尔的辩证法了。二阶的扬弃（英语把这个aufhebung翻译为abrogation）就在于——黑格尔认为，上述的知性的那种歇斯底里、不死不休的拆分现实对象的能力，归根结底，不是知性本身的能力，而是事物通过人的知性，在自己拆解自己、自己呈现自己。所以二阶的扬弃就在于，人意识到，他自己对于对象的扬弃，本质上不是他的扬弃，不是他的主动行为，而是他被动地见证了事物的自我运动，这种运动的中介，就是人的知性。中国古代有个很应景的例子：风吹旗动，有人说“风动”，有人说“旗动”，六祖慧能说：“仁者心动”。黑格尔会怎么说？很明显，他会说：“动心者动。”是事物在推动着意识，将自己抽象化为四种不同的概念形式“风”、“旗”、“仁者之心”、“动”。所以甚至可以说，仁者之心，人的知性，人的看似“积极”、“主动”的概念化、抽象化的感知行为，这种精神运动本身，反过来不得不依赖于这些事物的自我扬弃，依赖于这些事物不断地牺牲它自己的丰富的存在，而转化成一种抽象的概念。这种动力的真正来源是外部、是包含着主体的整个实体世界，而不仅仅是主体本身的心，心只是这个运动一个片面的缩影罢了。二阶扬弃让主体意识到，并不是他扬弃了事物，他把事物给分割、抽象化、主观化了；恰恰相反，是事物在分割它自己，事物将自己分割为丰富的直接内容和贫瘠的概念形式，事物将自己抽象化、主观化为一个纯粹的“知性意识”。也就是说，黑格尔的“扬弃”，从一开始就不是主体在扬弃客体，在将客体从复杂中片面地抽象出来，然后再放回到某种全面、统一的背景中去。恰恰相反，扬弃在一开始，就是客体在扬弃它自身，客体通过这种扬弃，制造了某个它自己的丰富性不能在其中持存的空白的场域，也就是所谓的第一人称的“主观意识”，通过这个主观意识，客体激发了某些更高、更抽象的存在形态，促使别的客体来与之发生新的关系（比如苹果通过意识的中介，吸引口腔咀嚼、肠胃消化它，从而让它的种子得到传播）。对《精神现象学》的普遍误解认为，存在这样的进化过程：1、知性扬弃了感性对象（通过把具体内容从它的具体背景中抽象出来）2、理性扬弃了知性观念（通过把抽象形式放回它的具体背景中具体化）但实际上，如果我们理解了扬弃的真正含义，我们知道上述过程应该这样解读：1、知性扬弃了感性对象，其实质是感性对象的自我扬弃；感性自己将自己区分为知性形式和感性内容两部分。——万物是活的，主体只是这活力的见证者。2、理性扬弃了知性观念，其实质是知性形式的自我扬弃；知性自己将自己区分为被动的知性和主动的理性两部分。被动的知性：我只是个工具人，我不过是苹果认识它自己的甜，美女认识她自己的美的中介、工具罢了。主动的理性：我不仅仅是个工具人，要让苹果认识到自己的甜，我必须主动地排除掉我不喜欢吃苹果的偏见，去尝一尝它的味道；要让美女认识她自己的美，我必须主动地排除掉我的厌女症和嫉妒心，去真心实意地夸赞她。知性相对于感性，理性相对于知性，并不是某种神秘的超越关系；每一次进步，都只是产生了自己对自己的反思和内省罢了。这种自我反思的能力，在黑格尔那里就叫做Reason理性。知性，是感性的自我反思；理性，是知性的自我反思。最高级别的理性，并不是吞噬一切的无限知识，不是所谓的绝对真理，而只是意识到：要如实地认识万物，我必须谦逊、努力地克制自己的矜骄和狂妄我是个工具人，是各种内容、信息、形式达成它的自我认识的中介。但我不仅仅是个工具人，如果我狂妄地认为所有的知识都由我产生，那么我就会犯下错误，成为一个不合格的工具人。我的理性就会迷失在“我”的信息牢笼里，不再向外部世界敞开，因为外部世界才是这个内在的“自我”的真正来源。承认自己的无能，因为这种无能会带来代价，这也是一种能。这个智慧和中国古代的老子是一脉相承的。 
+        
+      </div>
+    </article>
+    
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <nav class="level is-mobile">
+      <div class="level-left">
+        <div class="level-item">
+          
+        </div>
+      </div>
+      <div class="level-right is-marginless">
+        <div class="level-item">
+          
+        </div>
+      </div>
+    </nav>
+  </div>
+</section>
 
-<script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+    
+  </div>
+</section>
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
 
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
-    };
 
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
 
-</script>
+
 </body>
-
 </html>
+

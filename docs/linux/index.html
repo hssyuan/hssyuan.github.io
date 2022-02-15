@@ -1,152 +1,56 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="zh-cn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
 <title>Linuxes | Hydroakri&#39;s Blog</title>
-<meta name="keywords" content="" />
-<meta name="description" content="Linuxes - Hydroakri&#39;s Blog">
-<meta name="author" content="">
-<link rel="canonical" href="https://hydroakri.github.io/linux/" />
-<link crossorigin="anonymous" href="/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://hydroakri.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://hydroakri.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://hydroakri.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://hydroakri.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://hydroakri.github.io/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<meta name="generator" content="Hugo 0.92.2" />
-<link rel="alternate" type="application/rss+xml" href="https://hydroakri.github.io/linux/index.xml">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript><meta property="og:title" content="Linuxes" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://hydroakri.github.io/linux/" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Linuxes"/>
-<meta name="twitter:description" content=""/>
 
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Linuxes",
-      "item": "https://hydroakri.github.io/linux/"
-    }
-  ]
-}
-</script>
+
+<link rel="stylesheet" href="/css/style.css"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="https://hydroakri.github.io/linux/">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff">
 </head>
-
-<body class="list" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://hydroakri.github.io/" accesskey="h" title="Hydroakri&#39;s Blog (Alt + H)">Hydroakri&#39;s Blog</a>
-            <span class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </span>
-        </div>
-        <ul id="menu">
-            <li>
-                <a href="https://hydroakri.github.io/archives" title="Archives">
-                    <span>Archives</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://hydroakri.github.io/tags/" title="Tags">
-                    <span>Tags</span>
-                </a>
-            </li>
-        </ul>
+<body>
+<section class="section">
+  <div class="container">
+    <nav id="nav-main" class="nav">
+      <div id="nav-name" class="nav-left">
+        <a id="nav-anchor" class="nav-item" href="https://hydroakri.github.io/">
+          <h1 id="nav-heading" class="title is-4">Hydroakri&#39;s Blog</h1>
+        </a>
+      </div>
+      <div class="nav-right">
+        <nav id="nav-items" class="nav-item level is-mobile"></nav>
+      </div>
     </nav>
-</header>
-<main class="main"> 
-<header class="page-header">
-  <h1>Linuxes</h1>
-</header>
 
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Archlinux安装小记
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>创建安装介质 工具：rufus
+    <nav class="nav">
+      
+
+      
+    </nav>
+
+  </div>
+  <script src="/js/navicon-shift.js"></script>
+</section>
+<section class="section">
+  <div class="container">
+    
+    <article>
+      <div class="subtitle tags is-6 is-pulled-right">
+        
+      </div>
+      <h2 class="subtitle is-6 date">February 13, 2022</h2>
+      <h1 class="title"><a href="https://hydroakri.github.io/linux/archlinux/">Archlinux安装小记</a></h1>
+      <div class="content">
+        创建安装介质 工具：rufus
 环境：windows
 去archlinux官网安装即可，推荐使用qBittorrent，下载速度会比直链快，毕竟是开源软件（去镜像站下载也可以）
 安装 保持安装u盘不用拔出，重启进入bios设置u盘启动优先
@@ -164,87 +68,51 @@ cd /etc/modprobe.d/ nano blacklist.conf #系统只识别.conf的文件，所以�
 配置 lightdm黑屏 在其他显示器显示 等我装完重启进入桌面后通过运行nvidia-setting报错发现我的RTX 3060并没有工作
 bing搜索得解决办法 于是使用nvidia-xconfig配置/etc/X11/xorg.conf
 遂重启，然后这个archlinux怎么又双叒黑屏寄了
-我一开始还以为是amdgpu&#43;nvidia的显卡配置问题
+我一开始还以为是amdgpu+nvidia的显卡配置问题
 后来才发现是lightdm这玩意压根就不支持多显示屏（我使用xfce4桌面，默认使用lightdm作为登录管理器），这就导致了我的登录界面在一颗虚空显示屏上面
 解决方法：如何强制多个显示器为LightDM设置正确的分辨率？
 我的方法：垃圾lightdm狗都不用 遂卸载lightdm 每天使用startx启动桌面
 apu加nvidia用户在双屏的时候只有单屏显示 这个东西我看了半天xorg的英文文档和archlinux的Amdgpu页面 搞得我快一口老血吐出来
 按照archwiki的说法要创建/etc/X11/xorg.conf.d/20-amdgpu.conf添加如下内容：
- Section &#34;Device&#34; Identifier &#34;AMD&#34; Driver &#34;amdgpu&#34; EndSection 我也给arcwiki在nvidia页面贡献了此次issue...</p>
-  </section>
-  <footer class="entry-footer"><span title='2022-02-14 19:39:27 +0800 CST'>February 14, 2022</span></footer>
-  <a class="entry-link" aria-label="post link to Archlinux安装小记" href="https://hydroakri.github.io/linux/archlinux/"></a>
-</article>
-    </main>
+ Section &quot;Device&quot; Identifier &quot;AMD&quot; Driver &quot;amdgpu&quot; EndSection 我也给arcwiki在nvidia页面贡献了此次issue
+        
+        <a class="button is-link" href="https://hydroakri.github.io/linux/archlinux/" style="height:28px">
+          Read more
+        </a>
+        
+      </div>
+    </article>
     
-<footer class="footer">
-    <span>&copy; 2022 <a href="https://hydroakri.github.io/">Hydroakri&#39;s Blog</a></span>
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
-</a>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <nav class="level is-mobile">
+      <div class="level-left">
+        <div class="level-item">
+          
+        </div>
+      </div>
+      <div class="level-right is-marginless">
+        <div class="level-item">
+          
+        </div>
+      </div>
+    </nav>
+  </div>
+</section>
 
-<script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
+<section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+    
+  </div>
+</section>
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
 
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
-    };
 
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
 
-</script>
+
 </body>
-
 </html>
+
