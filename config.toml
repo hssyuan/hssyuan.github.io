@@ -1,7 +1,7 @@
 baseURL = "https://hydroakri.github.io/"
 languageCode = 'zh-cn'
 title = "Hydroakri's Blog"
-theme = "PaperMod"
+theme = "kiss"
 publishDir = 'docs'
 
 [menu]
