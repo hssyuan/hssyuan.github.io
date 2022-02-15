@@ -1,8 +1,10 @@
 ---
-title: "Archlinux 安装小记"
-date: 2022-01-27T19:39:27+08:00
+title: "Archlinux安装小记"
+date: '2022-02-14'
 draft: false
+tags: ["linux"]
 ---
+
 # 创建安装介质
 工具：rufus  
 环境：windows  
