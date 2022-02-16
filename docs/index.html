@@ -169,18 +169,12 @@ archinstall 注意：archinstall 仅支持 UEFI 系统
 操作如下：
 cd /etc/modprobe.d/ nano blacklist.conf #系统只识别.conf的文件，所以文件名随意 添加内容如下：
  blacklist nouveau blacklist lbm-nouveau options nouveau modeset=0 即可重启
-配置 lightdm黑屏 在其他显示器显示 等我装完重启进入桌面后通过运行nvidia-setting报错发现我的RTX 3060并没有工作
-bing搜索得解决办法 于是使用nvidia-xconfig配置/etc/X11/xorg.conf
-遂重启，然后这个archlinux怎么又双叒黑屏寄了
-我一开始还以为是amdgpu&#43;nvidia的显卡配置问题
-后来才发现是lightdm这玩意压根就不支持多显示屏（我使用xfce4桌面，默认使用lightdm作为登录管理器），这就导致了我的登录界面在一颗虚空显示屏上面
-解决方法：如何强制多个显示器为LightDM设置正确的分辨率？
-我的方法：垃圾lightdm狗都不用 遂卸载lightdm 每天使用startx启动桌面
-apu加nvidia用户在双屏的时候只有单屏显示 这个东西我看了半天xorg的英文文档和archlinux的Amdgpu页面 搞得我快一口老血吐出来
-按照archwiki的说法要创建/etc/X11/xorg.conf.d/20-amdgpu.conf添加如下内容：
- Section &#34;Device&#34; Identifier &#34;AMD&#34; Driver &#34;amdgpu&#34; EndSection 我也给arcwiki在nvidia页面贡献了此次issue...</p>
+配置 amdgpu核芯显卡&#43;nvidia私有驱动（非独显直连）配置混合模式 并不需要bumblebee/optimus-manager/nvidia-xrun这种切换工具
+根据PRIME-Archwiki英文页面的说法
+先识别集成GPU BusID 得到以下结果
+lspci | grep -i VGA ----------------------------------------- 01:00.0 VGA compatible controller: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] (rev a1) 06:00....</p>
   </section>
-  <footer class="entry-footer"><span title='2022-02-16 00:16:27 +0800 CST'>February 16, 2022</span></footer>
+  <footer class="entry-footer"><span title='2022-02-17 00:56:27 +0800 CST'>February 17, 2022</span></footer>
   <a class="entry-link" aria-label="post link to Archlinux安装小记" href="https://hydroakri.github.io/posts/linux/archlinux/"></a>
 </article>
 

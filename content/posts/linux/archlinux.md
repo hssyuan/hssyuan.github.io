@@ -1,6 +1,6 @@
 ---
 title: "Archlinux安装小记"
-date: 2022-02-16T00:16:27+08:00
+date: 2022-02-17T00:56:27+08:00
 draft: false
 tags: ["linux"]
 ---
@@ -46,6 +46,52 @@ nano blacklist.conf #系统只识别.conf的文件，所以文件名随意
 
 即可重启
 # 配置
+## amdgpu核芯显卡+nvidia私有驱动（非独显直连）配置混合模式
+并不需要bumblebee/optimus-manager/nvidia-xrun这种切换工具  
+根据[PRIME-Archwiki英文页面](https://wiki.archlinux.org/title/PRIME#Configuration)的说法  
+
+先识别集成GPU BusID 得到以下结果  
+```
+lspci | grep -i VGA
+-----------------------------------------
+01:00.0 VGA compatible controller: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] (rev a1)
+06:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Cezanne (rev c5)
+```
+然后编辑/etc/X11/xorg.conf  
+```
+/etc/X11/xorg.conf
+-----------------------------------------
+Section "ServerLayout"
+        Identifier "layout"
+        Screen 0 "amdgpu"
+        Inactive "nvidia"
+        Option "AllowNVIDIAGPUScreens"
+EndSection
+
+Section "Device"
+        Identifier "nvidia"
+        Driver "nvidia"
+EndSection
+
+Section "Screen"
+        Identifier "nvidia"
+        Device "nvidia"
+EndSection
+
+Section "Device"
+        Identifier "amdgpu"
+        Driver "modesetting"
+        BusID "PCI:6:0:0"
+EndSection
+
+Section "Screen"
+        Identifier "amdgpu"
+        Device "amdgpu"
+EndSection
+
+```
+
+
 ## lightdm黑屏 在其他显示器显示
 等我装完重启进入桌面后通过运行`nvidia-setting`报错发现我的RTX 3060并没有工作  
 bing搜索得解决办法 于是使用`nvidia-xconfig`配置`/etc/X11/xorg.conf`  
