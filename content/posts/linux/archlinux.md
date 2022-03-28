@@ -247,6 +247,40 @@ sudo pacman -S virtio-win
 csdn上的各种不靠谱还互相抄，我在[ubuntu论坛](https://askubuntu.com/questions/885264/kvm-copy-drag-and-drop-files-between-ubuntu-host-to-windows-7-guest)找到了  
 要下载[spice驱动](https://www.spice-space.org/download/windows/spice-guest-tools/spice-guest-tools-latest.exe)随后重启虚拟机即可完美实现拖放和剪贴板共享
 
+## gnome NVIDIA使用wayland
+`sudo nano /etc/default/grub`  
+```
+GRUB_CMDLINE_LINUX_DEFAULT="nvidia-drm.modeset=1"
+```
+  
+
+`sudo nano /etc/mkinitcpio.conf`
+```
+MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)
+```
+
+运行  
+`sudo mkinitcpio -P`  
+`sudo update-grub`或`sudo grub-mkconfig -o /boot/grub/grub.cfg`
+  
+其次要看 `/etc/gdm/custom.conf` 里面 `WaylandEnable=false` 是不是被注释掉的（默认应该是）  
+  
+最可能的是 udev 规则，GDM 带了一个 /usr/lib/udev/rules.d/61-gdm.rules 文件，里面有这么几行：
+```
+# disable Wayland on Hi1710 chipsets
+ATTR{vendor}=="0x19e5", ATTR{device}=="0x1711", RUN+="/usr/lib/gdm-runtime-config set daemon WaylandEnable false"
+# disable Wayland when using the proprietary nvidia driver
+DRIVER=="nvidia", RUN+="/usr/lib/gdm-runtime-config set daemon WaylandEnable false"
+# disable Wayland if modesetting is disabled
+IMPORT{cmdline}="nomodeset", RUN+="/usr/lib/gdm-runtime-config set daemon WaylandEnable false"
+```
+第二行表示如果检测到 NVIDIA 闭源驱动就关闭 Wayland，第三行则是如果没开启 Kernel Mode Setting 也关掉 Wayland。
+
+我猜大部分用户都没有第一行的设备，所以我建议直接 ln -s /dev/null /etc/udev/rules.d/61-gdm.rules 屏蔽掉这个文件。
+
+
+
+
 > ### 参考资料
 > [arch简明指南](https://arch.icekylin.online)  
 [archlinux wiki](https://wiki.archlinux.org/)  
