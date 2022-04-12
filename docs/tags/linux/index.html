@@ -18,7 +18,7 @@
 <link rel="mask-icon" href="https://hydroakri.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<meta name="generator" content="Hugo 0.95.0" />
+<meta name="generator" content="Hugo 0.96.0" />
 <link rel="alternate" type="application/rss+xml" href="https://hydroakri.github.io/tags/linux/index.xml">
 <noscript>
     <style>
@@ -124,6 +124,29 @@
 <header class="page-header">
   <h1>linux</h1>
 </header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>基于KVM的虚拟显卡透传技术
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>0.准备工作&amp;检查 显卡直通的前提条件是：
+ NVIDIA 独立显卡本身要具有视频输出功能 机身上至少有一个连接到独立显卡的视频接口 安装kvm虚拟机，具体步骤参照本博客archlinux安装或archlinux wiki  强烈建议阅读本文时参照下面几篇文章：
+PCI_passthrough_via_OVMF_ARCHLINUX wiki
+Optimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通
+vanities/GPU-Passthrough-Arch-Linux-to-Windows10 Public
+KVM-GPU-Passthrough
+Optimus笔记本虚拟机显卡直通
+1.1开始 1.1隔离独显 1.1.1引导镜像的编辑 运行 lspci -nn | grep NVIDIA，获得类似如下输出：
+01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) 编辑或创建/etc/modprobe.d/vfio.conf，内容书写
+options vfio-pci ids=10de:2520,10de:228e 修改/etc/mkinitcpio.conf，在MODULES里增加
+vfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.conf之中有modconf
+之后执行sudo mkinitcpio -P更新initramfs...</p>
+  </section>
+  <footer class="entry-footer"><span title='2022-04-12 22:56:27 +0800 CST'>April 12, 2022</span></footer>
+  <a class="entry-link" aria-label="post link to 基于KVM的虚拟显卡透传技术" href="https://hydroakri.github.io/posts/linux/passthrough/"></a>
+</article>
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>基于KVM的虚拟显卡透传技术 | Hydroakri&#39;s Blog</title>
+<meta name="keywords" content="linux" />
+<meta name="description" content="0.准备工作&amp;检查 显卡直通的前提条件是：
+ NVIDIA 独立显卡本身要具有视频输出功能 机身上至少有一个连接到独立显卡的视频接口 安装kvm虚拟机，具体步骤参照本博客archlinux安装或archlinux wiki  强烈建议阅读本文时参照下面几篇文章：
+PCI_passthrough_via_OVMF_ARCHLINUX wiki
+Optimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通
+vanities/GPU-Passthrough-Arch-Linux-to-Windows10 Public
+KVM-GPU-Passthrough
+Optimus笔记本虚拟机显卡直通
+1.1开始 1.1隔离独显 1.1.1引导镜像的编辑 运行 lspci -nn | grep NVIDIA，获得类似如下输出：
+01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) 编辑或创建/etc/modprobe.d/vfio.conf，内容书写
+options vfio-pci ids=10de:2520,10de:228e 修改/etc/mkinitcpio.conf，在MODULES里增加
+vfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.conf之中有modconf
+之后执行sudo mkinitcpio -P更新initramfs">
+<meta name="author" content="">
+<link rel="canonical" href="https://hydroakri.github.io/posts/linux/passthrough/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.4dcb3c4f38462f66c6b6137227726f5543cb934cca9788f041c087e374491df2.js" integrity="sha256-Tcs8TzhGL2bGthNyJ3JvVUPLk0zKl4jwQcCH43RJHfI="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://hydroakri.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://hydroakri.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://hydroakri.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://hydroakri.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://hydroakri.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.96.0" />
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="基于KVM的虚拟显卡透传技术" />
+<meta property="og:description" content="0.准备工作&amp;检查 显卡直通的前提条件是：
+ NVIDIA 独立显卡本身要具有视频输出功能 机身上至少有一个连接到独立显卡的视频接口 安装kvm虚拟机，具体步骤参照本博客archlinux安装或archlinux wiki  强烈建议阅读本文时参照下面几篇文章：
+PCI_passthrough_via_OVMF_ARCHLINUX wiki
+Optimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通
+vanities/GPU-Passthrough-Arch-Linux-to-Windows10 Public
+KVM-GPU-Passthrough
+Optimus笔记本虚拟机显卡直通
+1.1开始 1.1隔离独显 1.1.1引导镜像的编辑 运行 lspci -nn | grep NVIDIA，获得类似如下输出：
+01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) 编辑或创建/etc/modprobe.d/vfio.conf，内容书写
+options vfio-pci ids=10de:2520,10de:228e 修改/etc/mkinitcpio.conf，在MODULES里增加
+vfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.conf之中有modconf
+之后执行sudo mkinitcpio -P更新initramfs" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hydroakri.github.io/posts/linux/passthrough/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-12T22:56:27&#43;08:00" />
+<meta property="article:modified_time" content="2022-04-12T22:56:27&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="基于KVM的虚拟显卡透传技术"/>
+<meta name="twitter:description" content="0.准备工作&amp;检查 显卡直通的前提条件是：
+ NVIDIA 独立显卡本身要具有视频输出功能 机身上至少有一个连接到独立显卡的视频接口 安装kvm虚拟机，具体步骤参照本博客archlinux安装或archlinux wiki  强烈建议阅读本文时参照下面几篇文章：
+PCI_passthrough_via_OVMF_ARCHLINUX wiki
+Optimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通
+vanities/GPU-Passthrough-Arch-Linux-to-Windows10 Public
+KVM-GPU-Passthrough
+Optimus笔记本虚拟机显卡直通
+1.1开始 1.1隔离独显 1.1.1引导镜像的编辑 运行 lspci -nn | grep NVIDIA，获得类似如下输出：
+01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) 编辑或创建/etc/modprobe.d/vfio.conf，内容书写
+options vfio-pci ids=10de:2520,10de:228e 修改/etc/mkinitcpio.conf，在MODULES里增加
+vfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.conf之中有modconf
+之后执行sudo mkinitcpio -P更新initramfs"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://hydroakri.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "基于KVM的虚拟显卡透传技术",
+      "item": "https://hydroakri.github.io/posts/linux/passthrough/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "基于KVM的虚拟显卡透传技术",
+  "name": "基于KVM的虚拟显卡透传技术",
+  "description": "0.准备工作\u0026amp;检查 显卡直通的前提条件是：\n NVIDIA 独立显卡本身要具有视频输出功能 机身上至少有一个连接到独立显卡的视频接口 安装kvm虚拟机，具体步骤参照本博客archlinux安装或archlinux wiki  强烈建议阅读本文时参照下面几篇文章：\nPCI_passthrough_via_OVMF_ARCHLINUX wiki\nOptimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通\nvanities/GPU-Passthrough-Arch-Linux-to-Windows10 Public\nKVM-GPU-Passthrough\nOptimus笔记本虚拟机显卡直通\n1.1开始 1.1隔离独显 1.1.1引导镜像的编辑 运行 lspci -nn | grep NVIDIA，获得类似如下输出：\n01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) 编辑或创建/etc/modprobe.d/vfio.conf，内容书写\noptions vfio-pci ids=10de:2520,10de:228e 修改/etc/mkinitcpio.conf，在MODULES里增加\nvfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.conf之中有modconf\n之后执行sudo mkinitcpio -P更新initramfs",
+  "keywords": [
+    "linux"
+  ],
+  "articleBody": "0.准备工作\u0026检查 显卡直通的前提条件是：\n NVIDIA 独立显卡本身要具有视频输出功能 机身上至少有一个连接到独立显卡的视频接口 安装kvm虚拟机，具体步骤参照本博客archlinux安装或archlinux wiki  强烈建议阅读本文时参照下面几篇文章：\nPCI_passthrough_via_OVMF_ARCHLINUX wiki\nOptimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通\nvanities/GPU-Passthrough-Arch-Linux-to-Windows10 Public\nKVM-GPU-Passthrough\nOptimus笔记本虚拟机显卡直通\n1.1开始 1.1隔离独显 1.1.1引导镜像的编辑 运行 lspci -nn | grep NVIDIA，获得类似如下输出：\n01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) 编辑或创建/etc/modprobe.d/vfio.conf，内容书写\noptions vfio-pci ids=10de:2520,10de:228e 修改/etc/mkinitcpio.conf，在MODULES里增加\nvfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.conf之中有modconf\n之后执行sudo mkinitcpio -P更新initramfs\n1.1.2引导时内核参数的编辑 为了使iommu加载，还需要在引导选项中\n修改/etc/default/grub\n对于intel用户：\nGRUB_CMDLINE_LINUX_DEFAULT=\"quiet ... intel_iommu=on\" 对于amd用户\nGRUB_CMDLINE_LINUX_DEFAULT=\"quiet ... amd_iommu=on\" 然后构建grub引导 sudo grub-mkconfig -o /boot/grub/grub.cfg\n1.1.3重启后检查 运行lspci -nnk若输出中Kernel driver in use一行为vfio-pci则万事具备\n01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) DeviceName: NVIDIA Graphics Device Subsystem: Hewlett-Packard Company Device [103c:88d1] Kernel driver in use: vfio-pci Kernel modules: nouveau, nvidia_drm, nvidia 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) Subsystem: Hewlett-Packard Company Device [103c:88d1] Kernel driver in use: vfio-pci Kernel modules: snd_hda_intel 1.2准备一个虚拟机 之前文章已经说过了，在这不赘述了，在这里写一些可能遇到的问题\n1.2.1 BIOS的选择 在bios上建议选择UEFI,对显卡的支持好一些\n在安装前选择安装前配置，选择概览，芯片组选择Q35，固件选择/usr/share/edk2-ovmf/x64/OVMF_CODE.fd\n接着进入安装windows,别忘了给windows打上virtio-win的驱动\n1.2.2 如果你已经给windows安装了上了传统legacy bios 进入windows,以管理员权限运行\nmbr2gpt /convert /allowfullOS 之后将kvm的概览的xml中的os字段改为以下模样\n hvm /usr/share/edk2-ovmf/x64/OVMF_CODE.fd /var/lib/libvirt/qemu/nvram/win10_VARS.fd  1.3 虚拟机上的操作 先不着急添加直通显卡，先进入虚拟机安装对应的显卡驱动，然后重启\n在虚拟机上添加PCI主机设备把刚刚做过手脚的gpu选择上\n不出意外的话重启你竟然发现原来丝滑的鼠标突然不能用了\n已知的解决方法：\n 某宝购买kvm切换器，然后在 Virt-Manager 里选择添加硬件（Add Hardware） - USB 宿主设备（USB Host Device），选择你的鼠标键盘即可 Looking-glass或者scream,请自行参照官方文档安装配置 笔记本电脑有一套外接键鼠的话直接直通这一套键鼠，linux上使用触摸板和自带键盘  虚拟机性能优化 cpu 优化 在“CPUs”部分，将您的 CPU 型号更改为host-passthrough 然后打开手动设置CPU拓扑，保持套接字为1（这是为了让cpu能够减少内存交换的次数）\nio 优化 进入“添加硬件”并为“VirtIO SCSI”型号的SCSI驱动器添加控制器\n然后然后将默认 SATA 磁盘更改为SCSI磁盘，该磁盘将绑定到所述控制器。\ngrub里面添加hugepage参数 cpu固定 ",
+  "wordCount" : "208",
+  "inLanguage": "en",
+  "datePublished": "2022-04-12T22:56:27+08:00",
+  "dateModified": "2022-04-12T22:56:27+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://hydroakri.github.io/posts/linux/passthrough/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Hydroakri's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://hydroakri.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://hydroakri.github.io/" accesskey="h" title="Hydroakri&#39;s Blog (Alt + H)">Hydroakri&#39;s Blog</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://hydroakri.github.io/archives" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://hydroakri.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      基于KVM的虚拟显卡透传技术
+    </h1>
+    <div class="post-meta"><span title='2022-04-12 22:56:27 +0800 CST'>April 12, 2022</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h1 id="0准备工作检查">0.准备工作&amp;检查<a hidden class="anchor" aria-hidden="true" href="#0准备工作检查">#</a></h1>
+<p>显卡直通的前提条件是：</p>
+<ul>
+<li>NVIDIA 独立显卡本身要具有视频输出功能</li>
+<li>机身上至少有一个连接到独立显卡的视频接口</li>
+<li>安装kvm虚拟机，具体步骤参照本博客archlinux安装或archlinux wiki</li>
+</ul>
+<p>强烈建议阅读本文时参照下面几篇文章：<br>
+<a href="https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E7%A1%AC%E4%BB%B6%E8%A6%81%E6%B1%82">PCI_passthrough_via_OVMF_ARCHLINUX wiki</a><br>
+<a href="https://lantian.pub/article/modify-computer/laptop-muxed-nvidia-passthrough.lantian/">Optimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通</a><br>
+<a href="https://github.com/vanities/GPU-Passthrough-Arch-Linux-to-Windows10">vanities/GPU-Passthrough-Arch-Linux-to-Windows10
+Public</a><br>
+<a href="https://github.com/BigAnteater/KVM-GPU-Passthrough">
+KVM-GPU-Passthrough</a><br>
+<a href="https://www.bwsl.wang/script/119.html">Optimus笔记本虚拟机显卡直通</a></p>
+<h1 id="11开始">1.1开始<a hidden class="anchor" aria-hidden="true" href="#11开始">#</a></h1>
+<h2 id="11隔离独显">1.1隔离独显<a hidden class="anchor" aria-hidden="true" href="#11隔离独显">#</a></h2>
+<h3 id="111引导镜像的编辑">1.1.1引导镜像的编辑<a hidden class="anchor" aria-hidden="true" href="#111引导镜像的编辑">#</a></h3>
+<p>运行 <code>lspci -nn | grep NVIDIA</code>，获得类似如下输出：</p>
+<pre tabindex="0"><code>01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1)
+01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1)
+</code></pre><p>编辑或创建<code>/etc/modprobe.d/vfio.conf</code>，内容书写</p>
+<pre tabindex="0"><code>options vfio-pci ids=10de:2520,10de:228e
+</code></pre><p>修改<code>/etc/mkinitcpio.conf</code>，在<strong>MODULES</strong>里增加</p>
+<pre tabindex="0"><code>vfio_pci vfio vfio_iommu_type1 vfio_virqfd
+</code></pre><p>还需要确保<code>/etc/mkinitcpio.conf</code>之中有<code>modconf</code><br>
+之后执行<code>sudo mkinitcpio -P</code>更新initramfs</p>
+<h3 id="112引导时内核参数的编辑">1.1.2引导时内核参数的编辑<a hidden class="anchor" aria-hidden="true" href="#112引导时内核参数的编辑">#</a></h3>
+<p>为了使iommu加载，还需要在引导选项中<br>
+修改<code>/etc/default/grub</code><br>
+对于intel用户：</p>
+<pre tabindex="0"><code>GRUB_CMDLINE_LINUX_DEFAULT=&#34;quiet ... intel_iommu=on&#34;
+</code></pre><p>对于amd用户</p>
+<pre tabindex="0"><code>GRUB_CMDLINE_LINUX_DEFAULT=&#34;quiet ... amd_iommu=on&#34;
+</code></pre><p>然后构建grub引导
+<code>sudo grub-mkconfig -o /boot/grub/grub.cfg</code></p>
+<h3 id="113重启后检查">1.1.3重启后检查<a hidden class="anchor" aria-hidden="true" href="#113重启后检查">#</a></h3>
+<p>运行<code>lspci -nnk</code>若输出中<code>Kernel driver in use</code>一行为<code>vfio-pci</code>则万事具备</p>
+<pre tabindex="0"><code>01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1)
+	DeviceName: NVIDIA Graphics Device
+	Subsystem: Hewlett-Packard Company Device [103c:88d1]
+	Kernel driver in use: vfio-pci
+	Kernel modules: nouveau, nvidia_drm, nvidia
+01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1)
+	Subsystem: Hewlett-Packard Company Device [103c:88d1]
+	Kernel driver in use: vfio-pci
+	Kernel modules: snd_hda_intel
+</code></pre><h2 id="12准备一个虚拟机">1.2准备一个虚拟机<a hidden class="anchor" aria-hidden="true" href="#12准备一个虚拟机">#</a></h2>
+<p>之前文章已经说过了，在这不赘述了，在这里写一些可能遇到的问题</p>
+<h3 id="121-bios的选择">1.2.1 BIOS的选择<a hidden class="anchor" aria-hidden="true" href="#121-bios的选择">#</a></h3>
+<p>在bios上建议选择UEFI,对显卡的支持好一些<br>
+在<strong>安装前</strong>选择安装前配置，选择<code>概览</code>，<code>芯片组</code>选择<code>Q35</code>，<code>固件</code>选择<code>/usr/share/edk2-ovmf/x64/OVMF_CODE.fd</code><br>
+接着进入安装windows,别忘了给windows打上<code>virtio-win</code>的驱动</p>
+<h3 id="122-如果你已经给windows安装了上了传统legacy-bios">1.2.2 如果你已经给windows安装了上了传统legacy bios<a hidden class="anchor" aria-hidden="true" href="#122-如果你已经给windows安装了上了传统legacy-bios">#</a></h3>
+<p>进入windows,以管理员权限运行</p>
+<pre tabindex="0"><code>mbr2gpt /convert /allowfullOS
+</code></pre><p>之后将kvm的<code>概览</code>的xml中的<code>os</code>字段改为以下模样</p>
+<pre tabindex="0"><code>&lt;os&gt;
+    &lt;type arch=&#34;x86_64&#34; machine=&#34;pc-q35-6.2&#34;&gt;hvm&lt;/type&gt;
+    &lt;loader readonly=&#34;yes&#34; type=&#34;pflash&#34;&gt;/usr/share/edk2-ovmf/x64/OVMF_CODE.fd&lt;/loader&gt;
+    &lt;nvram&gt;/var/lib/libvirt/qemu/nvram/win10_VARS.fd&lt;/nvram&gt;
+    &lt;boot dev=&#34;hd&#34;/&gt;
+&lt;/os&gt;
+</code></pre><h2 id="13-虚拟机上的操作">1.3 虚拟机上的操作<a hidden class="anchor" aria-hidden="true" href="#13-虚拟机上的操作">#</a></h2>
+<p>先不着急添加直通显卡，先进入虚拟机安装对应的显卡驱动，然后重启<br>
+在虚拟机上添加<code>PCI主机设备</code>把刚刚做过手脚的gpu选择上<br>
+不出意外的话重启你竟然发现原来丝滑的鼠标突然不能用了<br>
+已知的解决方法：</p>
+<ul>
+<li>某宝购买kvm切换器，然后在 Virt-Manager 里选择添加硬件（Add Hardware） - USB 宿主设备（USB Host Device），选择你的鼠标键盘即可</li>
+<li>Looking-glass或者scream,请自行参照官方文档安装配置</li>
+<li>笔记本电脑有一套外接键鼠的话直接直通这一套键鼠，linux上使用触摸板和自带键盘</li>
+</ul>
+<h1 id="虚拟机性能优化">虚拟机性能优化<a hidden class="anchor" aria-hidden="true" href="#虚拟机性能优化">#</a></h1>
+<h2 id="cpu-优化">cpu 优化<a hidden class="anchor" aria-hidden="true" href="#cpu-优化">#</a></h2>
+<p>在“CPUs”部分，将您的 CPU 型号更改为<code>host-passthrough</code>
+然后打开<code>手动设置CPU拓扑</code>，保持<code>套接字</code>为<code>1</code>（这是为了让cpu能够减少内存交换的次数）</p>
+<h2 id="io-优化">io 优化<a hidden class="anchor" aria-hidden="true" href="#io-优化">#</a></h2>
+<p>进入“添加硬件”并为“VirtIO SCSI”型号的<strong>SCSI驱动器添加控制器</strong><br>
+然后然后将默认 SATA 磁盘更改为SCSI磁盘，该磁盘将绑定到所述控制器。</p>
+<h2 id="grub里面添加hugepage参数">grub里面添加hugepage参数<a hidden class="anchor" aria-hidden="true" href="#grub里面添加hugepage参数">#</a></h2>
+<h2 id="cpu固定">cpu固定<a hidden class="anchor" aria-hidden="true" href="#cpu固定">#</a></h2>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://hydroakri.github.io/tags/linux/">linux</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://hydroakri.github.io/">Hydroakri&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
