@@ -18,7 +18,7 @@
 <link rel="mask-icon" href="https://hydroakri.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<meta name="generator" content="Hugo 0.96.0" />
+<meta name="generator" content="Hugo 0.105.0">
 <link rel="alternate" type="application/rss+xml" href="https://hydroakri.github.io/tags/linux/index.xml">
 <noscript>
     <style>
@@ -132,7 +132,7 @@
   </header>
   <section class="entry-content">
     <p>0.准备工作&amp;检查 显卡直通的前提条件是：
- NVIDIA 独立显卡本身要具有视频输出功能 机身上至少有一个连接到独立显卡的视频接口 安装kvm虚拟机，具体步骤参照本博客archlinux安装或archlinux wiki  强烈建议阅读本文时参照下面几篇文章：
+NVIDIA 独立显卡本身要具有视频输出功能 机身上至少有一个连接到独立显卡的视频接口 安装kvm虚拟机，具体步骤参照本博客archlinux安装或archlinux wiki 强烈建议阅读本文时参照下面几篇文章：
 PCI_passthrough_via_OVMF_ARCHLINUX wiki
 Optimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通
 vanities/GPU-Passthrough-Arch-Linux-to-Windows10 Public
@@ -142,7 +142,8 @@ Optimus笔记本虚拟机显卡直通
 01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) 编辑或创建/etc/modprobe.d/vfio.conf，内容书写
 options vfio-pci ids=10de:2520,10de:228e 修改/etc/mkinitcpio.conf，在MODULES里增加
 vfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.conf之中有modconf
-之后执行sudo mkinitcpio -P更新initramfs...</p>
+之后执行sudo mkinitcpio -P更新initramfs
+1.1.2引导时内核参数的编辑 为了使iommu加载，还需要在引导选项中...</p>
   </section>
   <footer class="entry-footer"><span title='2022-04-12 22:56:27 +0800 CST'>April 12, 2022</span></footer>
   <a class="entry-link" aria-label="post link to 基于KVM的虚拟显卡透传技术" href="https://hydroakri.github.io/posts/linux/passthrough/"></a>
@@ -164,15 +165,15 @@ A：小问题，在grub选择页面按 e 然后在 linux 那一行的最后加�
 一切顺利的话就会看到红色的archiso 接着我们输入：
 archinstall 注意：archinstall 仅支持 UEFI 系统
 按照安装脚本给出的提示即可，这里提一些值得注意的
- ssd固态硬盘用户建议使用brtfs文件系统 时区手动输入的话是Asia/Shanghai 要让你的系统支持休眠/睡眠的话就要让zram的大小&gt;=物理内存  安装完成后他会询问你是否要立即重启，此时你安装的如果是nvidia的闭源驱动，我们不要立刻重启
+ssd固态硬盘用户建议使用brtfs文件系统 时区手动输入的话是Asia/Shanghai 要让你的系统支持休眠/睡眠的话就要让zram的大小&gt;=物理内存 安装完成后他会询问你是否要立即重启，此时你安装的如果是nvidia的闭源驱动，我们不要立刻重启
 在/etc/modprobe.d/下面新建.conf结尾的配置文件屏蔽内核中自带的nouveau开源驱动
 操作如下：
 cd /etc/modprobe.d/ nano blacklist.conf #系统只识别.conf的文件，所以文件名随意 添加内容如下：
- blacklist nouveau blacklist lbm-nouveau options nouveau modeset=0 即可重启
+blacklist nouveau blacklist lbm-nouveau options nouveau modeset=0 即可重启
 配置 amdgpu核芯显卡&#43;nvidia私有驱动（非独显直连）配置混合模式 并不需要bumblebee/optimus-manager/nvidia-xrun这种切换工具
 根据PRIME-Archwiki英文页面的说法
 先识别集成GPU BusID 得到以下结果
-lspci | grep -i VGA ----------------------------------------- 01:00.0 VGA compatible controller: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] (rev a1) 06:00....</p>
+lspci | grep -i VGA ----------------------------------------- 01:00.0 VGA compatible controller: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] (rev a1) 06:00.0 VGA compatible controller: Advanced Micro Devices, Inc....</p>
   </section>
   <footer class="entry-footer"><span title='2022-02-17 00:56:27 +0800 CST'>February 17, 2022</span></footer>
   <a class="entry-link" aria-label="post link to Archlinux安装小记" href="https://hydroakri.github.io/posts/linux/archlinux/"></a>
