@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:100,300,400,500,700,900">
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-webfont/1.6.0/style.css" />
+    <!-- 没有Lite version, 有需要的可以向cdnjs发pr看看能不能通过-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-lite-webfont@1.1.0/style.css" />
+    <!-- 没有TC version, 有需要的可以向cdnjs发pr看看能不能通过-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-tc-webfont@1.0.0/style.css" />
+    <!-- Screen version -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/style.css" />
+    <style>
+        p{text-align: center;}
+        body {
+            /* font-family: 'Noto Serif SC', serif; */
+            font-weight: 100;
+
+
+            font-family: "LXGW WenKai", sans-serif;
+
+
+        }
+    </style>
+    <meta charset="utf-8">
+    <title>排版生成器</title>
+</head>
+
+<body>
+    <!-- <button id="btn">生成</button>
+    <textarea id="ta" style="position:absolute; left:200px; top:20px; right:100px; width: 100%; height: 100px; resize: both;">我是一个文本框。</textarea>
+    <div>
+        <canvas id="myCanvas" width="900" height="1600"></canvas>
+    </div> -->
+    <input type="color" id="clr">
+    <p contenteditable="true" id="para">这是一个可编辑段落。</p>
+</body>
+
+<script>
+    // var canvas = document.getElementById('myCanvas'),
+    // ctx = canvas.getContext('2d'),
+    // font = '2000px Noto Serif SC',
+    // hasInput = false;
+    // document.getElementById("btn").onclick = update_ta;
+    // function update_ta() {
+    //     canvas.width = canvas.width;
+    //     var x = document.getElementById("ta").value;
+    //     ctx.fillText(x, 10, 50);
+    // }
+
+    const bgclr = document.getElementById("clr");
+    bgclr.addEventListener("input", () => {
+        document.body.style.backgroundColor = bgclr.value;
+    });
+
+    const para = document.getElementById("para");
+    
+
+
+
+</script>
+
+</html>
