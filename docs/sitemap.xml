@@ -2,26 +2,29 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://hydroakri.github.io/</loc>
+    <lastmod>2023-02-14T13:56:27+08:00</lastmod>
+  </url><url>
+    <loc>https://hydroakri.github.io/tags/linux/</loc>
+    <lastmod>2023-02-14T13:56:27+08:00</lastmod>
+  </url><url>
+    <loc>https://hydroakri.github.io/posts/</loc>
+    <lastmod>2023-02-14T13:56:27+08:00</lastmod>
+  </url><url>
+    <loc>https://hydroakri.github.io/tags/</loc>
+    <lastmod>2023-02-14T13:56:27+08:00</lastmod>
+  </url><url>
+    <loc>https://hydroakri.github.io/posts/linux/syssetings/</loc>
+    <lastmod>2023-02-14T13:56:27+08:00</lastmod>
+  </url><url>
     <loc>https://hydroakri.github.io/posts/cpp/stringtochar/</loc>
     <lastmod>2022-11-11T20:31:27+08:00</lastmod>
   </url><url>
     <loc>https://hydroakri.github.io/tags/cpp/</loc>
     <lastmod>2022-11-11T20:31:27+08:00</lastmod>
   </url><url>
-    <loc>https://hydroakri.github.io/</loc>
-    <lastmod>2022-11-11T20:31:27+08:00</lastmod>
-  </url><url>
     <loc>https://hydroakri.github.io/tags/leetcode/</loc>
     <lastmod>2022-11-11T20:31:27+08:00</lastmod>
-  </url><url>
-    <loc>https://hydroakri.github.io/posts/</loc>
-    <lastmod>2022-11-11T20:31:27+08:00</lastmod>
-  </url><url>
-    <loc>https://hydroakri.github.io/tags/</loc>
-    <lastmod>2022-11-11T20:31:27+08:00</lastmod>
-  </url><url>
-    <loc>https://hydroakri.github.io/tags/linux/</loc>
-    <lastmod>2022-04-12T22:56:27+08:00</lastmod>
   </url><url>
     <loc>https://hydroakri.github.io/posts/linux/passthrough/</loc>
     <lastmod>2022-04-12T22:56:27+08:00</lastmod>
