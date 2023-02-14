@@ -75,6 +75,7 @@ or
 ----------------------------------
 PARTUUID=86db5b09-ce0d-4341-9773-fb2d39fddaad zswap.enabled=0 rootflags=subvol=@ rw rootfstype=btrfs radeon.dpm=1 resume=/dev/zram0
 ```
+关闭zswap,使用zram
 
 ## 开机自动加载bbr模块
 ```
