@@ -111,3 +111,7 @@ Section "Device"
 	Driver "amdgpu"
 EndSection
 ```
+
+## 休眠相关
+如果n卡用户休眠睡死请检查是否启用**对应**的服务
+`sudo systemctl enable nvidia-suspend.service`
