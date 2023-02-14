@@ -37,7 +37,7 @@ WLR_NO_HARDWARE_CURSORS=1
 #WLR_RENDERER=vulkan
 
 #for obs on wayland(to use pipewire screen capture)
-QT_QPA_PLATFORM=wayland
+QT_QPA_PLATFORM="wayland;xcb"
 #for firefox on wayland
 MOZ_ENABLE_WAYLAND=1
 #FOR QT THEME
