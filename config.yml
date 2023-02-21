@@ -1,0 +1,41 @@
+baseURL: 'https://hydroakri.github.io/'
+languageCode: 'zh-cn'
+title: "Hydroakri's Blog"
+theme: "PaperMod"
+publishDir: 'docs'
+paginate: '5'
+
+menu:
+  main:
+    - identifier: Tags
+      name: Tags
+      url: /Tags/
+      weight: 20
+    - identifier: archives
+      name: Archives
+      url: archives
+      weight: 20
+
+params:
+  profileMode:
+    enabled: true
+    title: "<Title>" # optional default will be site title
+    subtitle: "与太阳共燃的内在性"
+    imageUrl: "https://img2.doubanio.com/icon/ul265151065.jpg" # optional
+    buttons:
+      - name: Archives
+        url: "/archives"
+
+  socialIcons: # optional
+        - name: github
+          url: "https://github.com/hydroakri"
+        - name: "lastfm"
+          url: "https://www.last.fm/user/hydroakri"
+        - name: "steam"
+          url: "https://steamcommunity.com/id/hydroakri"
+        - name: "qq"
+          url: "https://qm.qq.com/cgi-bin/qm/qr?k=lOkoiWANVJYuKaArCStQTFjjzfxpmc9V&noverify=0&personal_qrcode_source=3"
+        - name: twitter
+          url: "https://twitter.com/ihbswsy"
+        - name: "bilibili"
+          url: "https://space.bilibili.com/4912217"
