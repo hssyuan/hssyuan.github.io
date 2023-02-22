@@ -6,14 +6,37 @@
     <description>Recent content in Posts on Hydroakri&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 21 Feb 2023 17:00:27 +0800</lastBuildDate><atom:link href="https://hydroakri.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 22 Feb 2023 11:11:27 +0800</lastBuildDate><atom:link href="https://hydroakri.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>我的常用开源软件生态</title>
+      <link>https://hydroakri.github.io/posts/linux/apps/</link>
+      <pubDate>Wed, 22 Feb 2023 11:11:27 +0800</pubDate>
+      
+      <guid>https://hydroakri.github.io/posts/linux/apps/</guid>
+      <description> 我的电脑双硬盘双系统，使用Windows 11 + ArchLinux
+在Windows上使用 scoop + winget / Archlinux 下使用 paru+pacman
+我尽可能使用开源/免费
+全平台 网络加速：Watt Toolkit
+提供了多网站的网络加速 不局限于steam 我一般用来加速github 和 steam 编辑器：Neovim
+编辑器之神 没什么好说的 本地视频播放： mpv
+轻巧的一款本地播放器 支持字幕 我拿它来放电影看 视频录制：OBS 手机投屏：scrcpy
+基于命令行 连上手机开启adb调试以后敲命令就行 没有多余的依赖 流媒体：YesPlayMusic（网易云）,Cider(Apple Music),Spotify
+用 YesPlayMusic 多一点，因为它有原版网易云不支持的“连接到Last.FM”功能 GIT：LazyGit
+我的水平还不足以完全开发这个软件 不常用 配置文件管理：GNU STOW
+非常好用的配置文件管理，用软连接的方式链接到文件所在位置，源文件集中在一起，非常方便 系统监视器：Btop/Bottom 截图：Flameshot
+上游还没修Wayland下面的bug TAT 种子下载：Motrix
+非常好用 自带tracker list 即使它是electron我用能接受 代码分享：Silicon 终端：wezterm 密码管理：KeepassXC 隔空投送：Localsend
+好用，尤其是在AP隔离的校园网环境下 Linux Linux only 的软件我放在了我的Dotfile 仓库的介绍里面
+Windows 把Windows 11 改为10的模样：ExplorerPatcher 使游戏窗口全屏显示：Magpie 管理“此电脑”里删不掉的流氓“快捷方式”：MyComputerManager 平铺管理器：komorebi 系统优化：optimizer, Dism++ 让Windows拥有macOS的触发角功能: hotcorner Windows免费激活：Microsoft-Activation-Scripts 系统信息：systeminformer 桌面文件夹整理：TaskbarX 内存优化：memreduct WSL管理：LxRunOffline BTRFS: btrfs </description>
+    </item>
+    
     <item>
       <title>在世界中心呼唤爱的野兽</title>
       <link>https://hydroakri.github.io/posts/misc/beast/</link>
       <pubDate>Tue, 21 Feb 2023 17:00:27 +0800</pubDate>
       
       <guid>https://hydroakri.github.io/posts/misc/beast/</guid>
-      <description>The Beast that Shouted Love at the Heart of the World （美）埃里森 哈兰 1969 我不拥有这篇文章/译文的版权。我不会因此获利，所有功劳归作者所有。此视频仅用于宣传目的，将应合法所有者的要求删除。
+      <description>The Beast that Shouted Love at the Heart of the World （美）埃里森 哈兰 1969 我不拥有这篇文章/译文的版权。我不会因此获利，所有功劳归作者所有。此仅用于宣传目的，将应合法所有者的要求删除。
 威廉-斯特罗格住在巴尔的摩市的罗克斯顿区。每个月，除虫员都会照例来他家外的草坪喷洒除虫药剂。这一天，在与除虫员短暂地闲聊了一会儿以后，威廉-斯特罗格悄悄地从他的大卡车上偷取了一小罐马拉西昂———一种剧毒杀虫药。几天后的一个早上，威廉-斯特罗格跟在送牛奶工人的后面，将马拉西昂沿路倒进了七十多户人家的牛奶瓶中。六小时内，200多号人（包括女人和小孩）在痛苦的痉挛中绝望死去。
 接下来，在听闻自己那个住在布法罗的姨妈死于淋巴癌之后，威廉-斯特罗格急忙忙地把母亲的行李打包好将她送上了探望姨妈的飞机。他用一个韦斯特克罗克牌闹钟和四卷炸药做了一个简单却威力十足的定时炸弹，就放在她老母亲的那只三层小行李箱里。那架飞机在哈里斯堡到宾夕法尼亚中的半途爆炸了，总共有93个人在爆炸中丧生，其中也包括威廉-斯特罗格的老母亲。飞机着火的残骸坠入了一个公共泳池，又造成七个人意外死去。
 十一月的一个星期日，威廉-斯特罗格跑到33街的宝贝罗斯广场，和54000个观众一起涌入体育场观看巴尔的摩小驹对决绿湾工人队的比赛。在他的兜帽大衣下，他穿着一条厚实的灰色法兰绒运动长裤、一件海蓝色的高领毛衣和一件手工编织的爱尔兰羊绒套衫。第四节还剩下3分钟13秒时，比赛进入关键时刻，巴尔的摩小驹队以16：17紧咬比分，并在绿湾工人队的十八码线外发动了进攻。就在这时，斯特罗格挤着人群走出来走到座位上边的出口过道上，从他那兜帽大衣里笨拙地拿出一把美国陆军里流出来的M-3冲锋枪——那枪是他花了49.95美元从维吉尼亚州亚历山大的一个军火商买进 ，邮递寄来的。这时全场那另外53999名观众正踮起脚来欢呼观看，没有一个人注意到他——球正传到四分卫手上，他正准备突破防守发动一次极有可能成功的进球——这让斯特罗格开火瞄准变得更加容易了。他朝着下方那些观众的后背恣意地开火。直到愤怒的人群将他扑倒时，已经有45个人死在他的枪下。

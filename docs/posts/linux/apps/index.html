@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>我的常用开源软件生态 | Hydroakri&#39;s Blog</title>
+<meta name="keywords" content="linux" />
+<meta name="description" content=" 我的电脑双硬盘双系统，使用Windows 11 &#43; ArchLinux
+在Windows上使用 scoop &#43; winget / Archlinux 下使用 paru&#43;pacman
+我尽可能使用开源/免费
+全平台 网络加速：Watt Toolkit
+提供了多网站的网络加速 不局限于steam 我一般用来加速github 和 steam 编辑器：Neovim
+编辑器之神 没什么好说的 本地视频播放： mpv
+轻巧的一款本地播放器 支持字幕 我拿它来放电影看 视频录制：OBS 手机投屏：scrcpy
+基于命令行 连上手机开启adb调试以后敲命令就行 没有多余的依赖 流媒体：YesPlayMusic（网易云）,Cider(Apple Music),Spotify
+用 YesPlayMusic 多一点，因为它有原版网易云不支持的“连接到Last.FM”功能 GIT：LazyGit
+我的水平还不足以完全开发这个软件 不常用 配置文件管理：GNU STOW
+非常好用的配置文件管理，用软连接的方式链接到文件所在位置，源文件集中在一起，非常方便 系统监视器：Btop/Bottom 截图：Flameshot
+上游还没修Wayland下面的bug TAT 种子下载：Motrix
+非常好用 自带tracker list 即使它是electron我用能接受 代码分享：Silicon 终端：wezterm 密码管理：KeepassXC 隔空投送：Localsend
+好用，尤其是在AP隔离的校园网环境下 Linux Linux only 的软件我放在了我的Dotfile 仓库的介绍里面
+Windows 把Windows 11 改为10的模样：ExplorerPatcher 使游戏窗口全屏显示：Magpie 管理“此电脑”里删不掉的流氓“快捷方式”：MyComputerManager 平铺管理器：komorebi 系统优化：optimizer, Dism&#43;&#43; 让Windows拥有macOS的触发角功能: hotcorner Windows免费激活：Microsoft-Activation-Scripts 系统信息：systeminformer 桌面文件夹整理：TaskbarX 内存优化：memreduct WSL管理：LxRunOffline BTRFS: btrfs ">
+<meta name="author" content="">
+<link rel="canonical" href="https://hydroakri.github.io/posts/linux/apps/" />
+<link crossorigin="anonymous" href="/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.min.b95bacdc39e37a332a9f883b1e78be4abc1fdca2bc1f2641f55e3cd3dabd4d61.js" integrity="sha256-uVus3DnjejMqn4g7Hni&#43;Srwf3KK8HyZB9V4809q9TWE="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://hydroakri.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://hydroakri.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://hydroakri.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://hydroakri.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://hydroakri.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.110.0">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="我的常用开源软件生态" />
+<meta property="og:description" content=" 我的电脑双硬盘双系统，使用Windows 11 &#43; ArchLinux
+在Windows上使用 scoop &#43; winget / Archlinux 下使用 paru&#43;pacman
+我尽可能使用开源/免费
+全平台 网络加速：Watt Toolkit
+提供了多网站的网络加速 不局限于steam 我一般用来加速github 和 steam 编辑器：Neovim
+编辑器之神 没什么好说的 本地视频播放： mpv
+轻巧的一款本地播放器 支持字幕 我拿它来放电影看 视频录制：OBS 手机投屏：scrcpy
+基于命令行 连上手机开启adb调试以后敲命令就行 没有多余的依赖 流媒体：YesPlayMusic（网易云）,Cider(Apple Music),Spotify
+用 YesPlayMusic 多一点，因为它有原版网易云不支持的“连接到Last.FM”功能 GIT：LazyGit
+我的水平还不足以完全开发这个软件 不常用 配置文件管理：GNU STOW
+非常好用的配置文件管理，用软连接的方式链接到文件所在位置，源文件集中在一起，非常方便 系统监视器：Btop/Bottom 截图：Flameshot
+上游还没修Wayland下面的bug TAT 种子下载：Motrix
+非常好用 自带tracker list 即使它是electron我用能接受 代码分享：Silicon 终端：wezterm 密码管理：KeepassXC 隔空投送：Localsend
+好用，尤其是在AP隔离的校园网环境下 Linux Linux only 的软件我放在了我的Dotfile 仓库的介绍里面
+Windows 把Windows 11 改为10的模样：ExplorerPatcher 使游戏窗口全屏显示：Magpie 管理“此电脑”里删不掉的流氓“快捷方式”：MyComputerManager 平铺管理器：komorebi 系统优化：optimizer, Dism&#43;&#43; 让Windows拥有macOS的触发角功能: hotcorner Windows免费激活：Microsoft-Activation-Scripts 系统信息：systeminformer 桌面文件夹整理：TaskbarX 内存优化：memreduct WSL管理：LxRunOffline BTRFS: btrfs " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hydroakri.github.io/posts/linux/apps/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-02-22T11:11:27&#43;08:00" />
+<meta property="article:modified_time" content="2023-02-22T11:11:27&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="我的常用开源软件生态"/>
+<meta name="twitter:description" content=" 我的电脑双硬盘双系统，使用Windows 11 &#43; ArchLinux
+在Windows上使用 scoop &#43; winget / Archlinux 下使用 paru&#43;pacman
+我尽可能使用开源/免费
+全平台 网络加速：Watt Toolkit
+提供了多网站的网络加速 不局限于steam 我一般用来加速github 和 steam 编辑器：Neovim
+编辑器之神 没什么好说的 本地视频播放： mpv
+轻巧的一款本地播放器 支持字幕 我拿它来放电影看 视频录制：OBS 手机投屏：scrcpy
+基于命令行 连上手机开启adb调试以后敲命令就行 没有多余的依赖 流媒体：YesPlayMusic（网易云）,Cider(Apple Music),Spotify
+用 YesPlayMusic 多一点，因为它有原版网易云不支持的“连接到Last.FM”功能 GIT：LazyGit
+我的水平还不足以完全开发这个软件 不常用 配置文件管理：GNU STOW
+非常好用的配置文件管理，用软连接的方式链接到文件所在位置，源文件集中在一起，非常方便 系统监视器：Btop/Bottom 截图：Flameshot
+上游还没修Wayland下面的bug TAT 种子下载：Motrix
+非常好用 自带tracker list 即使它是electron我用能接受 代码分享：Silicon 终端：wezterm 密码管理：KeepassXC 隔空投送：Localsend
+好用，尤其是在AP隔离的校园网环境下 Linux Linux only 的软件我放在了我的Dotfile 仓库的介绍里面
+Windows 把Windows 11 改为10的模样：ExplorerPatcher 使游戏窗口全屏显示：Magpie 管理“此电脑”里删不掉的流氓“快捷方式”：MyComputerManager 平铺管理器：komorebi 系统优化：optimizer, Dism&#43;&#43; 让Windows拥有macOS的触发角功能: hotcorner Windows免费激活：Microsoft-Activation-Scripts 系统信息：systeminformer 桌面文件夹整理：TaskbarX 内存优化：memreduct WSL管理：LxRunOffline BTRFS: btrfs "/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://hydroakri.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "我的常用开源软件生态",
+      "item": "https://hydroakri.github.io/posts/linux/apps/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "我的常用开源软件生态",
+  "name": "我的常用开源软件生态",
+  "description": " 我的电脑双硬盘双系统，使用Windows 11 + ArchLinux\n在Windows上使用 scoop + winget / Archlinux 下使用 paru+pacman\n我尽可能使用开源/免费\n全平台 网络加速：Watt Toolkit\n提供了多网站的网络加速 不局限于steam 我一般用来加速github 和 steam 编辑器：Neovim\n编辑器之神 没什么好说的 本地视频播放： mpv\n轻巧的一款本地播放器 支持字幕 我拿它来放电影看 视频录制：OBS 手机投屏：scrcpy\n基于命令行 连上手机开启adb调试以后敲命令就行 没有多余的依赖 流媒体：YesPlayMusic（网易云）,Cider(Apple Music),Spotify\n用 YesPlayMusic 多一点，因为它有原版网易云不支持的“连接到Last.FM”功能 GIT：LazyGit\n我的水平还不足以完全开发这个软件 不常用 配置文件管理：GNU STOW\n非常好用的配置文件管理，用软连接的方式链接到文件所在位置，源文件集中在一起，非常方便 系统监视器：Btop/Bottom 截图：Flameshot\n上游还没修Wayland下面的bug TAT 种子下载：Motrix\n非常好用 自带tracker list 即使它是electron我用能接受 代码分享：Silicon 终端：wezterm 密码管理：KeepassXC 隔空投送：Localsend\n好用，尤其是在AP隔离的校园网环境下 Linux Linux only 的软件我放在了我的Dotfile 仓库的介绍里面\nWindows 把Windows 11 改为10的模样：ExplorerPatcher 使游戏窗口全屏显示：Magpie 管理“此电脑”里删不掉的流氓“快捷方式”：MyComputerManager 平铺管理器：komorebi 系统优化：optimizer, Dism++ 让Windows拥有macOS的触发角功能: hotcorner Windows免费激活：Microsoft-Activation-Scripts 系统信息：systeminformer 桌面文件夹整理：TaskbarX 内存优化：memreduct WSL管理：LxRunOffline BTRFS: btrfs ",
+  "keywords": [
+    "linux"
+  ],
+  "articleBody": " 我的电脑双硬盘双系统，使用Windows 11 + ArchLinux\n在Windows上使用 scoop + winget / Archlinux 下使用 paru+pacman\n我尽可能使用开源/免费\n全平台 网络加速：Watt Toolkit\n提供了多网站的网络加速 不局限于steam 我一般用来加速github 和 steam 编辑器：Neovim\n编辑器之神 没什么好说的 本地视频播放： mpv\n轻巧的一款本地播放器 支持字幕 我拿它来放电影看 视频录制：OBS 手机投屏：scrcpy\n基于命令行 连上手机开启adb调试以后敲命令就行 没有多余的依赖 流媒体：YesPlayMusic（网易云）,Cider(Apple Music),Spotify\n用 YesPlayMusic 多一点，因为它有原版网易云不支持的“连接到Last.FM”功能 GIT：LazyGit\n我的水平还不足以完全开发这个软件 不常用 配置文件管理：GNU STOW\n非常好用的配置文件管理，用软连接的方式链接到文件所在位置，源文件集中在一起，非常方便 系统监视器：Btop/Bottom 截图：Flameshot\n上游还没修Wayland下面的bug TAT 种子下载：Motrix\n非常好用 自带tracker list 即使它是electron我用能接受 代码分享：Silicon 终端：wezterm 密码管理：KeepassXC 隔空投送：Localsend\n好用，尤其是在AP隔离的校园网环境下 Linux Linux only 的软件我放在了我的Dotfile 仓库的介绍里面\nWindows 把Windows 11 改为10的模样：ExplorerPatcher 使游戏窗口全屏显示：Magpie 管理“此电脑”里删不掉的流氓“快捷方式”：MyComputerManager 平铺管理器：komorebi 系统优化：optimizer, Dism++ 让Windows拥有macOS的触发角功能: hotcorner Windows免费激活：Microsoft-Activation-Scripts 系统信息：systeminformer 桌面文件夹整理：TaskbarX 内存优化：memreduct WSL管理：LxRunOffline BTRFS: btrfs ",
+  "wordCount" : "82",
+  "inLanguage": "en",
+  "datePublished": "2023-02-22T11:11:27+08:00",
+  "dateModified": "2023-02-22T11:11:27+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://hydroakri.github.io/posts/linux/apps/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Hydroakri's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://hydroakri.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://hydroakri.github.io/" accesskey="h" title="Hydroakri&#39;s Blog (Alt + H)">Hydroakri&#39;s Blog</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://hydroakri.github.io/archives" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://hydroakri.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      我的常用开源软件生态
+    </h1>
+    <div class="post-meta"><span title='2023-02-22 11:11:27 +0800 CST'>February 22, 2023</span>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%85%a8%e5%b9%b3%e5%8f%b0" aria-label="全平台">全平台</a></li>
+                <li>
+                    <a href="#linux" aria-label="Linux">Linux</a></li>
+                <li>
+                    <a href="#windows" aria-label="Windows">Windows</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><blockquote>
+<p>我的电脑双硬盘双系统，使用Windows 11 + ArchLinux<br>
+在Windows上使用 scoop + winget / Archlinux 下使用 paru+pacman<br>
+我尽可能使用开源/免费</p>
+</blockquote>
+<h1 id="全平台">全平台<a hidden class="anchor" aria-hidden="true" href="#全平台">#</a></h1>
+<ul>
+<li>网络加速：<a href="https://steampp.net/">Watt Toolkit</a><br>
+提供了多网站的网络加速 不局限于steam 我一般用来加速github 和 steam</li>
+<li>编辑器：<a href="https://neovim.io/">Neovim</a><br>
+编辑器之神 没什么好说的</li>
+<li>本地视频播放： <a href="https://mpv.io/">mpv</a><br>
+轻巧的一款本地播放器 支持字幕 我拿它来放电影看</li>
+<li>视频录制：<a href="https://obsproject.com/">OBS</a></li>
+<li>手机投屏：<a href="https://github.com/Genymobile/scrcpy">scrcpy</a><br>
+基于命令行 连上手机开启adb调试以后敲命令就行 没有多余的依赖</li>
+<li>流媒体：<a href="https://github.com/qier222/YesPlayMusic">YesPlayMusic（网易云）</a>,<a href="https://cider.sh/">Cider(Apple Music)</a>,Spotify<br>
+用 YesPlayMusic 多一点，因为它有原版网易云不支持的“连接到Last.FM”功能</li>
+<li>GIT：<a href="https://github.com/jesseduffield/lazygit">LazyGit</a><br>
+我的水平还不足以完全开发这个软件 不常用</li>
+<li>配置文件管理：<a href="https://www.gnu.org/software/stow/">GNU STOW</a><br>
+非常好用的配置文件管理，用软连接的方式链接到文件所在位置，源文件集中在一起，非常方便</li>
+<li>系统监视器：<a href="https://github.com/aristocratos/btop">Btop/Bottom</a></li>
+<li>截图：<a href="https://flameshot.org/">Flameshot</a><br>
+上游还没修Wayland下面的bug TAT</li>
+<li>种子下载：<a href="https://motrix.app/">Motrix</a><br>
+非常好用 自带tracker list 即使它是electron我用能接受</li>
+<li>代码分享：<a href="https://github.com/Aloxaf/silicon">Silicon</a></li>
+<li>终端：<a href="https://wezfurlong.org/">wezterm</a></li>
+<li>密码管理：<a href="https://keepassxc.org/">KeepassXC</a></li>
+<li>隔空投送：<a href="https://github.com/localsend/localsend">Localsend</a><br>
+好用，尤其是在AP隔离的校园网环境下</li>
+</ul>
+<h1 id="linux">Linux<a hidden class="anchor" aria-hidden="true" href="#linux">#</a></h1>
+<p>Linux only 的软件我放在了我的<a href="https://github.com/hydroakri/dotfiles">Dotfile 仓库的介绍里面</a></p>
+<h1 id="windows">Windows<a hidden class="anchor" aria-hidden="true" href="#windows">#</a></h1>
+<ul>
+<li>把Windows 11 改为10的模样：<a href="https://github.com/valinet/ExplorerPatcher">ExplorerPatcher</a></li>
+<li>使游戏窗口全屏显示：<a href="https://github.com/Blinue/Magpie">Magpie</a></li>
+<li>管理“此电脑”里删不掉的流氓“快捷方式”：<a href="https://github.com/1357310795/MyComputerManager">MyComputerManager</a></li>
+<li>平铺管理器：<a href="https://github.com/LGUG2Z/komorebi">komorebi</a></li>
+<li>系统优化：<a href="https://github.com/hellzerg/optimizer">optimizer</a>, <a href="https://github.com/Chuyu-Team/Dism-Multi-language">Dism++</a></li>
+<li>让Windows拥有macOS的触发角功能: <a href="https://github.com/misterchaos/hotcorner">hotcorner</a></li>
+<li>Windows免费激活：<a href="https://github.com/massgravel/Microsoft-Activation-Scripts">Microsoft-Activation-Scripts</a></li>
+<li>系统信息：<a href="https://github.com/winsiderss/systeminformer">systeminformer</a></li>
+<li>桌面文件夹整理：<a href="https://github.com/ChrisAnd1998/TaskbarX">TaskbarX</a></li>
+<li>内存优化：<a href="https://github.com/henrypp/memreduct">memreduct</a></li>
+<li>WSL管理：<a href="https://github.com/DDoSolitary/LxRunOffline">LxRunOffline</a></li>
+<li>BTRFS: <a href="https://github.com/maharmstone/btrfs">btrfs</a></li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://hydroakri.github.io/tags/linux/">linux</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://hydroakri.github.io/">Hydroakri&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
