@@ -5,6 +5,13 @@ theme: "PaperMod"
 publishDir: 'docs'
 paginate: '5'
 
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+canonifyURLs: true
+
 menu:
   main:
     - identifier: Tags
@@ -15,15 +22,19 @@ menu:
       name: Archives
       url: archives
       weight: 20
+    - identifier: About
+      name: About
+      url: about
+      weight: 20
 
 params:
   profileMode:
     enabled: true
-    title: "<Title>" # optional default will be site title
+    title: "" # optional default will be site title
     subtitle: "与太阳共燃的内在性"
     imageUrl: "https://img2.doubanio.com/icon/ul265151065.jpg" # optional
     buttons:
-      - name: Archives
+      - name: 时间线
         url: "/archives"
 
   socialIcons: # optional
