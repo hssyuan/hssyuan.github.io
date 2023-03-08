@@ -4,16 +4,16 @@ title: "About"
 ---  
 <div align="center">  
 
-![](https://img.shields.io/badge/Made%20with-%E2%98%AD%E2%99%A1%E2%92%B6-ff44ff?style=for-the-badge&logo=love&logoColor=white)
-
 > “迎来种子的土地是忧郁的。面临艰难险阻的种子是幸福的。”
+
+![](https://img.shields.io/badge/Made%20with-%E2%98%AD%E2%99%A1%E2%92%B6-ff44ff?style=for-the-badge&logo=love&logoColor=white)
 
 ### 📖 I (want to) read ..
 荷尔德林/勒内夏尔/博尔赫斯/卡尔维诺/巴塔耶  
 鲍德里亚/Tiqqun/德波/伊格尔顿/本雅明
 ### 🎧 I listen ...
-后朋/自赏黑/古典  
-Molchat Doma/维克多崔/Dopamine/Alcest/被迫害的失真  
+后朋/自赏黑/古典/政治波普  
+Molchat Doma/维克多崔/頭脳警察/腰/Dopamine/Alcest/被迫害的失真  
 [Last.fm](https://www.last.fm/zh/user/hydroakri)
 ### 🎥 I watch ..
 安哲罗普洛斯 塔可夫斯基  
