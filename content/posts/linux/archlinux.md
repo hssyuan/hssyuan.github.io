@@ -235,7 +235,11 @@ sudo systemctl start virtlogd
 ```
 * 注意事项  
 每次启动虚拟机的时候都要手动启动虚拟机的网络，很麻烦  
-我们在virt-manager里面右键`QEMU/KVM`，点击`虚拟网络`在`自动启动`这一行勾选`引导时`
+我们在virt-manager里面右键`QEMU/KVM`，点击`虚拟网络`在`自动启动`这一行勾选`引导时`  
+
+## 安装windows11的时候要做的工作  
+在`overview`里面选择带有`secboot`的固件来支持windows11需要的安全启动  
+接着安装`swtpm`软件包（详见各发行版的包名）然后增加TPM设备，选择`Emulated`，`TIS`和`2.0`
 
 ## 为kvm里的win10安装驱动
 首先：
