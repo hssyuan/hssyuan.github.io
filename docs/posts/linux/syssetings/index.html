@@ -5,9 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>一些系统设置 | Hydroakri&#39;s Blog</title>
+<title>archlinux 系统参数优化 | Hydroakri&#39;s Blog</title>
 <meta name="keywords" content="linux" />
-<meta name="description" content="一些系统设置 系统环境变量 # # This file is parsed by pam_env module # # Syntax: simple &#34;KEY=VAL&#34; pairs on separate lines # # ##for fcitx5 GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx SDL_IM_MODULE=fcitx GLFW_IM_MODULE=ibus #hydrland LIBVA_DRIVER_NAME=nvidia XDG_SESSION_TYPE=wayland GBM_BACKEND=nvidia-drm ##强制将使用 GBM 后端 __GLX_VENDOR_LIBRARY_NAME=nvidia ##强制将使用 GBM 后端 WLR_NO_HARDWARE_CURSORS=1 #enable nvidia vertical sync #__GL_SYNC_TO_VBLANK=1 # set backend as vulkan #WLR_RENDERER=vulkan #for obs on wayland(to use pipewire screen capture) QT_QPA_PLATFORM=&#34;wayland;xcb&#34; #for firefox on wayland MOZ_ENABLE_WAYLAND=1 #FOR QT THEME QT_QPA_PLATFORMTHEME=qt5ct #DESKTOP_SESSION=gnome #DESKTOP_SESSION=plasma nvidia early kms /etc/mkinitcpio.">
+<meta name="description" content="一些系统设置 系统环境变量 # # This file is parsed by pam_env module # # Syntax: simple &#34;KEY=VAL&#34; pairs on separate lines # # ##for fcitx5 GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx SDL_IM_MODULE=fcitx GLFW_IM_MODULE=ibus #hydrland LIBVA_DRIVER_NAME=nvidia XDG_SESSION_TYPE=wayland GBM_BACKEND=nvidia-drm ##强制将使用 GBM 后端 __GLX_VENDOR_LIBRARY_NAME=nvidia ##强制将使用 GBM 后端 WLR_NO_HARDWARE_CURSORS=1 #enable nvidia vertical sync #__GL_SYNC_TO_VBLANK=1 # set backend as vulkan WLR_RENDERER=vulkan #for obs on wayland(to use pipewire screen capture) QT_QPA_PLATFORM=&#34;wayland;xcb&#34; #for firefox on wayland MOZ_ENABLE_WAYLAND=1 #FOR QT THEME QT_QPA_PLATFORMTHEME=qt5ct #DESKTOP_SESSION=gnome #DESKTOP_SESSION=plasma NVIDIA early KMS /etc/mkinitcpio.">
 <meta name="author" content="">
 <link rel="canonical" href="https://hydroakri.github.io/posts/linux/syssetings/" />
 <link crossorigin="anonymous" href="https://hydroakri.github.io/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
@@ -20,7 +20,7 @@
 <link rel="mask-icon" href="https://hydroakri.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<meta name="generator" content="Hugo 0.111.3">
+<meta name="generator" content="Hugo 0.112.3">
 <noscript>
     <style>
         #theme-toggle,
@@ -57,16 +57,16 @@
         }
 
     </style>
-</noscript><meta property="og:title" content="一些系统设置" />
-<meta property="og:description" content="一些系统设置 系统环境变量 # # This file is parsed by pam_env module # # Syntax: simple &#34;KEY=VAL&#34; pairs on separate lines # # ##for fcitx5 GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx SDL_IM_MODULE=fcitx GLFW_IM_MODULE=ibus #hydrland LIBVA_DRIVER_NAME=nvidia XDG_SESSION_TYPE=wayland GBM_BACKEND=nvidia-drm ##强制将使用 GBM 后端 __GLX_VENDOR_LIBRARY_NAME=nvidia ##强制将使用 GBM 后端 WLR_NO_HARDWARE_CURSORS=1 #enable nvidia vertical sync #__GL_SYNC_TO_VBLANK=1 # set backend as vulkan #WLR_RENDERER=vulkan #for obs on wayland(to use pipewire screen capture) QT_QPA_PLATFORM=&#34;wayland;xcb&#34; #for firefox on wayland MOZ_ENABLE_WAYLAND=1 #FOR QT THEME QT_QPA_PLATFORMTHEME=qt5ct #DESKTOP_SESSION=gnome #DESKTOP_SESSION=plasma nvidia early kms /etc/mkinitcpio." />
+</noscript><meta property="og:title" content="archlinux 系统参数优化" />
+<meta property="og:description" content="一些系统设置 系统环境变量 # # This file is parsed by pam_env module # # Syntax: simple &#34;KEY=VAL&#34; pairs on separate lines # # ##for fcitx5 GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx SDL_IM_MODULE=fcitx GLFW_IM_MODULE=ibus #hydrland LIBVA_DRIVER_NAME=nvidia XDG_SESSION_TYPE=wayland GBM_BACKEND=nvidia-drm ##强制将使用 GBM 后端 __GLX_VENDOR_LIBRARY_NAME=nvidia ##强制将使用 GBM 后端 WLR_NO_HARDWARE_CURSORS=1 #enable nvidia vertical sync #__GL_SYNC_TO_VBLANK=1 # set backend as vulkan WLR_RENDERER=vulkan #for obs on wayland(to use pipewire screen capture) QT_QPA_PLATFORM=&#34;wayland;xcb&#34; #for firefox on wayland MOZ_ENABLE_WAYLAND=1 #FOR QT THEME QT_QPA_PLATFORMTHEME=qt5ct #DESKTOP_SESSION=gnome #DESKTOP_SESSION=plasma NVIDIA early KMS /etc/mkinitcpio." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://hydroakri.github.io/posts/linux/syssetings/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-02-14T13:56:27&#43;08:00" />
 <meta property="article:modified_time" content="2023-02-14T13:56:27&#43;08:00" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="一些系统设置"/>
-<meta name="twitter:description" content="一些系统设置 系统环境变量 # # This file is parsed by pam_env module # # Syntax: simple &#34;KEY=VAL&#34; pairs on separate lines # # ##for fcitx5 GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx SDL_IM_MODULE=fcitx GLFW_IM_MODULE=ibus #hydrland LIBVA_DRIVER_NAME=nvidia XDG_SESSION_TYPE=wayland GBM_BACKEND=nvidia-drm ##强制将使用 GBM 后端 __GLX_VENDOR_LIBRARY_NAME=nvidia ##强制将使用 GBM 后端 WLR_NO_HARDWARE_CURSORS=1 #enable nvidia vertical sync #__GL_SYNC_TO_VBLANK=1 # set backend as vulkan #WLR_RENDERER=vulkan #for obs on wayland(to use pipewire screen capture) QT_QPA_PLATFORM=&#34;wayland;xcb&#34; #for firefox on wayland MOZ_ENABLE_WAYLAND=1 #FOR QT THEME QT_QPA_PLATFORMTHEME=qt5ct #DESKTOP_SESSION=gnome #DESKTOP_SESSION=plasma nvidia early kms /etc/mkinitcpio."/>
+<meta name="twitter:title" content="archlinux 系统参数优化"/>
+<meta name="twitter:description" content="一些系统设置 系统环境变量 # # This file is parsed by pam_env module # # Syntax: simple &#34;KEY=VAL&#34; pairs on separate lines # # ##for fcitx5 GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx SDL_IM_MODULE=fcitx GLFW_IM_MODULE=ibus #hydrland LIBVA_DRIVER_NAME=nvidia XDG_SESSION_TYPE=wayland GBM_BACKEND=nvidia-drm ##强制将使用 GBM 后端 __GLX_VENDOR_LIBRARY_NAME=nvidia ##强制将使用 GBM 后端 WLR_NO_HARDWARE_CURSORS=1 #enable nvidia vertical sync #__GL_SYNC_TO_VBLANK=1 # set backend as vulkan WLR_RENDERER=vulkan #for obs on wayland(to use pipewire screen capture) QT_QPA_PLATFORM=&#34;wayland;xcb&#34; #for firefox on wayland MOZ_ENABLE_WAYLAND=1 #FOR QT THEME QT_QPA_PLATFORMTHEME=qt5ct #DESKTOP_SESSION=gnome #DESKTOP_SESSION=plasma NVIDIA early KMS /etc/mkinitcpio."/>
 
 
 <script type="application/ld+json">
@@ -83,7 +83,7 @@
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "一些系统设置",
+      "name": "archlinux 系统参数优化",
       "item": "https://hydroakri.github.io/posts/linux/syssetings/"
     }
   ]
@@ -93,14 +93,14 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "一些系统设置",
-  "name": "一些系统设置",
-  "description": "一些系统设置 系统环境变量 # # This file is parsed by pam_env module # # Syntax: simple \u0026#34;KEY=VAL\u0026#34; pairs on separate lines # # ##for fcitx5 GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx SDL_IM_MODULE=fcitx GLFW_IM_MODULE=ibus #hydrland LIBVA_DRIVER_NAME=nvidia XDG_SESSION_TYPE=wayland GBM_BACKEND=nvidia-drm ##强制将使用 GBM 后端 __GLX_VENDOR_LIBRARY_NAME=nvidia ##强制将使用 GBM 后端 WLR_NO_HARDWARE_CURSORS=1 #enable nvidia vertical sync #__GL_SYNC_TO_VBLANK=1 # set backend as vulkan #WLR_RENDERER=vulkan #for obs on wayland(to use pipewire screen capture) QT_QPA_PLATFORM=\u0026#34;wayland;xcb\u0026#34; #for firefox on wayland MOZ_ENABLE_WAYLAND=1 #FOR QT THEME QT_QPA_PLATFORMTHEME=qt5ct #DESKTOP_SESSION=gnome #DESKTOP_SESSION=plasma nvidia early kms /etc/mkinitcpio.",
+  "headline": "archlinux 系统参数优化",
+  "name": "archlinux 系统参数优化",
+  "description": "一些系统设置 系统环境变量 # # This file is parsed by pam_env module # # Syntax: simple \u0026#34;KEY=VAL\u0026#34; pairs on separate lines # # ##for fcitx5 GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx SDL_IM_MODULE=fcitx GLFW_IM_MODULE=ibus #hydrland LIBVA_DRIVER_NAME=nvidia XDG_SESSION_TYPE=wayland GBM_BACKEND=nvidia-drm ##强制将使用 GBM 后端 __GLX_VENDOR_LIBRARY_NAME=nvidia ##强制将使用 GBM 后端 WLR_NO_HARDWARE_CURSORS=1 #enable nvidia vertical sync #__GL_SYNC_TO_VBLANK=1 # set backend as vulkan WLR_RENDERER=vulkan #for obs on wayland(to use pipewire screen capture) QT_QPA_PLATFORM=\u0026#34;wayland;xcb\u0026#34; #for firefox on wayland MOZ_ENABLE_WAYLAND=1 #FOR QT THEME QT_QPA_PLATFORMTHEME=qt5ct #DESKTOP_SESSION=gnome #DESKTOP_SESSION=plasma NVIDIA early KMS /etc/mkinitcpio.",
   "keywords": [
     "linux"
   ],
-  "articleBody": "一些系统设置 系统环境变量 # # This file is parsed by pam_env module # # Syntax: simple \"KEY=VAL\" pairs on separate lines # # ##for fcitx5 GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx SDL_IM_MODULE=fcitx GLFW_IM_MODULE=ibus #hydrland LIBVA_DRIVER_NAME=nvidia XDG_SESSION_TYPE=wayland GBM_BACKEND=nvidia-drm ##强制将使用 GBM 后端 __GLX_VENDOR_LIBRARY_NAME=nvidia ##强制将使用 GBM 后端 WLR_NO_HARDWARE_CURSORS=1 #enable nvidia vertical sync #__GL_SYNC_TO_VBLANK=1 # set backend as vulkan #WLR_RENDERER=vulkan #for obs on wayland(to use pipewire screen capture) QT_QPA_PLATFORM=\"wayland;xcb\" #for firefox on wayland MOZ_ENABLE_WAYLAND=1 #FOR QT THEME QT_QPA_PLATFORMTHEME=qt5ct #DESKTOP_SESSION=gnome #DESKTOP_SESSION=plasma nvidia early kms /etc/mkinitcpio.conf ----------------------------------- MODULES=(btrfs amdgpu nvidia nvidia_modeset nvidia_uvm nvidia_drm) BINARIES=(/usr/bin/btrfs) FILES=() HOOKS=(base udev autodetect keyboard keymap modconf block filesystems resume fsck) resume 和下面的内核参数resume=/dev/zram0配合来启用suspend\n/etc/nvidia.conf --------------------------------- options nvidia-drm modeset=1 options nvidia NVreg_PreserveVideoMemoryAllocations=1 内核参数 /boot/loader/entries/***.config options root=... or /boot/grub/grub.cfg GRUB_CMDLINE_LINUX_DEFAULT=... ---------------------------------- PARTUUID=86db5b09-ce0d-4341-9773-fb2d39fddaad zswap.enabled=0 rootflags=subvol=@ rw rootfstype=btrfs radeon.dpm=1 resume=/dev/zram0 关闭zswap,使用zram\n开机自动加载bbr模块 /etc/modules-load.d/bbr.conf --------------------------------- tcp_bbr #如果编译内核的时候把bbr编译进去就不用这个文件 设置默认tcp堵塞控制/qos算法 /etc/sysctl.d/99-sysctl.conf ------------------------------------ net.core.default_qdisc=cake net.ipv4.tcp_congestion_control=bbr2 启用与内存大小相同的zram来启用suspend /etc/systemd/zram-generator.conf ----------------------------------- [zram0] zram-size = ram compression-algorithm = zstd X11 用sudo nvidia-xconfig生成/etc/X11/xorg.conf\na+n用户需要： /etc/X11/xorg.conf.d/20-amdgpu.conf ---------------------------------- Section \"Device\" Identifier \"AMD\" Driver \"amdgpu\" EndSection 休眠相关 如果n卡用户休眠睡死请检查是否启用对应的服务 sudo systemctl enable nvidia-suspend.service\n",
-  "wordCount" : "160",
+  "articleBody": "一些系统设置 系统环境变量 # # This file is parsed by pam_env module # # Syntax: simple \"KEY=VAL\" pairs on separate lines # # ##for fcitx5 GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx SDL_IM_MODULE=fcitx GLFW_IM_MODULE=ibus #hydrland LIBVA_DRIVER_NAME=nvidia XDG_SESSION_TYPE=wayland GBM_BACKEND=nvidia-drm ##强制将使用 GBM 后端 __GLX_VENDOR_LIBRARY_NAME=nvidia ##强制将使用 GBM 后端 WLR_NO_HARDWARE_CURSORS=1 #enable nvidia vertical sync #__GL_SYNC_TO_VBLANK=1 # set backend as vulkan WLR_RENDERER=vulkan #for obs on wayland(to use pipewire screen capture) QT_QPA_PLATFORM=\"wayland;xcb\" #for firefox on wayland MOZ_ENABLE_WAYLAND=1 #FOR QT THEME QT_QPA_PLATFORMTHEME=qt5ct #DESKTOP_SESSION=gnome #DESKTOP_SESSION=plasma NVIDIA early KMS /etc/mkinitcpio.conf ----------------------------------- MODULES=(btrfs amdgpu nvidia nvidia_modeset nvidia_uvm nvidia_drm) BINARIES=(/usr/bin/btrfs) FILES=() HOOKS=(base plymouth udev autodetect keyboard keymap modconf block filesystems resume fsck) resume 和下面的内核参数resume=/dev/zram0配合来启用suspend\n/etc/nvidia.conf --------------------------------- options nvidia-drm modeset=1 options nvidia NVreg_PreserveVideoMemoryAllocations=1 内核参数 root=PARTUUID=86db5b09-ce0d-4341-9773-fb2d39fddaad zswap.enabled=0 rootflags=subvol=@ rw rootfstype=btrfs nvidia_drm.modeset=1 radeon.dpm=1 amd_pstate=passive initrd=\\EFI\\arch\\amd-ucode.img initrd=\\EFI\\arch\\initramfs-linux-zen.img splash rhgb quiet mitigations=off nowatchdog processor.ignore_ppc=1 关闭zswap,使用zram\n开机自动加载bbr模块 /etc/modules-load.d/bbr.conf --------------------------------- tcp_bbr #如果编译内核的时候把bbr编译进去就不用这个文件 设置默认tcp堵塞控制/qos算法/swapiness /etc/sysctl.d/99-sysctl.conf ------------------------------------ net.core.default_qdisc=cake net.ipv4.tcp_congestion_control=bbr2 vm.swappiness=10 启用与内存大小相同的zram来启用suspend /etc/systemd/zram-generator.conf ----------------------------------- [zram0] zram-size = ram compression-algorithm = zstd X11 用sudo nvidia-xconfig生成/etc/X11/xorg.conf\na+n用户需要： /etc/X11/xorg.conf.d/20-amdgpu.conf ---------------------------------- Section \"Device\" Identifier \"AMD\" Driver \"amdgpu\" EndSection 休眠相关 如果n卡用户休眠睡死请检查是否启用对应的服务 sudo systemctl enable nvidia-suspend.service\nbtrfs 优化 /etc/fstab ----------------------------------- # /dev/nvme0n1p2 UUID=0eaaae30-9c36-4716-b7df-6e6bcf035464\t/ btrfs rw,relatime,ssd,space_cache=v2,noatime,commit=120,compress=zstd,discard=async,subvolid=256,subvol=/@\t0 0 # /dev/nvme0n1p1 UUID=4835-FFD2 /efi vfat rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro\t0 2 # /dev/nvme0n1p2 UUID=0eaaae30-9c36-4716-b7df-6e6bcf035464\t/.snapshots\tbtrfs rw,relatime,ssd,space_cache=v2,noatime,commit=120,compress=zstd,discard=async,subvolid=260,subvol=/@.snapshots\t0 0 # /dev/nvme0n1p2 UUID=0eaaae30-9c36-4716-b7df-6e6bcf035464\t/home btrfs rw,relatime,ssd,space_cache=v2,noatime,commit=120,compress=zstd,discard=async,subvolid=257,subvol=/@home\t0 0 # /dev/nvme0n1p2 UUID=0eaaae30-9c36-4716-b7df-6e6bcf035464\t/var/cache/pacman/pkg\tbtrfs rw,relatime,ssd,space_cache=v2,noatime,commit=120,compress=zstd,discard=async,subvolid=259,subvol=/@pkg\t0 0 # /dev/nvme0n1p2 UUID=0eaaae30-9c36-4716-b7df-6e6bcf035464\t/var/log btrfs rw,relatime,ssd,space_cache=v2,noatime,commit=120,compress=zstd,discard=async,subvolid=258,subvol=/@log\t0 0 ",
+  "wordCount" : "216",
   "inLanguage": "en",
   "datePublished": "2023-02-14T13:56:27+08:00",
   "dateModified": "2023-02-14T13:56:27+08:00",
@@ -171,7 +171,7 @@
                 </a>
             </li>
             <li>
-                <a href="https://hydroakri.github.io/tags/" title="Tags">
+                <a href="https://hydroakri.github.io/Tags/" title="Tags">
                     <span>Tags</span>
                 </a>
             </li>
@@ -184,7 +184,7 @@
   <header class="post-header">
     
     <h1 class="post-title">
-      一些系统设置
+      archlinux 系统参数优化
     </h1>
     <div class="post-meta"><span title='2023-02-14 13:56:27 +0800 CST'>February 14, 2023</span>
 
@@ -217,7 +217,7 @@ WLR_NO_HARDWARE_CURSORS=1
 #__GL_SYNC_TO_VBLANK=1
 
 # set backend as vulkan
-#WLR_RENDERER=vulkan
+WLR_RENDERER=vulkan
 
 #for obs on wayland(to use pipewire screen capture)
 QT_QPA_PLATFORM=&#34;wayland;xcb&#34;
@@ -226,37 +226,33 @@ MOZ_ENABLE_WAYLAND=1
 #FOR QT THEME
 QT_QPA_PLATFORMTHEME=qt5ct
 
-
 #DESKTOP_SESSION=gnome
 #DESKTOP_SESSION=plasma
-</code></pre><h2 id="nvidia-early-kms">nvidia early kms<a hidden class="anchor" aria-hidden="true" href="#nvidia-early-kms">#</a></h2>
+</code></pre><h2 id="nvidia-early-kms">NVIDIA early KMS<a hidden class="anchor" aria-hidden="true" href="#nvidia-early-kms">#</a></h2>
 <pre tabindex="0"><code>/etc/mkinitcpio.conf
 -----------------------------------
 MODULES=(btrfs amdgpu nvidia nvidia_modeset nvidia_uvm nvidia_drm)
 BINARIES=(/usr/bin/btrfs)
 FILES=()
-HOOKS=(base udev autodetect keyboard keymap modconf block filesystems resume fsck)
+HOOKS=(base plymouth udev autodetect keyboard keymap modconf block filesystems resume fsck)
 </code></pre><p><code>resume</code> 和下面的内核参数<code>resume=/dev/zram0</code>配合来启用suspend</p>
 <pre tabindex="0"><code>/etc/nvidia.conf
 ---------------------------------
 options nvidia-drm modeset=1
 options nvidia NVreg_PreserveVideoMemoryAllocations=1
 </code></pre><h2 id="内核参数">内核参数<a hidden class="anchor" aria-hidden="true" href="#内核参数">#</a></h2>
-<pre tabindex="0"><code>/boot/loader/entries/***.config  options root=...
-or  
-/boot/grub/grub.cfg   GRUB_CMDLINE_LINUX_DEFAULT=...  
-----------------------------------
-PARTUUID=86db5b09-ce0d-4341-9773-fb2d39fddaad zswap.enabled=0 rootflags=subvol=@ rw rootfstype=btrfs radeon.dpm=1 resume=/dev/zram0
+<pre tabindex="0"><code>root=PARTUUID=86db5b09-ce0d-4341-9773-fb2d39fddaad zswap.enabled=0 rootflags=subvol=@ rw rootfstype=btrfs nvidia_drm.modeset=1 radeon.dpm=1 amd_pstate=passive initrd=\EFI\arch\amd-ucode.img initrd=\EFI\arch\initramfs-linux-zen.img splash rhgb quiet mitigations=off nowatchdog processor.ignore_ppc=1
 </code></pre><p>关闭zswap,使用zram</p>
 <h2 id="开机自动加载bbr模块">开机自动加载bbr模块<a hidden class="anchor" aria-hidden="true" href="#开机自动加载bbr模块">#</a></h2>
 <pre tabindex="0"><code>/etc/modules-load.d/bbr.conf
 ---------------------------------
 tcp_bbr   #如果编译内核的时候把bbr编译进去就不用这个文件
-</code></pre><h2 id="设置默认tcp堵塞控制qos算法">设置默认tcp堵塞控制/qos算法<a hidden class="anchor" aria-hidden="true" href="#设置默认tcp堵塞控制qos算法">#</a></h2>
+</code></pre><h2 id="设置默认tcp堵塞控制qos算法swapiness">设置默认tcp堵塞控制/qos算法/swapiness<a hidden class="anchor" aria-hidden="true" href="#设置默认tcp堵塞控制qos算法swapiness">#</a></h2>
 <pre tabindex="0"><code>/etc/sysctl.d/99-sysctl.conf
 ------------------------------------
 net.core.default_qdisc=cake
 net.ipv4.tcp_congestion_control=bbr2
+vm.swappiness=10
 </code></pre><h2 id="启用与内存大小相同的zram来启用suspend">启用与内存大小相同的zram来启用suspend<a hidden class="anchor" aria-hidden="true" href="#启用与内存大小相同的zram来启用suspend">#</a></h2>
 <pre tabindex="0"><code>/etc/systemd/zram-generator.conf
 -----------------------------------
@@ -275,7 +271,27 @@ EndSection
 </code></pre><h2 id="休眠相关">休眠相关<a hidden class="anchor" aria-hidden="true" href="#休眠相关">#</a></h2>
 <p>如果n卡用户休眠睡死请检查是否启用<strong>对应</strong>的服务
 <code>sudo systemctl enable nvidia-suspend.service</code></p>
+<h2 id="btrfs-优化">btrfs 优化<a hidden class="anchor" aria-hidden="true" href="#btrfs-优化">#</a></h2>
+<pre tabindex="0"><code>/etc/fstab
+-----------------------------------
+# /dev/nvme0n1p2
+UUID=0eaaae30-9c36-4716-b7df-6e6bcf035464	/         	btrfs     	rw,relatime,ssd,space_cache=v2,noatime,commit=120,compress=zstd,discard=async,subvolid=256,subvol=/@	      0 0
 
+# /dev/nvme0n1p1
+UUID=4835-FFD2      	/efi     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	  0 2
+
+# /dev/nvme0n1p2
+UUID=0eaaae30-9c36-4716-b7df-6e6bcf035464	/.snapshots	btrfs     	rw,relatime,ssd,space_cache=v2,noatime,commit=120,compress=zstd,discard=async,subvolid=260,subvol=/@.snapshots	0 0
+
+# /dev/nvme0n1p2
+UUID=0eaaae30-9c36-4716-b7df-6e6bcf035464	/home     	btrfs     	rw,relatime,ssd,space_cache=v2,noatime,commit=120,compress=zstd,discard=async,subvolid=257,subvol=/@home	0 0
+
+# /dev/nvme0n1p2
+UUID=0eaaae30-9c36-4716-b7df-6e6bcf035464	/var/cache/pacman/pkg	btrfs     rw,relatime,ssd,space_cache=v2,noatime,commit=120,compress=zstd,discard=async,subvolid=259,subvol=/@pkg	0 0
+
+# /dev/nvme0n1p2
+UUID=0eaaae30-9c36-4716-b7df-6e6bcf035464	/var/log  	btrfs     	rw,relatime,ssd,space_cache=v2,noatime,commit=120,compress=zstd,discard=async,subvolid=258,subvol=/@log	0 0
+</code></pre>
 
   </div>
 

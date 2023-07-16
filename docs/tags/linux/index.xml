@@ -31,12 +31,12 @@ Windows 把Windows 11 改为10的模样：ExplorerPatcher 使游戏窗口全屏�
     </item>
     
     <item>
-      <title>一些系统设置</title>
+      <title>archlinux 系统参数优化</title>
       <link>https://hydroakri.github.io/posts/linux/syssetings/</link>
       <pubDate>Tue, 14 Feb 2023 13:56:27 +0800</pubDate>
       
       <guid>https://hydroakri.github.io/posts/linux/syssetings/</guid>
-      <description>一些系统设置 系统环境变量 # # This file is parsed by pam_env module # # Syntax: simple &amp;#34;KEY=VAL&amp;#34; pairs on separate lines # # ##for fcitx5 GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx SDL_IM_MODULE=fcitx GLFW_IM_MODULE=ibus #hydrland LIBVA_DRIVER_NAME=nvidia XDG_SESSION_TYPE=wayland GBM_BACKEND=nvidia-drm ##强制将使用 GBM 后端 __GLX_VENDOR_LIBRARY_NAME=nvidia ##强制将使用 GBM 后端 WLR_NO_HARDWARE_CURSORS=1 #enable nvidia vertical sync #__GL_SYNC_TO_VBLANK=1 # set backend as vulkan #WLR_RENDERER=vulkan #for obs on wayland(to use pipewire screen capture) QT_QPA_PLATFORM=&amp;#34;wayland;xcb&amp;#34; #for firefox on wayland MOZ_ENABLE_WAYLAND=1 #FOR QT THEME QT_QPA_PLATFORMTHEME=qt5ct #DESKTOP_SESSION=gnome #DESKTOP_SESSION=plasma nvidia early kms /etc/mkinitcpio.</description>
+      <description>一些系统设置 系统环境变量 # # This file is parsed by pam_env module # # Syntax: simple &amp;#34;KEY=VAL&amp;#34; pairs on separate lines # # ##for fcitx5 GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx SDL_IM_MODULE=fcitx GLFW_IM_MODULE=ibus #hydrland LIBVA_DRIVER_NAME=nvidia XDG_SESSION_TYPE=wayland GBM_BACKEND=nvidia-drm ##强制将使用 GBM 后端 __GLX_VENDOR_LIBRARY_NAME=nvidia ##强制将使用 GBM 后端 WLR_NO_HARDWARE_CURSORS=1 #enable nvidia vertical sync #__GL_SYNC_TO_VBLANK=1 # set backend as vulkan WLR_RENDERER=vulkan #for obs on wayland(to use pipewire screen capture) QT_QPA_PLATFORM=&amp;#34;wayland;xcb&amp;#34; #for firefox on wayland MOZ_ENABLE_WAYLAND=1 #FOR QT THEME QT_QPA_PLATFORMTHEME=qt5ct #DESKTOP_SESSION=gnome #DESKTOP_SESSION=plasma NVIDIA early KMS /etc/mkinitcpio.</description>
     </item>
     
     <item>
