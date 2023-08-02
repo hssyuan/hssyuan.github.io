@@ -13,13 +13,11 @@ PCI_passthrough_via_OVMF_ARCHLINUX wiki
 Optimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通
 vanities/GPU-Passthrough-Arch-Linux-to-Windows10 Public
 KVM-GPU-Passthrough
-Optimus笔记本虚拟机显卡直通
-1.1开始 1.1隔离独显 1.1.1引导镜像的编辑 运行 lspci -nn | grep NVIDIA，获得类似如下输出：
-01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) 编辑或创建/etc/modprobe.d/vfio.conf，内容书写
+Optimus笔记本虚拟机显卡直通 Linux低延遲在Windows虛擬機玩遊戲 ～ QEMU/KVM ＋ VFIO雙GPU直通 ＋ Looking Glass安裝過程
+1.1开始 1.1隔离独显 1.1.1引导镜像的编辑 运行 lspci -nn | grep NVIDIA，获得类似如下输出,中括号里的八位是我们需要的
+01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) 编辑或创建/etc/modprobe.d/vfio.conf，ids后面写上面得到的八位，并用逗号间隔(也可以添加内核参数 vfio-pci.ids=...)
 options vfio-pci ids=10de:2520,10de:228e 修改/etc/mkinitcpio.conf，在MODULES里增加
-vfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.conf之中有modconf
-之后执行sudo mkinitcpio -P更新initramfs
-1.1.2引导时内核参数的编辑 为了使iommu加载，还需要在引导选项中">
+vfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.">
 <meta name="author" content="">
 <link rel="canonical" href="https://hydroakri.github.io/posts/linux/passthrough/" />
 <link crossorigin="anonymous" href="https://hydroakri.github.io/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
@@ -32,7 +30,7 @@ vfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.conf�
 <link rel="mask-icon" href="https://hydroakri.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<meta name="generator" content="Hugo 0.112.3">
+<meta name="generator" content="Hugo 0.115.4">
 <noscript>
     <style>
         #theme-toggle,
@@ -76,17 +74,15 @@ PCI_passthrough_via_OVMF_ARCHLINUX wiki
 Optimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通
 vanities/GPU-Passthrough-Arch-Linux-to-Windows10 Public
 KVM-GPU-Passthrough
-Optimus笔记本虚拟机显卡直通
-1.1开始 1.1隔离独显 1.1.1引导镜像的编辑 运行 lspci -nn | grep NVIDIA，获得类似如下输出：
-01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) 编辑或创建/etc/modprobe.d/vfio.conf，内容书写
+Optimus笔记本虚拟机显卡直通 Linux低延遲在Windows虛擬機玩遊戲 ～ QEMU/KVM ＋ VFIO雙GPU直通 ＋ Looking Glass安裝過程
+1.1开始 1.1隔离独显 1.1.1引导镜像的编辑 运行 lspci -nn | grep NVIDIA，获得类似如下输出,中括号里的八位是我们需要的
+01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) 编辑或创建/etc/modprobe.d/vfio.conf，ids后面写上面得到的八位，并用逗号间隔(也可以添加内核参数 vfio-pci.ids=...)
 options vfio-pci ids=10de:2520,10de:228e 修改/etc/mkinitcpio.conf，在MODULES里增加
-vfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.conf之中有modconf
-之后执行sudo mkinitcpio -P更新initramfs
-1.1.2引导时内核参数的编辑 为了使iommu加载，还需要在引导选项中" />
+vfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://hydroakri.github.io/posts/linux/passthrough/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-04-12T22:56:27&#43;08:00" />
-<meta property="article:modified_time" content="2022-04-12T22:56:27&#43;08:00" />
+<meta property="article:published_time" content="2023-08-02T21:48:27&#43;08:00" />
+<meta property="article:modified_time" content="2023-08-02T21:48:27&#43;08:00" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="基于KVM的虚拟显卡透传技术"/>
@@ -96,13 +92,11 @@ PCI_passthrough_via_OVMF_ARCHLINUX wiki
 Optimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通
 vanities/GPU-Passthrough-Arch-Linux-to-Windows10 Public
 KVM-GPU-Passthrough
-Optimus笔记本虚拟机显卡直通
-1.1开始 1.1隔离独显 1.1.1引导镜像的编辑 运行 lspci -nn | grep NVIDIA，获得类似如下输出：
-01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) 编辑或创建/etc/modprobe.d/vfio.conf，内容书写
+Optimus笔记本虚拟机显卡直通 Linux低延遲在Windows虛擬機玩遊戲 ～ QEMU/KVM ＋ VFIO雙GPU直通 ＋ Looking Glass安裝過程
+1.1开始 1.1隔离独显 1.1.1引导镜像的编辑 运行 lspci -nn | grep NVIDIA，获得类似如下输出,中括号里的八位是我们需要的
+01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) 编辑或创建/etc/modprobe.d/vfio.conf，ids后面写上面得到的八位，并用逗号间隔(也可以添加内核参数 vfio-pci.ids=...)
 options vfio-pci ids=10de:2520,10de:228e 修改/etc/mkinitcpio.conf，在MODULES里增加
-vfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.conf之中有modconf
-之后执行sudo mkinitcpio -P更新initramfs
-1.1.2引导时内核参数的编辑 为了使iommu加载，还需要在引导选项中"/>
+vfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio."/>
 
 
 <script type="application/ld+json">
@@ -131,15 +125,15 @@ vfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.conf�
   "@type": "BlogPosting",
   "headline": "基于KVM的虚拟显卡透传技术",
   "name": "基于KVM的虚拟显卡透传技术",
-  "description": "0.准备工作\u0026amp;检查 显卡直通的前提条件是：\nNVIDIA 独立显卡本身要具有视频输出功能 机身上至少有一个连接到独立显卡的视频接口 安装kvm虚拟机，具体步骤参照本博客archlinux安装或archlinux wiki 强烈建议阅读本文时参照下面几篇文章：\nPCI_passthrough_via_OVMF_ARCHLINUX wiki\nOptimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通\nvanities/GPU-Passthrough-Arch-Linux-to-Windows10 Public\nKVM-GPU-Passthrough\nOptimus笔记本虚拟机显卡直通\n1.1开始 1.1隔离独显 1.1.1引导镜像的编辑 运行 lspci -nn | grep NVIDIA，获得类似如下输出：\n01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) 编辑或创建/etc/modprobe.d/vfio.conf，内容书写\noptions vfio-pci ids=10de:2520,10de:228e 修改/etc/mkinitcpio.conf，在MODULES里增加\nvfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.conf之中有modconf\n之后执行sudo mkinitcpio -P更新initramfs\n1.1.2引导时内核参数的编辑 为了使iommu加载，还需要在引导选项中",
+  "description": "0.准备工作\u0026amp;检查 显卡直通的前提条件是：\nNVIDIA 独立显卡本身要具有视频输出功能 机身上至少有一个连接到独立显卡的视频接口 安装kvm虚拟机，具体步骤参照本博客archlinux安装或archlinux wiki 强烈建议阅读本文时参照下面几篇文章：\nPCI_passthrough_via_OVMF_ARCHLINUX wiki\nOptimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通\nvanities/GPU-Passthrough-Arch-Linux-to-Windows10 Public\nKVM-GPU-Passthrough\nOptimus笔记本虚拟机显卡直通 Linux低延遲在Windows虛擬機玩遊戲 ～ QEMU/KVM ＋ VFIO雙GPU直通 ＋ Looking Glass安裝過程\n1.1开始 1.1隔离独显 1.1.1引导镜像的编辑 运行 lspci -nn | grep NVIDIA，获得类似如下输出,中括号里的八位是我们需要的\n01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) 编辑或创建/etc/modprobe.d/vfio.conf，ids后面写上面得到的八位，并用逗号间隔(也可以添加内核参数 vfio-pci.ids=...)\noptions vfio-pci ids=10de:2520,10de:228e 修改/etc/mkinitcpio.conf，在MODULES里增加\nvfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.",
   "keywords": [
     "linux"
   ],
-  "articleBody": "0.准备工作\u0026检查 显卡直通的前提条件是：\nNVIDIA 独立显卡本身要具有视频输出功能 机身上至少有一个连接到独立显卡的视频接口 安装kvm虚拟机，具体步骤参照本博客archlinux安装或archlinux wiki 强烈建议阅读本文时参照下面几篇文章：\nPCI_passthrough_via_OVMF_ARCHLINUX wiki\nOptimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通\nvanities/GPU-Passthrough-Arch-Linux-to-Windows10 Public\nKVM-GPU-Passthrough\nOptimus笔记本虚拟机显卡直通\n1.1开始 1.1隔离独显 1.1.1引导镜像的编辑 运行 lspci -nn | grep NVIDIA，获得类似如下输出：\n01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) 编辑或创建/etc/modprobe.d/vfio.conf，内容书写\noptions vfio-pci ids=10de:2520,10de:228e 修改/etc/mkinitcpio.conf，在MODULES里增加\nvfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.conf之中有modconf\n之后执行sudo mkinitcpio -P更新initramfs\n1.1.2引导时内核参数的编辑 为了使iommu加载，还需要在引导选项中\n修改/etc/default/grub\n对于intel用户：\nGRUB_CMDLINE_LINUX_DEFAULT=\"quiet ... intel_iommu=on\" 对于amd用户\nGRUB_CMDLINE_LINUX_DEFAULT=\"quiet ... amd_iommu=on\" 然后构建grub引导 sudo grub-mkconfig -o /boot/grub/grub.cfg\n1.1.3重启后检查 运行lspci -nnk若输出中Kernel driver in use一行为vfio-pci则万事具备\n01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) DeviceName: NVIDIA Graphics Device Subsystem: Hewlett-Packard Company Device [103c:88d1] Kernel driver in use: vfio-pci Kernel modules: nouveau, nvidia_drm, nvidia 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) Subsystem: Hewlett-Packard Company Device [103c:88d1] Kernel driver in use: vfio-pci Kernel modules: snd_hda_intel 1.2准备一个虚拟机 之前文章已经说过了，在这不赘述了，在这里写一些可能遇到的问题\n1.2.1 BIOS的选择 在bios上建议选择UEFI,对显卡的支持好一些\n在安装前选择安装前配置，选择概览，芯片组选择Q35，固件选择/usr/share/edk2-ovmf/x64/OVMF_CODE.fd\n接着进入安装windows,别忘了给windows打上virtio-win的驱动\n1.2.2 如果你已经给windows安装了上了传统legacy bios 进入windows,以管理员权限运行\nmbr2gpt /convert /allowfullOS 之后将kvm的概览的xml中的os字段改为以下模样\nhvm /usr/share/edk2-ovmf/x64/OVMF_CODE.fd /var/lib/libvirt/qemu/nvram/win10_VARS.fd 1.3 虚拟机上的操作 先不着急添加直通显卡，先进入虚拟机安装对应的显卡驱动，然后重启\n在虚拟机上添加PCI主机设备把刚刚做过手脚的gpu选择上\n不出意外的话重启你竟然发现原来丝滑的鼠标突然不能用了\n已知的解决方法：\n某宝购买kvm切换器，然后在 Virt-Manager 里选择添加硬件（Add Hardware） - USB 宿主设备（USB Host Device），选择你的鼠标键盘即可 Looking-glass或者scream,请自行参照官方文档安装配置 笔记本电脑有一套外接键鼠的话直接直通这一套键鼠，linux上使用触摸板和自带键盘 虚拟机性能优化 cpu 优化 在“CPUs”部分，将您的 CPU 型号更改为host-passthrough 然后打开手动设置CPU拓扑，保持套接字为1（这是为了让cpu能够减少内存交换的次数）\nio 优化 进入“添加硬件”并为“VirtIO SCSI”型号的SCSI驱动器添加控制器\n然后然后将默认 SATA 磁盘更改为SCSI磁盘，该磁盘将绑定到所述控制器。\ngrub里面添加hugepage参数 cpu固定 ",
-  "wordCount" : "208",
+  "articleBody": "0.准备工作\u0026检查 显卡直通的前提条件是：\nNVIDIA 独立显卡本身要具有视频输出功能 机身上至少有一个连接到独立显卡的视频接口 安装kvm虚拟机，具体步骤参照本博客archlinux安装或archlinux wiki 强烈建议阅读本文时参照下面几篇文章：\nPCI_passthrough_via_OVMF_ARCHLINUX wiki\nOptimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通\nvanities/GPU-Passthrough-Arch-Linux-to-Windows10 Public\nKVM-GPU-Passthrough\nOptimus笔记本虚拟机显卡直通 Linux低延遲在Windows虛擬機玩遊戲 ～ QEMU/KVM ＋ VFIO雙GPU直通 ＋ Looking Glass安裝過程\n1.1开始 1.1隔离独显 1.1.1引导镜像的编辑 运行 lspci -nn | grep NVIDIA，获得类似如下输出,中括号里的八位是我们需要的\n01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) 编辑或创建/etc/modprobe.d/vfio.conf，ids后面写上面得到的八位，并用逗号间隔(也可以添加内核参数 vfio-pci.ids=...)\noptions vfio-pci ids=10de:2520,10de:228e 修改/etc/mkinitcpio.conf，在MODULES里增加\nvfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.conf之中有modconf\n之后执行sudo mkinitcpio -P更新initramfs\n1.1.2引导时内核参数的编辑 为了使iommu加载，还需要在引导选项中\n修改/etc/default/grub\n(注意：如果你是systemd-boot或者refind用户请自行编辑conf来应用内核参数)\n对于intel用户：\nGRUB_CMDLINE_LINUX_DEFAULT=\"quiet ... intel_iommu=on\" 对于amd用户\nGRUB_CMDLINE_LINUX_DEFAULT=\"quiet ... amd_iommu=on\" 然后构建grub引导 sudo grub-mkconfig -o /boot/grub/grub.cfg\n1.1.3重启后检查 运行lspci -nnk若输出中Kernel driver in use一行为vfio-pci则万事具备\n01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) DeviceName: NVIDIA Graphics Device Subsystem: Hewlett-Packard Company Device [103c:88d1] Kernel driver in use: vfio-pci Kernel modules: nouveau, nvidia_drm, nvidia 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) Subsystem: Hewlett-Packard Company Device [103c:88d1] Kernel driver in use: vfio-pci Kernel modules: snd_hda_intel 1.2准备一个虚拟机 之前文章已经说过了，在这不赘述了，在这里写一些可能遇到的问题\n1.2.1 BIOS的选择 在bios上建议选择UEFI,对显卡的支持好一些\n在安装前选择安装前配置，选择概览，芯片组选择Q35，固件选择/usr/share/edk2-ovmf/x64/OVMF_CODE.fd\n接着进入安装windows,别忘了给windows打上virtio-win的驱动,再去红帽的spice-space下载spice-guest-tools\n1.2.2 如果你已经给windows安装了上了传统legacy bios 进入windows,以管理员权限运行\nmbr2gpt /convert /allowfullOS 之后将kvm的概览的xml中的os字段改为以下模样\nhvm /usr/share/edk2-ovmf/x64/OVMF_CODE.fd /var/lib/libvirt/qemu/nvram/win10_VARS.fd 1.3 虚拟机上的操作 先不着急添加直通显卡，先进入虚拟机安装对应的显卡驱动，然后重启\n在虚拟机上添加PCI主机设备把刚刚做过手脚的gpu选择上\n不出意外的话重启你竟然发现原来丝滑的鼠标突然不能用了\n已知的解决方法：\n某宝购买kvm切换器，然后在 Virt-Manager 里选择添加硬件（Add Hardware） - USB 宿主设备（USB Host Device），选择你的鼠标键盘即可 Looking-glass或者scream,请自行参照官方文档安装配置 笔记本电脑有一套外接键鼠的话直接直通这一套键鼠，linux上使用触摸板和自带键盘 由于启用looking-glass低延迟桌面需要独立显卡有输出信号，所以你需要保持显卡外接了屏幕或者使用了显卡欺骗器\n虚拟机性能优化 cpu 优化 在“CPUs”部分，将您的 CPU 型号更改为host-passthrough 然后打开手动设置CPU拓扑，保持套接字为1（这是为了让cpu能够减少内存交换的次数）\n接下来启动hugepage\n首先查看cat /proc/meminfo | grep Hugetlb 是否启用Hugepage，若Hugetlb 0kb代表没启用 sudo $EDITOR /etc/sysctl.d/99-kvm.conf\n预留8GB RAM (1 hugepage = 2mb)给虚拟机，添加以下内容 vm.nr_hugepages=4096 vm.hugetlb_shm_group=48 编辑XML,在里添加 接下来是cpu固定，同样编辑XML,在字段下面添加需要独占的核心\n调整hyper-v设置，在里添加\nio 优化 这里提两点：\n进入“添加硬件”并为“VirtIO SCSI”型号的SCSI驱动器添加控制器\n然后然后将默认 SATA 磁盘更改为SCSI磁盘，该磁盘将绑定到所述控制器。 如果你电脑的其他硬盘上有一个winodws系统你可以直接把这个硬盘给直通进来，并在启动选项里面选择它，你就不需要虚拟硬盘了！！！这样你就拥有了接近ssd原生的读写速度！ 去虚拟化/游戏 这一节将会配置looking-glass的低延迟桌面，让windows不把kvm当虚拟机等等一些重要提升体验的配置\nlooking-glass 在它的官网下载Windows Host Binary到windows虚拟机里面并安装 接下来在你的宿主机上安装looking-glass的客户端，arch用户应该paru -S looking-glass 编辑XML,在里添加 32 因为looking-glass是用过tmpfs来实现低延迟串流的，所以编辑sudo $EDITOR /etc/tmpfiles.d/10-looking-glass.conf 注意：user应当改成你的用户名！ # Type Path Mode UID GID Age Argument f /dev/shm/looking-glass 0660 user kvm - 添加解决没有音频输出的问题 sudo $EDITOR /etc/libvirt/qemu.conf,找到这一行：user = \"user\",把双引号里的user改为你的用户名 在XML中添加 去虚拟化 启动windows在任务管理器的性能-cpu里面会发现虚拟化：是\n这个时候需要编辑XML：\n首先获取你的机器信息\nsudo dmidecode --type bios sudo dmidecode --type baseboard sudo dmidecode --type system sudo dmidecode --type chassis 然后根据bios,baseboard,system,chassis信息对照填入vendor,manufacturer等信息，如下：\nAMI HP OMEN Laptop 15-en1xxx HP 88D1 75.75 EFEA34756QWE HP Chassis Version 6AD2345FF74 Not Specified Not Specified myappname:some arbitrary data otherappname:more arbitrary data ... 我的完整配置： win11 9806182e-c6cd-4855-ba84-626d953e0bdf 8388608 8388608 8 AMI HP OMEN Laptop 15-en1xxx HP 88D1 75.75 EFEA34756QWE HP Chassis Version 6AD2345FF74 Not Specified Not Specified myappname:some arbitrary data otherappname:more arbitrary data hvm /usr/share/edk2/x64/OVMF_CODE.fd /var/lib/libvirt/qemu/nvram/win11_VARS.fd destroy restart destroy /usr/bin/qemu-system-x86_64 32 ",
+  "wordCount" : "1129",
   "inLanguage": "en",
-  "datePublished": "2022-04-12T22:56:27+08:00",
-  "dateModified": "2022-04-12T22:56:27+08:00",
+  "datePublished": "2023-08-02T21:48:27+08:00",
+  "dateModified": "2023-08-02T21:48:27+08:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://hydroakri.github.io/posts/linux/passthrough/"
@@ -207,7 +201,7 @@ vfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.conf�
                 </a>
             </li>
             <li>
-                <a href="https://hydroakri.github.io/Tags/" title="Tags">
+                <a href="https://hydroakri.github.io/tags/" title="Tags">
                     <span>Tags</span>
                 </a>
             </li>
@@ -222,7 +216,7 @@ vfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.conf�
     <h1 class="post-title">
       基于KVM的虚拟显卡透传技术
     </h1>
-    <div class="post-meta"><span title='2022-04-12 22:56:27 +0800 CST'>April 12, 2022</span>
+    <div class="post-meta"><span title='2023-08-02 21:48:27 +0800 CST'>August 2, 2023</span>
 
 </div>
   </header> 
@@ -240,14 +234,15 @@ vfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.conf�
 Public</a><br>
 <a href="https://github.com/BigAnteater/KVM-GPU-Passthrough">
 KVM-GPU-Passthrough</a><br>
-<a href="https://www.bwsl.wang/script/119.html">Optimus笔记本虚拟机显卡直通</a></p>
+<a href="https://www.bwsl.wang/script/119.html">Optimus笔记本虚拟机显卡直通</a>
+<a href="https://ivonblog.com/posts/qemu-kvm-vfio-gaming/">Linux低延遲在Windows虛擬機玩遊戲 ～ QEMU/KVM ＋ VFIO雙GPU直通 ＋ Looking Glass安裝過程</a></p>
 <h1 id="11开始">1.1开始<a hidden class="anchor" aria-hidden="true" href="#11开始">#</a></h1>
 <h2 id="11隔离独显">1.1隔离独显<a hidden class="anchor" aria-hidden="true" href="#11隔离独显">#</a></h2>
 <h3 id="111引导镜像的编辑">1.1.1引导镜像的编辑<a hidden class="anchor" aria-hidden="true" href="#111引导镜像的编辑">#</a></h3>
-<p>运行 <code>lspci -nn | grep NVIDIA</code>，获得类似如下输出：</p>
+<p>运行 <code>lspci -nn | grep NVIDIA</code>，获得类似如下输出,中括号里的八位是我们需要的</p>
 <pre tabindex="0"><code>01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1)
 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1)
-</code></pre><p>编辑或创建<code>/etc/modprobe.d/vfio.conf</code>，内容书写</p>
+</code></pre><p>编辑或创建<code>/etc/modprobe.d/vfio.conf</code>，ids后面写上面得到的八位，并用逗号间隔(也可以添加内核参数 <code>vfio-pci.ids=...</code>)</p>
 <pre tabindex="0"><code>options vfio-pci ids=10de:2520,10de:228e
 </code></pre><p>修改<code>/etc/mkinitcpio.conf</code>，在<strong>MODULES</strong>里增加</p>
 <pre tabindex="0"><code>vfio_pci vfio vfio_iommu_type1 vfio_virqfd
@@ -256,6 +251,7 @@ KVM-GPU-Passthrough</a><br>
 <h3 id="112引导时内核参数的编辑">1.1.2引导时内核参数的编辑<a hidden class="anchor" aria-hidden="true" href="#112引导时内核参数的编辑">#</a></h3>
 <p>为了使iommu加载，还需要在引导选项中<br>
 修改<code>/etc/default/grub</code><br>
+(注意：如果你是systemd-boot或者refind用户请自行编辑conf来应用内核参数)<br>
 对于intel用户：</p>
 <pre tabindex="0"><code>GRUB_CMDLINE_LINUX_DEFAULT=&#34;quiet ... intel_iommu=on&#34;
 </code></pre><p>对于amd用户</p>
@@ -278,7 +274,7 @@ KVM-GPU-Passthrough</a><br>
 <h3 id="121-bios的选择">1.2.1 BIOS的选择<a hidden class="anchor" aria-hidden="true" href="#121-bios的选择">#</a></h3>
 <p>在bios上建议选择UEFI,对显卡的支持好一些<br>
 在<strong>安装前</strong>选择安装前配置，选择<code>概览</code>，<code>芯片组</code>选择<code>Q35</code>，<code>固件</code>选择<code>/usr/share/edk2-ovmf/x64/OVMF_CODE.fd</code><br>
-接着进入安装windows,别忘了给windows打上<code>virtio-win</code>的驱动</p>
+接着进入安装windows,别忘了给windows打上<code>virtio-win</code>的驱动,再去红帽的<a href="https://www.spice-space.org/download">spice-space</a>下载<a href="https://www.spice-space.org/download/windows/spice-guest-tools/spice-guest-tools-latest.exe">spice-guest-tools</a></p>
 <h3 id="122-如果你已经给windows安装了上了传统legacy-bios">1.2.2 如果你已经给windows安装了上了传统legacy bios<a hidden class="anchor" aria-hidden="true" href="#122-如果你已经给windows安装了上了传统legacy-bios">#</a></h3>
 <p>进入windows,以管理员权限运行</p>
 <pre tabindex="0"><code>mbr2gpt /convert /allowfullOS
@@ -299,16 +295,397 @@ KVM-GPU-Passthrough</a><br>
 <li>Looking-glass或者scream,请自行参照官方文档安装配置</li>
 <li>笔记本电脑有一套外接键鼠的话直接直通这一套键鼠，linux上使用触摸板和自带键盘</li>
 </ul>
+<p>由于启用looking-glass低延迟桌面需要独立显卡有输出信号，所以你需要保持显卡外接了屏幕或者使用了显卡欺骗器</p>
 <h1 id="虚拟机性能优化">虚拟机性能优化<a hidden class="anchor" aria-hidden="true" href="#虚拟机性能优化">#</a></h1>
 <h2 id="cpu-优化">cpu 优化<a hidden class="anchor" aria-hidden="true" href="#cpu-优化">#</a></h2>
 <p>在“CPUs”部分，将您的 CPU 型号更改为<code>host-passthrough</code>
 然后打开<code>手动设置CPU拓扑</code>，保持<code>套接字</code>为<code>1</code>（这是为了让cpu能够减少内存交换的次数）</p>
-<h2 id="io-优化">io 优化<a hidden class="anchor" aria-hidden="true" href="#io-优化">#</a></h2>
-<p>进入“添加硬件”并为“VirtIO SCSI”型号的<strong>SCSI驱动器添加控制器</strong><br>
-然后然后将默认 SATA 磁盘更改为SCSI磁盘，该磁盘将绑定到所述控制器。</p>
-<h2 id="grub里面添加hugepage参数">grub里面添加hugepage参数<a hidden class="anchor" aria-hidden="true" href="#grub里面添加hugepage参数">#</a></h2>
-<h2 id="cpu固定">cpu固定<a hidden class="anchor" aria-hidden="true" href="#cpu固定">#</a></h2>
-
+<p>接下来启动hugepage</p>
+<ol>
+<li>首先查看<code>cat /proc/meminfo | grep Hugetlb</code> 是否启用Hugepage，若Hugetlb 0kb代表没启用</li>
+<li><code>sudo $EDITOR /etc/sysctl.d/99-kvm.conf</code><br>
+预留8GB RAM (1 hugepage = 2mb)给虚拟机，添加以下内容</li>
+</ol>
+<pre tabindex="0"><code>vm.nr_hugepages=4096
+vm.hugetlb_shm_group=48
+</code></pre><ol start="3">
+<li>编辑XML,在<code>&lt;memory&gt;&lt;/memory&gt;</code>里添加</li>
+</ol>
+<pre tabindex="0"><code>&lt;memoryBacking&gt;
+  &lt;hugepages/&gt;
+&lt;/memoryBacking&gt;
+</code></pre><p>接下来是cpu固定，同样编辑XML,在<code>&lt;vcpu&gt;&lt;/vcpu&gt;</code>字段下面添加需要独占的核心</p>
+<pre tabindex="0"><code>  &lt;cputune&gt;
+    &lt;vcpupin vcpu=&#34;0&#34; cpuset=&#34;0&#34;/&gt;
+    &lt;vcpupin vcpu=&#34;1&#34; cpuset=&#34;1&#34;/&gt;
+    &lt;vcpupin vcpu=&#34;2&#34; cpuset=&#34;2&#34;/&gt;
+    &lt;vcpupin vcpu=&#34;3&#34; cpuset=&#34;3&#34;/&gt;
+  &lt;/cputune&gt;
+</code></pre><p>调整hyper-v设置，在<code>&lt;features&gt;&lt;/features&gt;</code>里添加</p>
+<pre tabindex="0"><code>  &lt;hyperv mode=&#34;custom&#34;&gt;
+      &lt;relaxed state=&#34;on&#34;/&gt;
+      &lt;vapic state=&#34;on&#34;/&gt;
+      &lt;spinlocks state=&#34;on&#34; retries=&#34;8191&#34;/&gt;
+      &lt;vpindex state=&#34;on&#34;/&gt;
+      &lt;runtime state=&#34;on&#34;/&gt;
+      &lt;synic state=&#34;on&#34;/&gt;
+      &lt;stimer state=&#34;on&#34;/&gt;
+      &lt;reset state=&#34;on&#34;/&gt;
+      &lt;vendor_id state=&#34;on&#34; value=&#34;123456789123&#34;/&gt;
+      &lt;frequencies state=&#34;on&#34;/&gt;
+  &lt;/hyperv&gt;
+</code></pre><h2 id="io-优化">io 优化<a hidden class="anchor" aria-hidden="true" href="#io-优化">#</a></h2>
+<p>这里提两点：</p>
+<ol>
+<li>进入“添加硬件”并为“VirtIO SCSI”型号的<strong>SCSI驱动器添加控制器</strong><br>
+然后然后将默认 SATA 磁盘更改为SCSI磁盘，该磁盘将绑定到所述控制器。</li>
+<li>如果你电脑的其他硬盘上有一个winodws系统你可以直接把这个硬盘给直通进来，并在启动选项里面选择它，你就不需要虚拟硬盘了！！！这样你就拥有了接近ssd原生的读写速度！</li>
+</ol>
+<h1 id="去虚拟化游戏">去虚拟化/游戏<a hidden class="anchor" aria-hidden="true" href="#去虚拟化游戏">#</a></h1>
+<p>这一节将会配置looking-glass的低延迟桌面，让windows不把kvm当虚拟机等等一些重要提升体验的配置</p>
+<h3 id="looking-glass">looking-glass<a hidden class="anchor" aria-hidden="true" href="#looking-glass">#</a></h3>
+<ol>
+<li>在它的<a href="https://looking-glass.io/downloads">官网</a>下载<a href="https://looking-glass.io/artifact/stable/host">Windows Host Binary</a>到windows虚拟机里面并安装</li>
+<li>接下来在你的宿主机上安装looking-glass的客户端，arch用户应该<code>paru -S looking-glass</code></li>
+<li>编辑XML,在<code>&lt;device&gt;&lt;/device&gt;</code>里添加</li>
+</ol>
+<pre tabindex="0"><code>&lt;devices&gt;
+  &lt;shmem name=&#39;looking-glass&#39;&gt;
+    &lt;model type=&#39;ivshmem-plain&#39;/&gt;
+    &lt;size unit=&#39;M&#39;&gt;32&lt;/size&gt;
+  &lt;/shmem&gt;
+&lt;/devices&gt;
+</code></pre><ol start="4">
+<li>因为looking-glass是用过tmpfs来实现低延迟串流的，所以编辑<code>sudo $EDITOR /etc/tmpfiles.d/10-looking-glass.conf</code> 注意：<code>user</code>应当改成你的用户名！</li>
+</ol>
+<pre tabindex="0"><code># Type       Path        Mode UID       GID Age Argument
+f /dev/shm/looking-glass 0660 user    kvm -
+</code></pre><h3 id="添加解决没有音频输出的问题">添加解决没有音频输出的问题<a hidden class="anchor" aria-hidden="true" href="#添加解决没有音频输出的问题">#</a></h3>
+<ol>
+<li><code>sudo $EDITOR /etc/libvirt/qemu.conf</code>,找到这一行：<code>user = &quot;user&quot;</code>,把双引号里的user改为你的用户名</li>
+<li>在XML<code>&lt;device&gt;</code>中添加</li>
+</ol>
+<pre tabindex="0"><code>    &lt;sound model=&#34;ich6&#34;&gt;
+      &lt;codec type=&#34;micro&#34;/&gt;
+      &lt;audio id=&#34;1&#34;/&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x10&#34; slot=&#34;0x02&#34; function=&#34;0x0&#34;/&gt;
+    &lt;/sound&gt;
+    &lt;audio id=&#34;1&#34; type=&#34;spice&#34;&gt;
+      &lt;input mixingEngine=&#34;yes&#34; fixedSettings=&#34;yes&#34; voices=&#34;1&#34; bufferLength=&#34;100&#34;&gt;
+        &lt;settings frequency=&#34;44100&#34; channels=&#34;2&#34; format=&#34;s16&#34;/&gt;
+      &lt;/input&gt;
+      &lt;output mixingEngine=&#34;yes&#34; fixedSettings=&#34;yes&#34; voices=&#34;2&#34; bufferLength=&#34;100&#34;&gt;
+        &lt;settings frequency=&#34;44100&#34; channels=&#34;4&#34; format=&#34;f32&#34;/&gt;
+      &lt;/output&gt;
+    &lt;/audio&gt;
+</code></pre><h3 id="去虚拟化">去虚拟化<a hidden class="anchor" aria-hidden="true" href="#去虚拟化">#</a></h3>
+<p>启动windows在任务管理器的性能-cpu里面会发现<code>虚拟化：是</code><br>
+这个时候需要编辑XML：</p>
+<pre tabindex="0"><code>&lt;cpu mode=&#39;host-passthrough&#39; check=&#39;none&#39;&gt;
+&lt;topology sockets=&#39;1&#39; cores=&#39;6&#39; threads=&#39;2&#39;/&gt;
+&lt;feature policy=&#39;disable&#39; name=&#39;hypervisor&#39;/&gt;
+&lt;/cpu&gt;
+</code></pre><p>首先获取你的机器信息</p>
+<pre tabindex="0"><code>sudo dmidecode --type bios
+sudo dmidecode --type baseboard
+sudo dmidecode --type system
+sudo dmidecode --type chassis
+</code></pre><p>然后根据bios,baseboard,system,chassis信息对照填入vendor,manufacturer等信息，如下：</p>
+<pre tabindex="0"><code>&lt;sysinfo type=&#34;smbios&#34;&gt;
+    &lt;bios&gt;
+      &lt;entry name=&#34;vendor&#34;&gt;AMI&lt;/entry&gt;
+    &lt;/bios&gt;
+    &lt;system&gt;
+      &lt;entry name=&#34;manufacturer&#34;&gt;HP&lt;/entry&gt;
+      &lt;entry name=&#34;product&#34;&gt;OMEN Laptop 15-en1xxx&lt;/entry&gt;
+    &lt;/system&gt;
+    &lt;baseBoard&gt;
+      &lt;entry name=&#34;manufacturer&#34;&gt;HP&lt;/entry&gt;
+      &lt;entry name=&#34;product&#34;&gt;88D1&lt;/entry&gt;
+      &lt;entry name=&#34;version&#34;&gt;75.75&lt;/entry&gt;
+      &lt;entry name=&#34;serial&#34;&gt;EFEA34756QWE&lt;/entry&gt;
+    &lt;/baseBoard&gt;
+    &lt;chassis&gt;
+      &lt;entry name=&#34;manufacturer&#34;&gt;HP&lt;/entry&gt;
+      &lt;entry name=&#34;version&#34;&gt;Chassis Version&lt;/entry&gt;
+      &lt;entry name=&#34;serial&#34;&gt;6AD2345FF74&lt;/entry&gt;
+      &lt;entry name=&#34;asset&#34;&gt;Not Specified&lt;/entry&gt;
+      &lt;entry name=&#34;sku&#34;&gt;Not Specified&lt;/entry&gt;
+    &lt;/chassis&gt;
+    &lt;oemStrings&gt;
+      &lt;entry&gt;myappname:some arbitrary data&lt;/entry&gt;
+      &lt;entry&gt;otherappname:more arbitrary data&lt;/entry&gt;
+    &lt;/oemStrings&gt;
+  &lt;/sysinfo&gt;
+  &lt;os firmware=&#34;efi&#34;&gt;
+  ...
+</code></pre><h1 id="我的完整配置">我的完整配置：<a hidden class="anchor" aria-hidden="true" href="#我的完整配置">#</a></h1>
+<pre tabindex="0"><code>&lt;domain type=&#34;kvm&#34;&gt;
+  &lt;name&gt;win11&lt;/name&gt;
+  &lt;uuid&gt;9806182e-c6cd-4855-ba84-626d953e0bdf&lt;/uuid&gt;
+  &lt;metadata&gt;
+    &lt;libosinfo:libosinfo xmlns:libosinfo=&#34;http://libosinfo.org/xmlns/libvirt/domain/1.0&#34;&gt;
+      &lt;libosinfo:os id=&#34;http://microsoft.com/win/11&#34;/&gt;
+    &lt;/libosinfo:libosinfo&gt;
+  &lt;/metadata&gt;
+  &lt;memory unit=&#34;KiB&#34;&gt;8388608&lt;/memory&gt;
+  &lt;currentMemory unit=&#34;KiB&#34;&gt;8388608&lt;/currentMemory&gt;
+  &lt;memoryBacking&gt;
+    &lt;hugepages/&gt;
+    &lt;source type=&#34;memfd&#34;/&gt;
+    &lt;access mode=&#34;shared&#34;/&gt;
+  &lt;/memoryBacking&gt;
+  &lt;vcpu placement=&#34;static&#34;&gt;8&lt;/vcpu&gt;
+  &lt;cputune&gt;
+    &lt;vcpupin vcpu=&#34;0&#34; cpuset=&#34;0&#34;/&gt;
+    &lt;vcpupin vcpu=&#34;1&#34; cpuset=&#34;1&#34;/&gt;
+    &lt;vcpupin vcpu=&#34;2&#34; cpuset=&#34;2&#34;/&gt;
+    &lt;vcpupin vcpu=&#34;3&#34; cpuset=&#34;3&#34;/&gt;
+  &lt;/cputune&gt;
+  &lt;sysinfo type=&#34;smbios&#34;&gt;
+    &lt;bios&gt;
+      &lt;entry name=&#34;vendor&#34;&gt;AMI&lt;/entry&gt;
+    &lt;/bios&gt;
+    &lt;system&gt;
+      &lt;entry name=&#34;manufacturer&#34;&gt;HP&lt;/entry&gt;
+      &lt;entry name=&#34;product&#34;&gt;OMEN Laptop 15-en1xxx&lt;/entry&gt;
+    &lt;/system&gt;
+    &lt;baseBoard&gt;
+      &lt;entry name=&#34;manufacturer&#34;&gt;HP&lt;/entry&gt;
+      &lt;entry name=&#34;product&#34;&gt;88D1&lt;/entry&gt;
+      &lt;entry name=&#34;version&#34;&gt;75.75&lt;/entry&gt;
+      &lt;entry name=&#34;serial&#34;&gt;EFEA34756QWE&lt;/entry&gt;
+    &lt;/baseBoard&gt;
+    &lt;chassis&gt;
+      &lt;entry name=&#34;manufacturer&#34;&gt;HP&lt;/entry&gt;
+      &lt;entry name=&#34;version&#34;&gt;Chassis Version&lt;/entry&gt;
+      &lt;entry name=&#34;serial&#34;&gt;6AD2345FF74&lt;/entry&gt;
+      &lt;entry name=&#34;asset&#34;&gt;Not Specified&lt;/entry&gt;
+      &lt;entry name=&#34;sku&#34;&gt;Not Specified&lt;/entry&gt;
+    &lt;/chassis&gt;
+    &lt;oemStrings&gt;
+      &lt;entry&gt;myappname:some arbitrary data&lt;/entry&gt;
+      &lt;entry&gt;otherappname:more arbitrary data&lt;/entry&gt;
+    &lt;/oemStrings&gt;
+  &lt;/sysinfo&gt;
+  &lt;os firmware=&#34;efi&#34;&gt;
+    &lt;type arch=&#34;x86_64&#34; machine=&#34;pc-q35-8.0&#34;&gt;hvm&lt;/type&gt;
+    &lt;firmware&gt;
+      &lt;feature enabled=&#34;no&#34; name=&#34;enrolled-keys&#34;/&gt;
+      &lt;feature enabled=&#34;no&#34; name=&#34;secure-boot&#34;/&gt;
+    &lt;/firmware&gt;
+    &lt;loader readonly=&#34;yes&#34; type=&#34;pflash&#34;&gt;/usr/share/edk2/x64/OVMF_CODE.fd&lt;/loader&gt;
+    &lt;nvram template=&#34;/usr/share/edk2/x64/OVMF_VARS.fd&#34;&gt;/var/lib/libvirt/qemu/nvram/win11_VARS.fd&lt;/nvram&gt;
+    &lt;bootmenu enable=&#34;no&#34;/&gt;
+  &lt;/os&gt;
+  &lt;features&gt;
+    &lt;acpi/&gt;
+    &lt;apic/&gt;
+    &lt;hyperv mode=&#34;custom&#34;&gt;
+      &lt;relaxed state=&#34;on&#34;/&gt;
+      &lt;vapic state=&#34;on&#34;/&gt;
+      &lt;spinlocks state=&#34;on&#34; retries=&#34;8191&#34;/&gt;
+      &lt;vpindex state=&#34;on&#34;/&gt;
+      &lt;runtime state=&#34;on&#34;/&gt;
+      &lt;synic state=&#34;on&#34;/&gt;
+      &lt;stimer state=&#34;on&#34;/&gt;
+      &lt;reset state=&#34;on&#34;/&gt;
+      &lt;vendor_id state=&#34;on&#34; value=&#34;123456789123&#34;/&gt;
+      &lt;frequencies state=&#34;on&#34;/&gt;
+    &lt;/hyperv&gt;
+    &lt;kvm&gt;
+      &lt;hidden state=&#34;on&#34;/&gt;
+    &lt;/kvm&gt;
+    &lt;vmport state=&#34;off&#34;/&gt;
+    &lt;smm state=&#34;on&#34;/&gt;
+    &lt;ioapic driver=&#34;kvm&#34;/&gt;
+  &lt;/features&gt;
+  &lt;cpu mode=&#34;host-passthrough&#34; check=&#34;none&#34; migratable=&#34;on&#34;&gt;
+    &lt;topology sockets=&#34;1&#34; dies=&#34;1&#34; cores=&#34;8&#34; threads=&#34;1&#34;/&gt;
+    &lt;feature policy=&#39;disable&#39; name=&#39;hypervisor&#39;/&gt;
+  &lt;/cpu&gt;
+  &lt;clock offset=&#34;localtime&#34;&gt;
+    &lt;timer name=&#34;rtc&#34; tickpolicy=&#34;catchup&#34;/&gt;
+    &lt;timer name=&#34;pit&#34; tickpolicy=&#34;delay&#34;/&gt;
+    &lt;timer name=&#34;hpet&#34; present=&#34;no&#34;/&gt;
+    &lt;timer name=&#34;hypervclock&#34; present=&#34;yes&#34;/&gt;
+  &lt;/clock&gt;
+  &lt;on_poweroff&gt;destroy&lt;/on_poweroff&gt;
+  &lt;on_reboot&gt;restart&lt;/on_reboot&gt;
+  &lt;on_crash&gt;destroy&lt;/on_crash&gt;
+  &lt;pm&gt;
+    &lt;suspend-to-mem enabled=&#34;no&#34;/&gt;
+    &lt;suspend-to-disk enabled=&#34;no&#34;/&gt;
+  &lt;/pm&gt;
+  &lt;devices&gt;
+    &lt;emulator&gt;/usr/bin/qemu-system-x86_64&lt;/emulator&gt;
+    &lt;controller type=&#34;usb&#34; index=&#34;0&#34; model=&#34;qemu-xhci&#34; ports=&#34;15&#34;&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x02&#34; slot=&#34;0x00&#34; function=&#34;0x0&#34;/&gt;
+    &lt;/controller&gt;
+    &lt;controller type=&#34;pci&#34; index=&#34;0&#34; model=&#34;pcie-root&#34;/&gt;
+    &lt;controller type=&#34;pci&#34; index=&#34;1&#34; model=&#34;pcie-root-port&#34;&gt;
+      &lt;model name=&#34;pcie-root-port&#34;/&gt;
+      &lt;target chassis=&#34;1&#34; port=&#34;0x10&#34;/&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x00&#34; slot=&#34;0x02&#34; function=&#34;0x0&#34; multifunction=&#34;on&#34;/&gt;
+    &lt;/controller&gt;
+    &lt;controller type=&#34;pci&#34; index=&#34;2&#34; model=&#34;pcie-root-port&#34;&gt;
+      &lt;model name=&#34;pcie-root-port&#34;/&gt;
+      &lt;target chassis=&#34;2&#34; port=&#34;0x11&#34;/&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x00&#34; slot=&#34;0x02&#34; function=&#34;0x1&#34;/&gt;
+    &lt;/controller&gt;
+    &lt;controller type=&#34;pci&#34; index=&#34;3&#34; model=&#34;pcie-root-port&#34;&gt;
+      &lt;model name=&#34;pcie-root-port&#34;/&gt;
+      &lt;target chassis=&#34;3&#34; port=&#34;0x12&#34;/&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x00&#34; slot=&#34;0x02&#34; function=&#34;0x2&#34;/&gt;
+    &lt;/controller&gt;
+    &lt;controller type=&#34;pci&#34; index=&#34;4&#34; model=&#34;pcie-root-port&#34;&gt;
+      &lt;model name=&#34;pcie-root-port&#34;/&gt;
+      &lt;target chassis=&#34;4&#34; port=&#34;0x13&#34;/&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x00&#34; slot=&#34;0x02&#34; function=&#34;0x3&#34;/&gt;
+    &lt;/controller&gt;
+    &lt;controller type=&#34;pci&#34; index=&#34;5&#34; model=&#34;pcie-root-port&#34;&gt;
+      &lt;model name=&#34;pcie-root-port&#34;/&gt;
+      &lt;target chassis=&#34;5&#34; port=&#34;0x14&#34;/&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x00&#34; slot=&#34;0x02&#34; function=&#34;0x4&#34;/&gt;
+    &lt;/controller&gt;
+    &lt;controller type=&#34;pci&#34; index=&#34;6&#34; model=&#34;pcie-root-port&#34;&gt;
+      &lt;model name=&#34;pcie-root-port&#34;/&gt;
+      &lt;target chassis=&#34;6&#34; port=&#34;0x15&#34;/&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x00&#34; slot=&#34;0x02&#34; function=&#34;0x5&#34;/&gt;
+    &lt;/controller&gt;
+    &lt;controller type=&#34;pci&#34; index=&#34;7&#34; model=&#34;pcie-root-port&#34;&gt;
+      &lt;model name=&#34;pcie-root-port&#34;/&gt;
+      &lt;target chassis=&#34;7&#34; port=&#34;0x16&#34;/&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x00&#34; slot=&#34;0x02&#34; function=&#34;0x6&#34;/&gt;
+    &lt;/controller&gt;
+    &lt;controller type=&#34;pci&#34; index=&#34;8&#34; model=&#34;pcie-root-port&#34;&gt;
+      &lt;model name=&#34;pcie-root-port&#34;/&gt;
+      &lt;target chassis=&#34;8&#34; port=&#34;0x17&#34;/&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x00&#34; slot=&#34;0x02&#34; function=&#34;0x7&#34;/&gt;
+    &lt;/controller&gt;
+    &lt;controller type=&#34;pci&#34; index=&#34;9&#34; model=&#34;pcie-root-port&#34;&gt;
+      &lt;model name=&#34;pcie-root-port&#34;/&gt;
+      &lt;target chassis=&#34;9&#34; port=&#34;0x18&#34;/&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x00&#34; slot=&#34;0x03&#34; function=&#34;0x0&#34; multifunction=&#34;on&#34;/&gt;
+    &lt;/controller&gt;
+    &lt;controller type=&#34;pci&#34; index=&#34;10&#34; model=&#34;pcie-root-port&#34;&gt;
+      &lt;model name=&#34;pcie-root-port&#34;/&gt;
+      &lt;target chassis=&#34;10&#34; port=&#34;0x19&#34;/&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x00&#34; slot=&#34;0x03&#34; function=&#34;0x1&#34;/&gt;
+    &lt;/controller&gt;
+    &lt;controller type=&#34;pci&#34; index=&#34;11&#34; model=&#34;pcie-root-port&#34;&gt;
+      &lt;model name=&#34;pcie-root-port&#34;/&gt;
+      &lt;target chassis=&#34;11&#34; port=&#34;0x1a&#34;/&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x00&#34; slot=&#34;0x03&#34; function=&#34;0x2&#34;/&gt;
+    &lt;/controller&gt;
+    &lt;controller type=&#34;pci&#34; index=&#34;12&#34; model=&#34;pcie-root-port&#34;&gt;
+      &lt;model name=&#34;pcie-root-port&#34;/&gt;
+      &lt;target chassis=&#34;12&#34; port=&#34;0x1b&#34;/&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x00&#34; slot=&#34;0x03&#34; function=&#34;0x3&#34;/&gt;
+    &lt;/controller&gt;
+    &lt;controller type=&#34;pci&#34; index=&#34;13&#34; model=&#34;pcie-root-port&#34;&gt;
+      &lt;model name=&#34;pcie-root-port&#34;/&gt;
+      &lt;target chassis=&#34;13&#34; port=&#34;0x1c&#34;/&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x00&#34; slot=&#34;0x03&#34; function=&#34;0x4&#34;/&gt;
+    &lt;/controller&gt;
+    &lt;controller type=&#34;pci&#34; index=&#34;14&#34; model=&#34;pcie-root-port&#34;&gt;
+      &lt;model name=&#34;pcie-root-port&#34;/&gt;
+      &lt;target chassis=&#34;14&#34; port=&#34;0x1d&#34;/&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x00&#34; slot=&#34;0x03&#34; function=&#34;0x5&#34;/&gt;
+    &lt;/controller&gt;
+    &lt;controller type=&#34;pci&#34; index=&#34;15&#34; model=&#34;pcie-root-port&#34;&gt;
+      &lt;model name=&#34;pcie-root-port&#34;/&gt;
+      &lt;target chassis=&#34;15&#34; port=&#34;0x1e&#34;/&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x00&#34; slot=&#34;0x03&#34; function=&#34;0x6&#34;/&gt;
+    &lt;/controller&gt;
+    &lt;controller type=&#34;pci&#34; index=&#34;16&#34; model=&#34;pcie-to-pci-bridge&#34;&gt;
+      &lt;model name=&#34;pcie-pci-bridge&#34;/&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x07&#34; slot=&#34;0x00&#34; function=&#34;0x0&#34;/&gt;
+    &lt;/controller&gt;
+    &lt;controller type=&#34;sata&#34; index=&#34;0&#34;&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x00&#34; slot=&#34;0x1f&#34; function=&#34;0x2&#34;/&gt;
+    &lt;/controller&gt;
+    &lt;controller type=&#34;virtio-serial&#34; index=&#34;0&#34;&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x03&#34; slot=&#34;0x00&#34; function=&#34;0x0&#34;/&gt;
+    &lt;/controller&gt;
+    &lt;interface type=&#34;network&#34;&gt;
+      &lt;mac address=&#34;52:54:00:23:03:75&#34;/&gt;
+      &lt;source network=&#34;default&#34;/&gt;
+      &lt;model type=&#34;e1000e&#34;/&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x01&#34; slot=&#34;0x00&#34; function=&#34;0x0&#34;/&gt;
+    &lt;/interface&gt;
+    &lt;serial type=&#34;pty&#34;&gt;
+      &lt;target type=&#34;isa-serial&#34; port=&#34;0&#34;&gt;
+        &lt;model name=&#34;isa-serial&#34;/&gt;
+      &lt;/target&gt;
+    &lt;/serial&gt;
+    &lt;console type=&#34;pty&#34;&gt;
+      &lt;target type=&#34;serial&#34; port=&#34;0&#34;/&gt;
+    &lt;/console&gt;
+    &lt;channel type=&#34;spicevmc&#34;&gt;
+      &lt;target type=&#34;virtio&#34; name=&#34;com.redhat.spice.0&#34;/&gt;
+      &lt;address type=&#34;virtio-serial&#34; controller=&#34;0&#34; bus=&#34;0&#34; port=&#34;1&#34;/&gt;
+    &lt;/channel&gt;
+    &lt;input type=&#34;mouse&#34; bus=&#34;ps2&#34;/&gt;
+    &lt;input type=&#34;keyboard&#34; bus=&#34;ps2&#34;/&gt;
+    &lt;tpm model=&#34;tpm-crb&#34;&gt;
+      &lt;backend type=&#34;emulator&#34; version=&#34;2.0&#34;/&gt;
+    &lt;/tpm&gt;
+    &lt;graphics type=&#34;spice&#34; port=&#34;-1&#34; autoport=&#34;no&#34;&gt;
+      &lt;listen type=&#34;address&#34;/&gt;
+      &lt;image compression=&#34;off&#34;/&gt;
+    &lt;/graphics&gt;
+    &lt;sound model=&#34;ich6&#34;&gt;
+      &lt;codec type=&#34;micro&#34;/&gt;
+      &lt;audio id=&#34;1&#34;/&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x10&#34; slot=&#34;0x02&#34; function=&#34;0x0&#34;/&gt;
+    &lt;/sound&gt;
+    &lt;audio id=&#34;1&#34; type=&#34;spice&#34;&gt;
+      &lt;input mixingEngine=&#34;yes&#34; fixedSettings=&#34;yes&#34; voices=&#34;1&#34; bufferLength=&#34;100&#34;&gt;
+        &lt;settings frequency=&#34;44100&#34; channels=&#34;2&#34; format=&#34;s16&#34;/&gt;
+      &lt;/input&gt;
+      &lt;output mixingEngine=&#34;yes&#34; fixedSettings=&#34;yes&#34; voices=&#34;2&#34; bufferLength=&#34;100&#34;&gt;
+        &lt;settings frequency=&#34;44100&#34; channels=&#34;4&#34; format=&#34;f32&#34;/&gt;
+      &lt;/output&gt;
+    &lt;/audio&gt;
+    &lt;video&gt;
+      &lt;model type=&#34;qxl&#34; ram=&#34;65536&#34; vram=&#34;65536&#34; vgamem=&#34;16384&#34; heads=&#34;1&#34; primary=&#34;yes&#34;/&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x00&#34; slot=&#34;0x01&#34; function=&#34;0x0&#34;/&gt;
+    &lt;/video&gt;
+    &lt;hostdev mode=&#34;subsystem&#34; type=&#34;pci&#34; managed=&#34;yes&#34;&gt;
+      &lt;source&gt;
+        &lt;address domain=&#34;0x0000&#34; bus=&#34;0x01&#34; slot=&#34;0x00&#34; function=&#34;0x0&#34;/&gt;
+      &lt;/source&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x05&#34; slot=&#34;0x00&#34; function=&#34;0x0&#34;/&gt;
+    &lt;/hostdev&gt;
+    &lt;hostdev mode=&#34;subsystem&#34; type=&#34;pci&#34; managed=&#34;yes&#34;&gt;
+      &lt;source&gt;
+        &lt;address domain=&#34;0x0000&#34; bus=&#34;0x01&#34; slot=&#34;0x00&#34; function=&#34;0x1&#34;/&gt;
+      &lt;/source&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x06&#34; slot=&#34;0x00&#34; function=&#34;0x0&#34;/&gt;
+    &lt;/hostdev&gt;
+    &lt;hostdev mode=&#34;subsystem&#34; type=&#34;pci&#34; managed=&#34;yes&#34;&gt;
+      &lt;source&gt;
+        &lt;address domain=&#34;0x0000&#34; bus=&#34;0x06&#34; slot=&#34;0x00&#34; function=&#34;0x0&#34;/&gt;
+      &lt;/source&gt;
+      &lt;boot order=&#34;1&#34;/&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x08&#34; slot=&#34;0x00&#34; function=&#34;0x0&#34;/&gt;
+    &lt;/hostdev&gt;
+    &lt;redirdev bus=&#34;usb&#34; type=&#34;spicevmc&#34;&gt;
+      &lt;address type=&#34;usb&#34; bus=&#34;0&#34; port=&#34;2&#34;/&gt;
+    &lt;/redirdev&gt;
+    &lt;watchdog model=&#34;itco&#34; action=&#34;reset&#34;/&gt;
+    &lt;memballoon model=&#34;virtio&#34;&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x04&#34; slot=&#34;0x00&#34; function=&#34;0x0&#34;/&gt;
+    &lt;/memballoon&gt;
+    &lt;shmem name=&#34;looking-glass&#34;&gt;
+      &lt;model type=&#34;ivshmem-plain&#34;/&gt;
+      &lt;size unit=&#34;M&#34;&gt;32&lt;/size&gt;
+      &lt;address type=&#34;pci&#34; domain=&#34;0x0000&#34; bus=&#34;0x10&#34; slot=&#34;0x01&#34; function=&#34;0x0&#34;/&gt;
+    &lt;/shmem&gt;
+  &lt;/devices&gt;
+&lt;/domain&gt;
+</code></pre>
 
   </div>
 

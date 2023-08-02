@@ -6,7 +6,26 @@
     <description>Recent content on Hydroakri&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 22 Feb 2023 11:11:27 +0800</lastBuildDate><atom:link href="https://hydroakri.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Aug 2023 21:48:27 +0800</lastBuildDate><atom:link href="https://hydroakri.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基于KVM的虚拟显卡透传技术</title>
+      <link>https://hydroakri.github.io/posts/linux/passthrough/</link>
+      <pubDate>Wed, 02 Aug 2023 21:48:27 +0800</pubDate>
+      
+      <guid>https://hydroakri.github.io/posts/linux/passthrough/</guid>
+      <description>0.准备工作&amp;amp;检查 显卡直通的前提条件是：
+NVIDIA 独立显卡本身要具有视频输出功能 机身上至少有一个连接到独立显卡的视频接口 安装kvm虚拟机，具体步骤参照本博客archlinux安装或archlinux wiki 强烈建议阅读本文时参照下面几篇文章：
+PCI_passthrough_via_OVMF_ARCHLINUX wiki
+Optimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通
+vanities/GPU-Passthrough-Arch-Linux-to-Windows10 Public
+KVM-GPU-Passthrough
+Optimus笔记本虚拟机显卡直通 Linux低延遲在Windows虛擬機玩遊戲 ～ QEMU/KVM ＋ VFIO雙GPU直通 ＋ Looking Glass安裝過程
+1.1开始 1.1隔离独显 1.1.1引导镜像的编辑 运行 lspci -nn | grep NVIDIA，获得类似如下输出,中括号里的八位是我们需要的
+01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) 编辑或创建/etc/modprobe.d/vfio.conf，ids后面写上面得到的八位，并用逗号间隔(也可以添加内核参数 vfio-pci.ids=...)
+options vfio-pci ids=10de:2520,10de:228e 修改/etc/mkinitcpio.conf，在MODULES里增加
+vfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.</description>
+    </item>
+    
     <item>
       <title>我的常用开源软件生态</title>
       <link>https://hydroakri.github.io/posts/linux/apps/</link>
@@ -158,27 +177,6 @@ Windows 把Windows 11 改为10的模样：ExplorerPatcher 使游戏窗口全屏�
 问题：当我试图使用哈希表来查找的时候，提示unordered_map的find()报错 Line 20: Char 29: error: no matching member function for call to &amp;#39;find&amp;#39; 解决：C++ map no matching member function for call to &amp;lsquo;find&amp;rsquo; when used for a string 类std::map的成员函数find的形参类型是const std::string &amp;amp;。但是使用的是char类型的参数，并且没有从char类型到std::string类型的隐式转换。 加入
 const char item[] = { s[i], &amp;#39;\0&amp;#39; }; 或者把原来的s[i]替换为std::string(1, s[i])
 class Solution { public: bool halvesAreAlike(string s) { unordered_map&amp;lt;string,string&amp;gt; hashtable{{&amp;#34;a&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;e&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;i&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;o&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;u&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;A&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;E&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;I&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;O&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;U&amp;#34;,&amp;#34;true&amp;#34;}}; int length = s.</description>
-    </item>
-    
-    <item>
-      <title>基于KVM的虚拟显卡透传技术</title>
-      <link>https://hydroakri.github.io/posts/linux/passthrough/</link>
-      <pubDate>Tue, 12 Apr 2022 22:56:27 +0800</pubDate>
-      
-      <guid>https://hydroakri.github.io/posts/linux/passthrough/</guid>
-      <description>0.准备工作&amp;amp;检查 显卡直通的前提条件是：
-NVIDIA 独立显卡本身要具有视频输出功能 机身上至少有一个连接到独立显卡的视频接口 安装kvm虚拟机，具体步骤参照本博客archlinux安装或archlinux wiki 强烈建议阅读本文时参照下面几篇文章：
-PCI_passthrough_via_OVMF_ARCHLINUX wiki
-Optimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通
-vanities/GPU-Passthrough-Arch-Linux-to-Windows10 Public
-KVM-GPU-Passthrough
-Optimus笔记本虚拟机显卡直通
-1.1开始 1.1隔离独显 1.1.1引导镜像的编辑 运行 lspci -nn | grep NVIDIA，获得类似如下输出：
-01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) 编辑或创建/etc/modprobe.d/vfio.conf，内容书写
-options vfio-pci ids=10de:2520,10de:228e 修改/etc/mkinitcpio.conf，在MODULES里增加
-vfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.conf之中有modconf
-之后执行sudo mkinitcpio -P更新initramfs
-1.1.2引导时内核参数的编辑 为了使iommu加载，还需要在引导选项中</description>
     </item>
     
     <item>

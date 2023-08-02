@@ -133,3 +133,7 @@ UUID=0eaaae30-9c36-4716-b7df-6e6bcf035464	/var/cache/pacman/pkg	btrfs     rw,rel
 # /dev/nvme0n1p2
 UUID=0eaaae30-9c36-4716-b7df-6e6bcf035464	/var/log  	btrfs     	rw,relatime,ssd,space_cache=v2,noatime,commit=120,compress=zstd,discard=async,subvolid=258,subvol=/@log	0 0
 ```
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable fstrim.timer
+```
