@@ -254,6 +254,10 @@ sudo dmidecode --type chassis
     <vcpupin vcpu="1" cpuset="1"/>
     <vcpupin vcpu="2" cpuset="2"/>
     <vcpupin vcpu="3" cpuset="3"/>
+    <vcpupin vcpu="4" cpuset="4"/>
+    <vcpupin vcpu="5" cpuset="5"/>
+    <vcpupin vcpu="6" cpuset="6"/>
+    <vcpupin vcpu="7" cpuset="7"/>
   </cputune>
   <sysinfo type="smbios">
     <bios>
