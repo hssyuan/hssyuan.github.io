@@ -104,7 +104,7 @@ mbr2gpt /convert /allowfullOS
 在“CPUs”部分，将您的 CPU 型号更改为`host-passthrough`
 然后打开`手动设置CPU拓扑`，保持`套接字`为`1`（这是为了让cpu能够减少内存交换的次数）  
 
-接下来启动hugepage
+接下来hugepage(按照wiki的来我没有成功，谨慎尝试)
 1. 首先查看`cat /proc/meminfo | grep Hugetlb` 是否启用Hugepage，若Hugetlb 0kb代表没启用  
 2. `sudo $EDITOR /etc/sysctl.d/99-kvm.conf`  
 预留8GB RAM (1 hugepage = 2mb)给虚拟机，添加以下内容
@@ -177,7 +177,7 @@ f /dev/shm/looking-glass 0660 user    kvm -
     <sound model="ich6">
       <codec type="micro"/>
       <audio id="1"/>
-      <address type="pci" domain="0x0000" bus="0x10" slot="0x02" function="0x0"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x1b" function="0x0"/>
     </sound>
     <audio id="1" type="spice">
       <input mixingEngine="yes" fixedSettings="yes" voices="1" bufferLength="100">
@@ -248,11 +248,6 @@ sudo dmidecode --type chassis
   </metadata>
   <memory unit="KiB">8388608</memory>
   <currentMemory unit="KiB">8388608</currentMemory>
-  <memoryBacking>
-    <hugepages/>
-    <source type="memfd"/>
-    <access mode="shared"/>
-  </memoryBacking>
   <vcpu placement="static">8</vcpu>
   <cputune>
     <vcpupin vcpu="0" cpuset="0"/>
@@ -456,7 +451,7 @@ sudo dmidecode --type chassis
     <sound model="ich6">
       <codec type="micro"/>
       <audio id="1"/>
-      <address type="pci" domain="0x0000" bus="0x10" slot="0x02" function="0x0"/>
+      <address type="pci" domain="0x0000" bus="0x00" slot="0x1b" function="0x0"/>
     </sound>
     <audio id="1" type="spice">
       <input mixingEngine="yes" fixedSettings="yes" voices="1" bufferLength="100">
