@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>linux 使用 doh | Hydroakri&#39;s Blog</title>
+<meta name="keywords" content="linux" />
+<meta name="description" content="在比较了archwiki关于dns的介绍后
+在smartdns/coredns/unbound/dnsencrypt-proxy之中选择了后者
+coredns和unbound对于桌面linux用户而言过于复杂且不好配置
+而smartdns面对老前辈dnsencrypt-proxy而言缺少了自动获取doh源的功能
+安装 首先sudo -s进入root shell
+然后ss -lp &#39;sport = :domain&#39;查看端口是否被占用
+确保127.0.0.1:domain没有被占用即可
+如果有占用需要停止目前使用的dns服务
+例如systemctl disable systemd-resolved
+然后根据发行版安装二进制包
+配置文件的位置在/etc/dnscrypt-proxy/dnscrypt-proxy.toml 启动服务systemctl enable dnscrypt-proxy.service --now
+让dns服务器指向本地的dnscrypt-proxy 修改/etc/resolv.conf
+nameserver ::1 nameserver 127.0.0.1 options edns0 然后chattr &#43;i /etc/resolv.conf来放置resolv.conf被networkmanager或其他网络服务覆写
+打开浏览器并前往dns leak test并进行扩展测试,如果结果显示您在配置文件中设置的服务器,则表示dnscrypt-proxy正在工作,否则出现问题。">
+<meta name="author" content="">
+<link rel="canonical" href="https://hydroakri.github.io/posts/linux/doh/" />
+<link crossorigin="anonymous" href="https://hydroakri.github.io/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="https://hydroakri.github.io/assets/js/highlight.min.b95bacdc39e37a332a9f883b1e78be4abc1fdca2bc1f2641f55e3cd3dabd4d61.js" integrity="sha256-uVus3DnjejMqn4g7Hni&#43;Srwf3KK8HyZB9V4809q9TWE="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://hydroakri.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://hydroakri.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://hydroakri.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://hydroakri.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://hydroakri.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.119.0">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="linux 使用 doh" />
+<meta property="og:description" content="在比较了archwiki关于dns的介绍后
+在smartdns/coredns/unbound/dnsencrypt-proxy之中选择了后者
+coredns和unbound对于桌面linux用户而言过于复杂且不好配置
+而smartdns面对老前辈dnsencrypt-proxy而言缺少了自动获取doh源的功能
+安装 首先sudo -s进入root shell
+然后ss -lp &#39;sport = :domain&#39;查看端口是否被占用
+确保127.0.0.1:domain没有被占用即可
+如果有占用需要停止目前使用的dns服务
+例如systemctl disable systemd-resolved
+然后根据发行版安装二进制包
+配置文件的位置在/etc/dnscrypt-proxy/dnscrypt-proxy.toml 启动服务systemctl enable dnscrypt-proxy.service --now
+让dns服务器指向本地的dnscrypt-proxy 修改/etc/resolv.conf
+nameserver ::1 nameserver 127.0.0.1 options edns0 然后chattr &#43;i /etc/resolv.conf来放置resolv.conf被networkmanager或其他网络服务覆写
+打开浏览器并前往dns leak test并进行扩展测试,如果结果显示您在配置文件中设置的服务器,则表示dnscrypt-proxy正在工作,否则出现问题。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hydroakri.github.io/posts/linux/doh/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-09T17:26:27&#43;08:00" />
+<meta property="article:modified_time" content="2023-08-09T17:26:27&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="linux 使用 doh"/>
+<meta name="twitter:description" content="在比较了archwiki关于dns的介绍后
+在smartdns/coredns/unbound/dnsencrypt-proxy之中选择了后者
+coredns和unbound对于桌面linux用户而言过于复杂且不好配置
+而smartdns面对老前辈dnsencrypt-proxy而言缺少了自动获取doh源的功能
+安装 首先sudo -s进入root shell
+然后ss -lp &#39;sport = :domain&#39;查看端口是否被占用
+确保127.0.0.1:domain没有被占用即可
+如果有占用需要停止目前使用的dns服务
+例如systemctl disable systemd-resolved
+然后根据发行版安装二进制包
+配置文件的位置在/etc/dnscrypt-proxy/dnscrypt-proxy.toml 启动服务systemctl enable dnscrypt-proxy.service --now
+让dns服务器指向本地的dnscrypt-proxy 修改/etc/resolv.conf
+nameserver ::1 nameserver 127.0.0.1 options edns0 然后chattr &#43;i /etc/resolv.conf来放置resolv.conf被networkmanager或其他网络服务覆写
+打开浏览器并前往dns leak test并进行扩展测试,如果结果显示您在配置文件中设置的服务器,则表示dnscrypt-proxy正在工作,否则出现问题。"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://hydroakri.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "linux 使用 doh",
+      "item": "https://hydroakri.github.io/posts/linux/doh/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "linux 使用 doh",
+  "name": "linux 使用 doh",
+  "description": "在比较了archwiki关于dns的介绍后\n在smartdns/coredns/unbound/dnsencrypt-proxy之中选择了后者\ncoredns和unbound对于桌面linux用户而言过于复杂且不好配置\n而smartdns面对老前辈dnsencrypt-proxy而言缺少了自动获取doh源的功能\n安装 首先sudo -s进入root shell\n然后ss -lp 'sport = :domain'查看端口是否被占用\n确保127.0.0.1:domain没有被占用即可\n如果有占用需要停止目前使用的dns服务\n例如systemctl disable systemd-resolved\n然后根据发行版安装二进制包\n配置文件的位置在/etc/dnscrypt-proxy/dnscrypt-proxy.toml 启动服务systemctl enable dnscrypt-proxy.service --now\n让dns服务器指向本地的dnscrypt-proxy 修改/etc/resolv.conf\nnameserver ::1 nameserver 127.0.0.1 options edns0 然后chattr +i /etc/resolv.conf来放置resolv.conf被networkmanager或其他网络服务覆写\n打开浏览器并前往dns leak test并进行扩展测试,如果结果显示您在配置文件中设置的服务器,则表示dnscrypt-proxy正在工作,否则出现问题。",
+  "keywords": [
+    "linux"
+  ],
+  "articleBody": "在比较了archwiki关于dns的介绍后\n在smartdns/coredns/unbound/dnsencrypt-proxy之中选择了后者\ncoredns和unbound对于桌面linux用户而言过于复杂且不好配置\n而smartdns面对老前辈dnsencrypt-proxy而言缺少了自动获取doh源的功能\n安装 首先sudo -s进入root shell\n然后ss -lp 'sport = :domain'查看端口是否被占用\n确保127.0.0.1:domain没有被占用即可\n如果有占用需要停止目前使用的dns服务\n例如systemctl disable systemd-resolved\n然后根据发行版安装二进制包\n配置文件的位置在/etc/dnscrypt-proxy/dnscrypt-proxy.toml 启动服务systemctl enable dnscrypt-proxy.service --now\n让dns服务器指向本地的dnscrypt-proxy 修改/etc/resolv.conf\nnameserver ::1 nameserver 127.0.0.1 options edns0 然后chattr +i /etc/resolv.conf来放置resolv.conf被networkmanager或其他网络服务覆写\n打开浏览器并前往dns leak test并进行扩展测试,如果结果显示您在配置文件中设置的服务器,则表示dnscrypt-proxy正在工作,否则出现问题。\n",
+  "wordCount" : "38",
+  "inLanguage": "en",
+  "datePublished": "2023-08-09T17:26:27+08:00",
+  "dateModified": "2023-08-09T17:26:27+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://hydroakri.github.io/posts/linux/doh/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Hydroakri's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://hydroakri.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://hydroakri.github.io/" accesskey="h" title="Hydroakri&#39;s Blog (Alt + H)">Hydroakri&#39;s Blog</a>
+            <span class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </span>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://hydroakri.github.io/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://hydroakri.github.io/archives" title="Archives">
+                    <span>Archives</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://hydroakri.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      linux 使用 doh
+    </h1>
+    <div class="post-meta"><span title='2023-08-09 17:26:27 +0800 CST'>August 9, 2023</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>在比较了<a href="https://wiki.archlinux.org/title/Domain_name_resolution">archwiki</a>关于dns的介绍后<br>
+在smartdns/coredns/unbound/dnsencrypt-proxy之中选择了后者<br>
+coredns和unbound对于桌面linux用户而言过于复杂且不好配置<br>
+而smartdns面对老前辈dnsencrypt-proxy而言缺少了自动获取doh源的功能</p>
+<h1 id="安装">安装<a hidden class="anchor" aria-hidden="true" href="#安装">#</a></h1>
+<ol>
+<li>
+<p>首先<code>sudo -s</code>进入root shell<br>
+然后<code>ss -lp 'sport = :domain'</code>查看端口是否被占用<br>
+确保<code>127.0.0.1:domain</code>没有被占用即可<br>
+如果有占用需要停止目前使用的dns服务<br>
+例如<code>systemctl disable systemd-resolved</code></p>
+</li>
+<li>
+<p>然后根据发行版安装二进制包<br>
+配置文件的位置在<code>/etc/dnscrypt-proxy/dnscrypt-proxy.toml</code>
+启动服务<code>systemctl enable dnscrypt-proxy.service --now</code></p>
+</li>
+<li>
+<p>让dns服务器指向本地的dnscrypt-proxy
+修改<code>/etc/resolv.conf</code></p>
+</li>
+</ol>
+<pre tabindex="0"><code class="language-/etc/resolv.conf" data-lang="/etc/resolv.conf">nameserver ::1
+nameserver 127.0.0.1
+options edns0
+</code></pre><p>然后<code>chattr +i /etc/resolv.conf</code>来放置resolv.conf被networkmanager或其他网络服务覆写</p>
+<p>打开浏览器并前往<a href="https://www.dnsleaktest.com/">dns leak test</a>并进行扩展测试,如果结果显示您在配置文件中设置的服务器,则表示dnscrypt-proxy正在工作,否则出现问题。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://hydroakri.github.io/tags/linux/">linux</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://hydroakri.github.io/">Hydroakri&#39;s Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

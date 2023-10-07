@@ -36,13 +36,18 @@ WLR_NO_HARDWARE_CURSORS=1
 # set backend as vulkan
 WLR_RENDERER=vulkan
 
-#for obs on wayland(to use pipewire screen capture)
 QT_QPA_PLATFORM="wayland;xcb"
+GDK_BACKEND=wayland,x11
+
 #for firefox on wayland
 MOZ_ENABLE_WAYLAND=1
-#FOR QT THEME
-QT_QPA_PLATFORMTHEME=qt5ct
 
+#FOR QT THEME
+#QT_QPA_PLATFORMTHEME=qt5ct
+QT_STYLE_OVERRIDE=Breeze
+
+EDITOR=nvim
+VISUAL=nvim
 #DESKTOP_SESSION=gnome
 #DESKTOP_SESSION=plasma
 ```
@@ -54,7 +59,7 @@ QT_QPA_PLATFORMTHEME=qt5ct
 MODULES=(btrfs amdgpu nvidia nvidia_modeset nvidia_uvm nvidia_drm)
 BINARIES=(/usr/bin/btrfs)
 FILES=()
-HOOKS=(base plymouth udev autodetect keyboard keymap modconf block filesystems resume fsck)
+HOOKS=(base udev autodetect keyboard keymap modconf block filesystems resume fsck)
 ```
 `resume` 和下面的内核参数`resume=/dev/zram0`配合来启用suspend
 
@@ -67,9 +72,9 @@ options nvidia NVreg_PreserveVideoMemoryAllocations=1
 
 ## 内核参数
 ```
-root=PARTUUID=86db5b09-ce0d-4341-9773-fb2d39fddaad zswap.enabled=0 rootflags=subvol=@ rw rootfstype=btrfs nvidia_drm.modeset=1 radeon.dpm=1 amd_pstate=passive initrd=\EFI\arch\amd-ucode.img initrd=\EFI\arch\initramfs-linux-zen.img splash rhgb quiet mitigations=off nowatchdog processor.ignore_ppc=1
+root=PARTUUID=86db5b09-ce0d-4341-9773-fb2d39fddaad zswap.enabled=0 rootflags=subvol=@ rw rootfstype=btrfs radeon.dpm=1 nvidia_drm.modeset=1 amd_pstate=disable mitigations=off nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 vm.dirty_writeback_centisecs=1500 quiet splash
 ```
-关闭zswap,使用zram
+如果你在使用auto-cpufreq的话需要把amd_pstate的值改为disable,否则使用passive
 
 ## 开机自动加载bbr模块
 ```
@@ -82,9 +87,17 @@ tcp_bbr   #如果编译内核的时候把bbr编译进去就不用这个文件
 ```
 /etc/sysctl.d/99-sysctl.conf
 ------------------------------------
+kernel.unprivileged_bpf_disabled = 0
 net.core.default_qdisc=cake
-net.ipv4.tcp_congestion_control=bbr2
-vm.swappiness=10
+net.ipv4.tcp_congestion_control=bbr
+
+vm.swappiness=180
+vm.watermark_boost_factor=0
+vm.watermark_scale_factor=125
+vm.page-cluster=0
+
+vm.dirty_writeback_centisecs=1500
+vm.laptop_mode=5
 ```
 ## 启用与内存大小相同的zram来启用suspend
 ```
@@ -93,6 +106,7 @@ vm.swappiness=10
 [zram0]
 zram-size = ram
 compression-algorithm = zstd
+fs-type = swap
 ```
 
 ## X11

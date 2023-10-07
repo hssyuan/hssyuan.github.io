@@ -18,7 +18,7 @@
 <link rel="mask-icon" href="https://hydroakri.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<meta name="generator" content="Hugo 0.115.4">
+<meta name="generator" content="Hugo 0.119.0">
 <link rel="alternate" type="application/rss+xml" href="https://hydroakri.github.io/posts/index.xml">
 <noscript>
     <style>
@@ -144,6 +144,31 @@
 <header class="page-header">
   <h1>Posts</h1>
 </header>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>linux 使用 doh
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>在比较了archwiki关于dns的介绍后
+在smartdns/coredns/unbound/dnsencrypt-proxy之中选择了后者
+coredns和unbound对于桌面linux用户而言过于复杂且不好配置
+而smartdns面对老前辈dnsencrypt-proxy而言缺少了自动获取doh源的功能
+安装 首先sudo -s进入root shell
+然后ss -lp &#39;sport = :domain&#39;查看端口是否被占用
+确保127.0.0.1:domain没有被占用即可
+如果有占用需要停止目前使用的dns服务
+例如systemctl disable systemd-resolved
+然后根据发行版安装二进制包
+配置文件的位置在/etc/dnscrypt-proxy/dnscrypt-proxy.toml 启动服务systemctl enable dnscrypt-proxy.service --now
+让dns服务器指向本地的dnscrypt-proxy 修改/etc/resolv.conf
+nameserver ::1 nameserver 127.0.0.1 options edns0 然后chattr &#43;i /etc/resolv.conf来放置resolv.conf被networkmanager或其他网络服务覆写
+打开浏览器并前往dns leak test并进行扩展测试,如果结果显示您在配置文件中设置的服务器,则表示dnscrypt-proxy正在工作,否则出现问题。</p>
+  </section>
+  <footer class="entry-footer"><span title='2023-08-09 17:26:27 +0800 CST'>August 9, 2023</span></footer>
+  <a class="entry-link" aria-label="post link to linux 使用 doh" href="https://hydroakri.github.io/posts/linux/doh/"></a>
+</article>
 
 <article class="post-entry"> 
   <header class="entry-header">
@@ -280,18 +305,6 @@ Windows 把Windows 11 改为10的模样：ExplorerPatcher 使游戏窗口全屏�
   </section>
   <footer class="entry-footer"><span title='2023-02-21 11:30:03 +0800 CST'>February 21, 2023</span></footer>
   <a class="entry-link" aria-label="post link to 我们的赌注是没有赌注" href="https://hydroakri.github.io/posts/poems/fetch/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>archlinux 系统参数优化
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>一些系统设置 系统环境变量 # # This file is parsed by pam_env module # # Syntax: simple &#34;KEY=VAL&#34; pairs on separate lines # # ##for fcitx5 GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx SDL_IM_MODULE=fcitx GLFW_IM_MODULE=ibus #hydrland LIBVA_DRIVER_NAME=nvidia XDG_SESSION_TYPE=wayland GBM_BACKEND=nvidia-drm ##强制将使用 GBM 后端 __GLX_VENDOR_LIBRARY_NAME=nvidia ##强制将使用 GBM 后端 WLR_NO_HARDWARE_CURSORS=1 #enable nvidia vertical sync #__GL_SYNC_TO_VBLANK=1 # set backend as vulkan WLR_RENDERER=vulkan #for obs on wayland(to use pipewire screen capture) QT_QPA_PLATFORM=&#34;wayland;xcb&#34; #for firefox on wayland MOZ_ENABLE_WAYLAND=1 #FOR QT THEME QT_QPA_PLATFORMTHEME=qt5ct #DESKTOP_SESSION=gnome #DESKTOP_SESSION=plasma NVIDIA early KMS /etc/mkinitcpio....</p>
-  </section>
-  <footer class="entry-footer"><span title='2023-02-14 13:56:27 +0800 CST'>February 14, 2023</span></footer>
-  <a class="entry-link" aria-label="post link to archlinux 系统参数优化" href="https://hydroakri.github.io/posts/linux/syssetings/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

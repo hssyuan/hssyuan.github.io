@@ -503,3 +503,10 @@ sudo dmidecode --type chassis
   </devices>
 </domain>
 ```
+/etc/modprobe.d/kvm.conf
+```
+options iommu=pt amd_iommu=on   
+options vfio-pci ids=10de:2520,10de:228e disable_vga=1
+options kvm ignore_msrs=1 report_ignored_msrs=0
+options vfio_iommu_type1 allow_unsafe_interrupts=1
+```
