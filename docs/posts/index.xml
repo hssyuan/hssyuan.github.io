@@ -2,17 +2,54 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on Hydroakri&#39;s Blog</title>
-    <link>https://hydroakri.github.io/posts/</link>
+    <link>http://localhost:1313/posts/</link>
     <description>Recent content in Posts on Hydroakri&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 09 Aug 2023 17:26:27 +0800</lastBuildDate><atom:link href="https://hydroakri.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 03 Sep 2024 13:25:27 +0800</lastBuildDate><atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>archlinux 系统参数优化</title>
+      <link>http://localhost:1313/posts/linux/syssetings/</link>
+      <pubDate>Tue, 03 Sep 2024 13:25:27 +0800</pubDate>
+      
+      <guid>http://localhost:1313/posts/linux/syssetings/</guid>
+      <description>Useful utils earlyoom adguardhome warp-svc systemd-resolved gamemode ufw apparmor proxychains
+sudo systemctl daemon-reload sudo systemctl enable fstrim.timer sudo systemctl enable systemd-zram-setup@zram0.service sudo systemctl enable nvidia-suspend.service /etc/default/grub
+GRUB_CMDLINE_LINUX_DEFAULT=&amp;#34;rootfstype=xfs zswap.enabled=0 mem_sleep_default=s2idle radeon.dpm=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 amd_pstate=active mitigations=auto nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 apparmor=1 security=apparmor lockdown=integrity quiet splash&amp;#34; /etc/modprobe.d/nvidia-options.conf
+options nvidia-drm modeset=1 options nvidia NVreg_PreserveVideoMemoryAllocations=1 /etc/systemd/zram-generator.conf
+[zram0] zram-size = ram/2 compression-algorithm = zstd /etc/systemd/resolved.conf
+[Resolve] DNS=123.129.227.3#doh.apad.pro 103.2.57.5#ipublic.dns.iij.jp 101.102.103.104#101.101.101.101 1.1.1.1#cloudflare-dns.com 8.8.8.8#dns.google 9.9.9.9#dns.quad9.net Domains=~ DNSSEC=allow-downgrade DNSOverTLS=yes MulticastDNS=yes LLMNR=yes Cache=yes /etc/sysctl.</description>
+    </item>
+    
+    <item>
+      <title>在Debian&#43;自定义内核上启用安全启动</title>
+      <link>http://localhost:1313/posts/linux/secureboot/</link>
+      <pubDate>Mon, 02 Sep 2024 21:48:27 +0800</pubDate>
+      
+      <guid>http://localhost:1313/posts/linux/secureboot/</guid>
+      <description>注意： Debian/Fedora/Ubuntu 官方支持了安全启动，因此属于‘使用已签署的引导加载程序’，支持的方式为shim
+根据Debian wiki对安全启动的描述中可以得知，Debian自带了EFI系统签名因此无需手动注册，但是由dkms加载的内核模块没有经过MOK的注册，因此需要手动注册：
+sudo mokutil --import /var/lib/dkms/mok.pub #由MOK注册，执行完需要重启 接下来，由于使用的是自定义内核，所以内核也需要手动签名后由MOK注册：
+#创建一个机器所有者密钥（MOK）： openssl req -newkey rsa:4096 -nodes -keyout MOK.key -new -x509 -sha256 -days 3650 -subj &amp;#34;/CN=my Machine Owner Key/&amp;#34; -out MOK.crt openssl x509 -outform DER -in MOK.crt -out MOK.cer #手动签署你的引导加载程序（名为grubx64.efi）以及内核： sbsign --key MOK.key --cert MOK.crt --output /boot/vmlinuz-linux /boot/vmlinuz-linux sbsign --key MOK.key --cert MOK.crt --output esp/EFI/BOOT/grubx64.efi esp/EFI/BOOT/grubx64.efi sudo mokutil --import MOK.cer #由MOK注册，执行完需要重启 接下来创建initramfs-tools的钩子：
+#!/bin/sh set -e PREREQ=&amp;#34;&amp;#34; # 这个函数会在 initramfs-tools 处理时被调用 case $1 in prereqs) # 返回依赖项 echo &amp;#34;$PREREQ&amp;#34; exit 0 ;; *) # 处理脚本 ;; esac # 定义证书和密钥的路径 cert=&amp;#34;/path/to/your/certificate.</description>
+    </item>
+    
+    <item>
+      <title>NTFS 的一些小技巧</title>
+      <link>http://localhost:1313/posts/linux/ntfs/</link>
+      <pubDate>Mon, 02 Sep 2024 20:48:27 +0800</pubDate>
+      
+      <guid>http://localhost:1313/posts/linux/ntfs/</guid>
+      <description>鉴于内核在 5.15 之后合并了NTFS3的内核驱动使得读写能力大幅提升，可以把ntfs-3g扔掉了
+# sudo vi /etc/udev/rules.d/ntfs3_by_default.rules SUBSYSTEM==&amp;#34;block&amp;#34;, ENV{ID_FS_TYPE}==&amp;#34;ntfs&amp;#34;, ENV{ID_FS_TYPE}=&amp;#34;ntfs3&amp;#34; ENV{UDISKS_MOUNT_OPTIONS_DEFAULTS}=&amp;#34;uid=1000,gid=1000,rw,user,exec,umask=000&amp;#34; 注：选项是把NTFS3作为默认挂载驱动，并且挂载选项使用了proton建议的设置</description>
+    </item>
+    
     <item>
       <title>linux 使用 doh</title>
-      <link>https://hydroakri.github.io/posts/linux/doh/</link>
+      <link>http://localhost:1313/posts/linux/doh/</link>
       <pubDate>Wed, 09 Aug 2023 17:26:27 +0800</pubDate>
       
-      <guid>https://hydroakri.github.io/posts/linux/doh/</guid>
+      <guid>http://localhost:1313/posts/linux/doh/</guid>
       <description>在比较了archwiki关于dns的介绍后
 在smartdns/coredns/unbound/dnsencrypt-proxy之中选择了后者
 coredns和unbound对于桌面linux用户而言过于复杂且不好配置
@@ -31,10 +68,10 @@ nameserver ::1 nameserver 127.0.0.1 options edns0 然后chattr +i /etc/resolv.co
     
     <item>
       <title>基于KVM的虚拟显卡透传技术</title>
-      <link>https://hydroakri.github.io/posts/linux/passthrough/</link>
+      <link>http://localhost:1313/posts/linux/passthrough/</link>
       <pubDate>Wed, 02 Aug 2023 21:48:27 +0800</pubDate>
       
-      <guid>https://hydroakri.github.io/posts/linux/passthrough/</guid>
+      <guid>http://localhost:1313/posts/linux/passthrough/</guid>
       <description>0.准备工作&amp;amp;检查 显卡直通的前提条件是：
 NVIDIA 独立显卡本身要具有视频输出功能 机身上至少有一个连接到独立显卡的视频接口 安装kvm虚拟机，具体步骤参照本博客archlinux安装或archlinux wiki 强烈建议阅读本文时参照下面几篇文章：
 PCI_passthrough_via_OVMF_ARCHLINUX wiki
@@ -49,11 +86,11 @@ vfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.</desc
     </item>
     
     <item>
-      <title>我的常用开源软件生态</title>
-      <link>https://hydroakri.github.io/posts/linux/apps/</link>
+      <title>常用开源软件</title>
+      <link>http://localhost:1313/posts/linux/apps/</link>
       <pubDate>Wed, 22 Feb 2023 11:11:27 +0800</pubDate>
       
-      <guid>https://hydroakri.github.io/posts/linux/apps/</guid>
+      <guid>http://localhost:1313/posts/linux/apps/</guid>
       <description> 我的电脑双硬盘双系统，使用Windows 11 + ArchLinux
 在Windows上使用 scoop + winget / Archlinux 下使用 paru+pacman
 我尽可能使用开源/免费
@@ -73,10 +110,10 @@ Windows 把Windows 11 改为10的模样：ExplorerPatcher 使游戏窗口全屏�
     
     <item>
       <title>在世界中心呼唤爱的野兽</title>
-      <link>https://hydroakri.github.io/posts/misc/beast/</link>
+      <link>http://localhost:1313/posts/misc/beast/</link>
       <pubDate>Tue, 21 Feb 2023 17:00:27 +0800</pubDate>
       
-      <guid>https://hydroakri.github.io/posts/misc/beast/</guid>
+      <guid>http://localhost:1313/posts/misc/beast/</guid>
       <description>The Beast that Shouted Love at the Heart of the World （美）埃里森 哈兰 1969 我不拥有这篇文章/译文的版权。我不会因此获利，所有功劳归作者所有。此仅用于宣传目的，将应合法所有者的要求删除。
 威廉-斯特罗格住在巴尔的摩市的罗克斯顿区。每个月，除虫员都会照例来他家外的草坪喷洒除虫药剂。这一天，在与除虫员短暂地闲聊了一会儿以后，威廉-斯特罗格悄悄地从他的大卡车上偷取了一小罐马拉西昂———一种剧毒杀虫药。几天后的一个早上，威廉-斯特罗格跟在送牛奶工人的后面，将马拉西昂沿路倒进了七十多户人家的牛奶瓶中。六小时内，200多号人（包括女人和小孩）在痛苦的痉挛中绝望死去。
 接下来，在听闻自己那个住在布法罗的姨妈死于淋巴癌之后，威廉-斯特罗格急忙忙地把母亲的行李打包好将她送上了探望姨妈的飞机。他用一个韦斯特克罗克牌闹钟和四卷炸药做了一个简单却威力十足的定时炸弹，就放在她老母亲的那只三层小行李箱里。那架飞机在哈里斯堡到宾夕法尼亚中的半途爆炸了，总共有93个人在爆炸中丧生，其中也包括威廉-斯特罗格的老母亲。飞机着火的残骸坠入了一个公共泳池，又造成七个人意外死去。
@@ -136,10 +173,10 @@ Windows 把Windows 11 改为10的模样：ExplorerPatcher 使游戏窗口全屏�
     
     <item>
       <title>我们的赌注是没有赌注</title>
-      <link>https://hydroakri.github.io/posts/poems/fetch/</link>
+      <link>http://localhost:1313/posts/poems/fetch/</link>
       <pubDate>Tue, 21 Feb 2023 11:30:03 +0800</pubDate>
       
-      <guid>https://hydroakri.github.io/posts/poems/fetch/</guid>
+      <guid>http://localhost:1313/posts/poems/fetch/</guid>
       <description>齐谬尔: “一个没有人的个性世界(monde de qualites)、一个没有体验者的体验世界已经建立。最终，我们差不多会认为，在理想状况下，人不会再有任何私人经历，来自个人责任的美妙负担将会消解于可能之意义的玄奧之中。那种在很长时间里一直将人类当作宇宙中心，但自几个世纪以来已经逐渐消失的神人同性的观念，其分崩瓦解很有可能终于波及‘我’之本身:大部分人开始觉得，认为在一种经历中最重要的是自身对这种经历的体验，在一种行为中最重要的是作为行为的主体，这是一种幼稚的表现。”
 里尔克： 你尚未老朽，并且时间仍非太晚
 勒内夏尔： 在自己前方若无未知之物究竟如何生活？
@@ -155,20 +192,11 @@ Windows 把Windows 11 改为10的模样：ExplorerPatcher 使游戏窗口全屏�
     </item>
     
     <item>
-      <title>archlinux 系统参数优化</title>
-      <link>https://hydroakri.github.io/posts/linux/syssetings/</link>
-      <pubDate>Tue, 14 Feb 2023 13:56:27 +0800</pubDate>
-      
-      <guid>https://hydroakri.github.io/posts/linux/syssetings/</guid>
-      <description>一些系统设置 系统环境变量 # # This file is parsed by pam_env module # # Syntax: simple &amp;#34;KEY=VAL&amp;#34; pairs on separate lines # # ##for fcitx5 GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx SDL_IM_MODULE=fcitx GLFW_IM_MODULE=ibus #hydrland LIBVA_DRIVER_NAME=nvidia XDG_SESSION_TYPE=wayland GBM_BACKEND=nvidia-drm ##强制将使用 GBM 后端 __GLX_VENDOR_LIBRARY_NAME=nvidia ##强制将使用 GBM 后端 WLR_NO_HARDWARE_CURSORS=1 #enable nvidia vertical sync #__GL_SYNC_TO_VBLANK=1 # set backend as vulkan WLR_RENDERER=vulkan QT_QPA_PLATFORM=&amp;#34;wayland;xcb&amp;#34; GDK_BACKEND=wayland,x11 #for firefox on wayland MOZ_ENABLE_WAYLAND=1 #FOR QT THEME #QT_QPA_PLATFORMTHEME=qt5ct QT_STYLE_OVERRIDE=Breeze EDITOR=nvim VISUAL=nvim #DESKTOP_SESSION=gnome #DESKTOP_SESSION=plasma NVIDIA early KMS /etc/mkinitcpio.</description>
-    </item>
-    
-    <item>
       <title>人都是悬崖上的旅者</title>
-      <link>https://hydroakri.github.io/posts/poems/poem/</link>
+      <link>http://localhost:1313/posts/poems/poem/</link>
       <pubDate>Wed, 21 Dec 2022 11:30:03 +0800</pubDate>
       
-      <guid>https://hydroakri.github.io/posts/poems/poem/</guid>
+      <guid>http://localhost:1313/posts/poems/poem/</guid>
       <description> 蒸腾上升的冷蒸汽越过太阳游丝穿过的弧顶 寂静火焰燃烧着遥远灰色琴音
 黑色飞鸟穿过你们共鸣的号角
 穿过共感平面上回溯的哀伤
@@ -189,10 +217,10 @@ Windows 把Windows 11 改为10的模样：ExplorerPatcher 使游戏窗口全屏�
     
     <item>
       <title>c&#43;&#43;中string转char时的传参问题</title>
-      <link>https://hydroakri.github.io/posts/cpp/stringtochar/</link>
+      <link>http://localhost:1313/posts/cpp/stringtochar/</link>
       <pubDate>Fri, 11 Nov 2022 20:31:27 +0800</pubDate>
       
-      <guid>https://hydroakri.github.io/posts/cpp/stringtochar/</guid>
+      <guid>http://localhost:1313/posts/cpp/stringtochar/</guid>
       <description>string类型字符串转char型时候的函数传参问题 力扣1704题 给你一个偶数长度的字符串 s 。将其拆分成长度相同的两半，前一半为 a ，后一半为 b 。
 两个字符串 相似 的前提是它们都含有相同数目的元音（&#39;a&#39;，&#39;e&#39;，&#39;i&#39;，&#39;o&#39;，&#39;u&#39;，&#39;A&#39;，&#39;E&#39;，&#39;I&#39;，&#39;O&#39;，&#39;U&#39;）。注意，s 可能同时含有大写和小写字母。
 如果 a 和 b 相似，返回 true ；否则，返回 false 。
@@ -203,10 +231,10 @@ class Solution { public: bool halvesAreAlike(string s) { unordered_map&amp;lt;st
     
     <item>
       <title>Archlinux安装小记</title>
-      <link>https://hydroakri.github.io/posts/linux/archlinux/</link>
+      <link>http://localhost:1313/posts/linux/archlinux/</link>
       <pubDate>Thu, 17 Feb 2022 00:56:27 +0800</pubDate>
       
-      <guid>https://hydroakri.github.io/posts/linux/archlinux/</guid>
+      <guid>http://localhost:1313/posts/linux/archlinux/</guid>
       <description>创建安装介质 工具：rufus
 环境：windows
 去archlinux官网安装即可，推荐使用qBittorrent，下载速度会比直链快，毕竟是开源软件（去镜像站下载也可以）
@@ -226,26 +254,6 @@ blacklist nouveau blacklist lbm-nouveau options nouveau modeset=0 即可重启
 根据PRIME-Archwiki英文页面的说法
 先识别集成GPU BusID 得到以下结果
 lspci | grep -i VGA ----------------------------------------- 01:00.0 VGA compatible controller: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] (rev a1) 06:00.0 VGA compatible controller: Advanced Micro Devices, Inc.</description>
-    </item>
-    
-    <item>
-      <title>德勒兹：欲望机器</title>
-      <link>https://hydroakri.github.io/posts/philo/%E5%BE%B7%E5%8B%92%E5%85%B9%E6%AC%B2%E6%9C%9B%E6%9C%BA%E5%99%A8/</link>
-      <pubDate>Thu, 27 Jan 2022 19:39:27 +0800</pubDate>
-      
-      <guid>https://hydroakri.github.io/posts/philo/%E5%BE%B7%E5%8B%92%E5%85%B9%E6%AC%B2%E6%9C%9B%E6%9C%BA%E5%99%A8/</guid>
-      <description>原文地址：https://zhuanlan.zhihu.com/p/37930670 读书笔记一则，特点是清晰易懂。《反俄狄浦斯：资本主义与精神分裂症》中的一部分。
-德勒兹首先强调无处不在的欲望机器不是比喻性的而是真正的机器，生产性的机器。
-无论涉及自然还是人，只存在一个生产过程，不存在相对独立的范围和流程，德勒兹接下来说了生产过程中“过程”这个概念的三个含义。首先，一切都是生产，有：生产的生产，（行为与激情的生产）、记录过程的生产（作为参照点的分配与参照物的生产）、消费的生产（感官快感、焦虑、疼痛的生产）这么三种，而“过程”指的就是在生产中融合了记录与消费，因而使它们成为同一个过程的不同生产。其次，不该把人与自然看成对峙的相反的，而是同一个基本事实，即生产者-产品。德勒兹用了如下的动人语句“人类不是创造之王，而只是一个存在者，他与各种形式的深奥生命或者各种类型的存在者密切联系，他甚至掌管星体与运动的生命，不断的把器官机器插进能源机器中，把一棵树放在体内，把乳房放到口里，把太阳放到他的肛门里（这里是说一德国精神病患者幻象其五脏发挥着与太阳相联系的神圣功能）：他永远是这些宇宙机器的管理人”。第三，所谓过程就不能看成是一个自反目的，它没有自身无限的永恒。
-欲望机器是二元机器，遵循二元法则：一台机器总是和另一台机器搭配，期间有着生产流的流动和中断。如身体里有分泌作用的腺体和其他器官，“每个客体都决定一股流体的连续性，每个流体都决定腺体的破碎化”。每一台器官机器都根据自己的流动前景、从这台机器流出的能源的角度来阐释整个世界。也可以说这是一种“产品/生产”，生产总是嫁接在产品上的某事物，所以欲望的生产是生产的生产。生产的生产即不断生产产品，把生产嫁接在产品上。做零活的人把某个东西插进电源插座，或改变水流方向所体验的满足感很少能以违反禁忌的快感来解释，这不过是像一幅名为《机器旁边的男孩儿》中表现的，男孩儿轻易的就将一台小小的欲望机器与一台巨大的技术的社会机器挂钩了。注意！这个“欲望机器”与“技术/社会机器”的二元关系将是此后文章的主题。
-分析到此，又出现了一种“巨大的无差别的客体”（精神分裂症患者的桌子不像桌子而像堆砌物，沉重笨拙陌生，只是自我保护、拒绝服务和交流。这样的客体存在是呆滞的僵化的），它是由“产品/生产”而来的第三阶段。任何事物都会停滞和冻结。这是一种什么样的状态呢？生产的自动行为停滞了，组织的系统被解放了。。。如果没有事前那些运转的机制会怎样呢？如果从未降生、逃出生与再生的轮回、没有嘴用来吸吮、没有肛门来排便。。。这种绝对僵化的停滞状态即“没有嘴，没有舌头，没有牙齿，没有咽喉，没有食道，没有肚子，没有肛门”。这是一个无器官身体！它是非生产性的、不能生育的、没有源出的、不能消费的，没有任何形态唯有此刻所处的位置。这也是一种死亡本能。需要注意的有：无器官身体恰恰存在于它被生产的地方，作为生产和产品的同一性而被生产。而且无器官身体不能证明最初的虚无，也不是一个失去的总体性的残留，更不是一种心理投射！它与身体自身形象无关，它是无形象的。
-结合德勒兹其他地方所说的无器官身体，是一种浸入高张力场中的状态，被推至极限状态的感觉，各官能无从区别，一切思考的后置作业也完全来不及展开，而力量已贯穿全身、激起反应。这种对无器官身体的描述是与对资本主义的批判不可分割的。资本主义的解辖域破坏社会场，使之成为无器官的身体，其上有着巨大的能量或负荷的积累。这在后面还有详细阐述。无器官身体不单指人体，而是一切“欲望机器”和“技术/社会机器”的产物。
-接下来是德勒兹对弗洛伊德和拉康的批判。如说到心理分析的伟大发现就是发现欲望的生产，发现无意识的各种生产活动，但俄狄浦斯情结使得“一出古典的喜剧被用来代替作为工厂的无意识；再现被用来代替无意识生产的单位；一种只能表现自身的无意识——在神话、悲剧、梦幻中——取代了生产性的无意识。”又批评传统的欲望逻辑是从柏拉图开始的“习得的欲望”，而德勒兹的欲望是“生产的欲望”。在前者中欲望是客体的缺失，其欲望作为一个真实实体的本质依靠“缺失的本质”(essence of lack)，这个“缺失的本质”产生幻化的客体。相信对拉康有了解的人对这个都相当熟悉了。与之相反，拉康认为欲望产生客体，欲望产生现实，欲望与其客体是一回事：都是机器。而缺失的恰恰是主体，固定的主体。缺失乃是欲望的反作用。缺失不是本源的，是社会生产制造的，市场经济的功能，统治阶级的艺术。“缺失是市场经济的一种功能，蓄意创造缺失是统治阶级的伎俩。这牵涉到在大量的生产中精心组织起来的贫困与需求：使所有欲望步履维艰，成为巨大恐慌的受害者，即害怕没有满足人们的各种需求；使客体依靠外在于欲望的一个现实的生产。同时，欲望的生产被范畴化为幻想，而且只有幻想。”这里是说一个“现实的生产”与“欲望的生产”的二分，而“欲望的生产”被等同于幻想，这与前面所说的“技术/社会的机器”与“欲望的机器”的二分是一致的。德勒兹接下来就要试图说明“现实的生产”与“欲望的生产”其实是一回事，而幻象作为次生性的是它们衍生出来的。
-在那种二元对立的说法里，在两种生产之间能建立的唯一联系是“心理内投”和“心理投射”这两种次要生产，“心理内投”指社会实践投射在精神实践上，“心理投射”指精神实践投射到社会制度上。德勒兹讽刺的说到：“只要我们满足于一方面在货币、金子、资本和资本主义三角关系，另一方面在力比多、肛门、阴茎和家庭三角关系之间建立一个完美的平行关系，我们就是在享受欢乐，但是货币的各种机能在那些操纵货币的人的肛门投射下根本没收到影响。”事实的真相是社会生产在确定的条件下纯粹是而且仅仅是欲望生产本身。
-再说幻想。幻想衍生于在任何特定环境下两类机器同一的本质。因此幻想从不是个体的：是群体的幻想。例如，19世纪伟大的社会主义乌托邦不是作为理想的模式而是作为群体幻想发挥作用的，欲望生产力真实的代表使革命制度成为可能。
-然而德勒兹又说，技术机器与欲望机器也是有一点差异的，即体制上的差异。体现在两点：首先，提到了技术机器会发生的磨损，有时这是欲望机器对技术机器的剥削。德勒兹举了艺术的例子，有一段的精辟分析。在艺术创造的群体幻想中，欲望生产被用于短周期社会生产，通过进入功能紊乱的因素来干涉技术机器的再生产。如先锋音乐家“宁肯选择利用突然的插曲、停顿、颤音、不和谐音符与未决定的和弦来结束他的曲子，而不会让这些曲子慢慢婉转而下以至结束，或者逐渐消失以至无声”。这就是欲望机器发挥作用使技术机器出故障。但是悖论在于，艺术作品本身就是一台欲望机器，所以对艺术家而言，应该迅速发生的破坏作用未能发生。技术机器与欲望机器机制上的第二点差异是：欲望机器完全依靠自身产生反生产，技术机器的反生产仅在其外在再生产的条件下产生。如马克思所说的生产力是一种技术机器，总是对应一台与技术机器大相径庭的社会机器（生产关系），后者制约再生产。因此一台技术机器不是成因只是社会生产一般形式的表征：于是就有手工机器与原始社会、液压机器与“亚洲”形式社会、工业机器与资本主义。技术机器不是一个经济范畴。而欲望机器是欲望经济的基本范畴，完全依靠自身产生无器官身体没有在代表与自身、生产关系与它们自己、社会秩序与技术之间做出区别。
-接下来又牵涉到无器官身体。无器官身体不是一个最初的原始实体，即社会机器不是无器官身体的投射。相反，无器官身体是非地域化了的对应物（社会机器）的终极残余。。存在这么一些社会机器：从原始的地域机器，到专制机器，再到资本主义机器。资本主义机器面临的任务就是对流动（生产）进行解码、对社会场所解辖域，这也是资本主义最富特色、最重要的倾向。如前面所述，结果就是产生无器官身体，并将欲望活动当作一个解辖域化的领域释放在这个身体上，于是产生了精神分裂症！资本主义产生了精神分裂症的能量或负荷的积累，又利用巨大的压制力量承受这个能量或负荷的积累。另一方面，资本主义又在进行重新辖域化！设立或恢复各种各样残留与人造的、虚构的或象征的地域，重新编码、引导那些根据抽象量被编码的人们。解辖域化与重新辖域化的程度是成正比的。解辖域化程度越高，将流动解码并公理化、从中榨取的剩余价值越多，其辅助型机器，像政府官僚机构与法律制度势力将流动重新辖域化的程度就越高，在这个过程中吸纳越来越大份额的剩余价值。
-德勒兹提出“唯物主义精神病学”，即把生产概念引入到对欲望问题的思考中。精神病患者、性变态者必须根据现在地域性予以界定，而非欲望机器自身的内驱力。精神病患者落入地域性的陷阱中，并将所有地域性还原为俄狄浦斯情结，视之为终极地域性。</description>
     </item>
     
   </channel>

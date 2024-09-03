@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>cpp on Hydroakri&#39;s Blog</title>
-    <link>https://hydroakri.github.io/tags/cpp/</link>
-    <description>Recent content in cpp on Hydroakri&#39;s Blog</description>
+    <title>Cpp on Hydroakri&#39;s Blog</title>
+    <link>http://localhost:1313/tags/cpp/</link>
+    <description>Recent content in Cpp on Hydroakri&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 11 Nov 2022 20:31:27 +0800</lastBuildDate><atom:link href="https://hydroakri.github.io/tags/cpp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 11 Nov 2022 20:31:27 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/cpp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>c&#43;&#43;中string转char时的传参问题</title>
-      <link>https://hydroakri.github.io/posts/cpp/stringtochar/</link>
+      <link>http://localhost:1313/posts/cpp/stringtochar/</link>
       <pubDate>Fri, 11 Nov 2022 20:31:27 +0800</pubDate>
       
-      <guid>https://hydroakri.github.io/posts/cpp/stringtochar/</guid>
+      <guid>http://localhost:1313/posts/cpp/stringtochar/</guid>
       <description>string类型字符串转char型时候的函数传参问题 力扣1704题 给你一个偶数长度的字符串 s 。将其拆分成长度相同的两半，前一半为 a ，后一半为 b 。
 两个字符串 相似 的前提是它们都含有相同数目的元音（&#39;a&#39;，&#39;e&#39;，&#39;i&#39;，&#39;o&#39;，&#39;u&#39;，&#39;A&#39;，&#39;E&#39;，&#39;I&#39;，&#39;O&#39;，&#39;U&#39;）。注意，s 可能同时含有大写和小写字母。
 如果 a 和 b 相似，返回 true ；否则，返回 false 。

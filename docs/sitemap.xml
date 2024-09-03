@@ -2,67 +2,71 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://hydroakri.github.io/</loc>
+    <loc>http://localhost:1313/posts/linux/syssetings/</loc>
+    <lastmod>2024-09-03T13:25:27+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2024-09-03T13:25:27+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/linux/</loc>
+    <lastmod>2024-09-03T13:25:27+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/</loc>
+    <lastmod>2024-09-03T13:25:27+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2024-09-03T13:25:27+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/linux/secureboot/</loc>
+    <lastmod>2024-09-02T21:48:27+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/linux/ntfs/</loc>
+    <lastmod>2024-09-02T20:48:27+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/linux/doh/</loc>
     <lastmod>2023-08-09T17:26:27+08:00</lastmod>
   </url><url>
-    <loc>https://hydroakri.github.io/tags/linux/</loc>
-    <lastmod>2023-08-09T17:26:27+08:00</lastmod>
-  </url><url>
-    <loc>https://hydroakri.github.io/posts/linux/doh/</loc>
-    <lastmod>2023-08-09T17:26:27+08:00</lastmod>
-  </url><url>
-    <loc>https://hydroakri.github.io/posts/</loc>
-    <lastmod>2023-08-09T17:26:27+08:00</lastmod>
-  </url><url>
-    <loc>https://hydroakri.github.io/tags/</loc>
-    <lastmod>2023-08-09T17:26:27+08:00</lastmod>
-  </url><url>
-    <loc>https://hydroakri.github.io/posts/linux/passthrough/</loc>
+    <loc>http://localhost:1313/posts/linux/passthrough/</loc>
     <lastmod>2023-08-02T21:48:27+08:00</lastmod>
   </url><url>
-    <loc>https://hydroakri.github.io/posts/linux/apps/</loc>
+    <loc>http://localhost:1313/posts/linux/apps/</loc>
     <lastmod>2023-02-22T11:11:27+08:00</lastmod>
   </url><url>
-    <loc>https://hydroakri.github.io/posts/misc/beast/</loc>
+    <loc>http://localhost:1313/posts/misc/beast/</loc>
     <lastmod>2023-02-21T17:00:27+08:00</lastmod>
   </url><url>
-    <loc>https://hydroakri.github.io/tags/%E8%BD%AC%E8%BD%BD/</loc>
+    <loc>http://localhost:1313/tags/%E8%BD%AC%E8%BD%BD/</loc>
     <lastmod>2023-02-21T17:00:27+08:00</lastmod>
   </url><url>
-    <loc>https://hydroakri.github.io/tags/poem/</loc>
+    <loc>http://localhost:1313/tags/poem/</loc>
     <lastmod>2023-02-21T11:30:03+08:00</lastmod>
   </url><url>
-    <loc>https://hydroakri.github.io/posts/poems/fetch/</loc>
+    <loc>http://localhost:1313/posts/poems/fetch/</loc>
     <lastmod>2023-02-21T11:30:03+08:00</lastmod>
   </url><url>
-    <loc>https://hydroakri.github.io/posts/linux/syssetings/</loc>
-    <lastmod>2023-02-14T13:56:27+08:00</lastmod>
-  </url><url>
-    <loc>https://hydroakri.github.io/posts/poems/poem/</loc>
+    <loc>http://localhost:1313/posts/poems/poem/</loc>
     <lastmod>2022-12-21T11:30:03+08:00</lastmod>
   </url><url>
-    <loc>https://hydroakri.github.io/posts/cpp/stringtochar/</loc>
+    <loc>http://localhost:1313/posts/cpp/stringtochar/</loc>
     <lastmod>2022-11-11T20:31:27+08:00</lastmod>
   </url><url>
-    <loc>https://hydroakri.github.io/tags/cpp/</loc>
+    <loc>http://localhost:1313/tags/cpp/</loc>
     <lastmod>2022-11-11T20:31:27+08:00</lastmod>
   </url><url>
-    <loc>https://hydroakri.github.io/tags/leetcode/</loc>
+    <loc>http://localhost:1313/tags/leetcode/</loc>
     <lastmod>2022-11-11T20:31:27+08:00</lastmod>
   </url><url>
-    <loc>https://hydroakri.github.io/posts/linux/archlinux/</loc>
+    <loc>http://localhost:1313/posts/linux/archlinux/</loc>
     <lastmod>2022-02-17T00:56:27+08:00</lastmod>
   </url><url>
-    <loc>https://hydroakri.github.io/tags/%E5%93%B2%E5%AD%A6/</loc>
-    <lastmod>2022-01-27T19:39:27+08:00</lastmod>
+    <loc>http://localhost:1313/bm/</loc>
   </url><url>
-    <loc>https://hydroakri.github.io/posts/philo/%E5%BE%B7%E5%8B%92%E5%85%B9%E6%AC%B2%E6%9C%9B%E6%9C%BA%E5%99%A8/</loc>
-    <lastmod>2022-01-27T19:39:27+08:00</lastmod>
+    <loc>http://localhost:1313/textshare/</loc>
   </url><url>
-    <loc>https://hydroakri.github.io/about/</loc>
+    <loc>http://localhost:1313/about/</loc>
   </url><url>
-    <loc>https://hydroakri.github.io/archives/</loc>
+    <loc>http://localhost:1313/archives/</loc>
   </url><url>
-    <loc>https://hydroakri.github.io/categories/</loc>
+    <loc>http://localhost:1313/categories/</loc>
   </url>
 </urlset>

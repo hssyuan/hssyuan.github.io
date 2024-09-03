@@ -1,153 +1,170 @@
 ---
 title: "archlinux 系统参数优化"
-date: 2023-02-14T13:56:27+08:00
+date: 2024-09-03T13:25:27+08:00
 draft: false
 tags: ["linux"]
 ---
 
-# 一些系统设置
-
-## 系统环境变量
-```
-#
-# This file is parsed by pam_env module
-#
-# Syntax: simple "KEY=VAL" pairs on separate lines
-#
-#
-
-##for fcitx5
-GTK_IM_MODULE=fcitx
-QT_IM_MODULE=fcitx
-XMODIFIERS=@im=fcitx
-SDL_IM_MODULE=fcitx
-GLFW_IM_MODULE=ibus
-
-#hydrland
-LIBVA_DRIVER_NAME=nvidia
-XDG_SESSION_TYPE=wayland
-GBM_BACKEND=nvidia-drm ##强制将使用 GBM 后端
-__GLX_VENDOR_LIBRARY_NAME=nvidia ##强制将使用 GBM 后端
-WLR_NO_HARDWARE_CURSORS=1
-
-#enable nvidia vertical sync
-#__GL_SYNC_TO_VBLANK=1
-
-# set backend as vulkan
-WLR_RENDERER=vulkan
-
-QT_QPA_PLATFORM="wayland;xcb"
-GDK_BACKEND=wayland,x11
-
-#for firefox on wayland
-MOZ_ENABLE_WAYLAND=1
-
-#FOR QT THEME
-#QT_QPA_PLATFORMTHEME=qt5ct
-QT_STYLE_OVERRIDE=Breeze
-
-EDITOR=nvim
-VISUAL=nvim
-#DESKTOP_SESSION=gnome
-#DESKTOP_SESSION=plasma
-```
-
-## NVIDIA early KMS
-```
-/etc/mkinitcpio.conf
------------------------------------
-MODULES=(btrfs amdgpu nvidia nvidia_modeset nvidia_uvm nvidia_drm)
-BINARIES=(/usr/bin/btrfs)
-FILES=()
-HOOKS=(base udev autodetect keyboard keymap modconf block filesystems resume fsck)
-```
-`resume` 和下面的内核参数`resume=/dev/zram0`配合来启用suspend
+> Useful utils
+> `earlyoom` `adguardhome` `warp-svc` `systemd-resolved` `gamemode` `ufw` `apparmor` `proxychains`
 
 ```
-/etc/nvidia.conf
----------------------------------
+sudo systemctl daemon-reload
+sudo systemctl enable fstrim.timer
+sudo systemctl enable systemd-zram-setup@zram0.service
+sudo systemctl enable nvidia-suspend.service
+```
+
+> /etc/default/grub
+
+```conf
+GRUB_CMDLINE_LINUX_DEFAULT="rootfstype=xfs zswap.enabled=0 mem_sleep_default=s2idle radeon.dpm=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 amd_pstate=active mitigations=auto nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 apparmor=1 security=apparmor lockdown=integrity quiet splash"
+```
+
+> /etc/modprobe.d/nvidia-options.conf
+
+```
 options nvidia-drm modeset=1
 options nvidia NVreg_PreserveVideoMemoryAllocations=1
 ```
 
-## 内核参数
-```
-root=PARTUUID=86db5b09-ce0d-4341-9773-fb2d39fddaad zswap.enabled=0 rootflags=subvol=@ rw rootfstype=btrfs radeon.dpm=1 nvidia_drm.modeset=1 amd_pstate=disable mitigations=off nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 vm.dirty_writeback_centisecs=1500 quiet splash
-```
-如果你在使用auto-cpufreq的话需要把amd_pstate的值改为disable,否则使用passive
+> /etc/systemd/zram-generator.conf
 
-## 开机自动加载bbr模块
 ```
-/etc/modules-load.d/bbr.conf
----------------------------------
-tcp_bbr   #如果编译内核的时候把bbr编译进去就不用这个文件
+[zram0]
+zram-size = ram/2
+compression-algorithm = zstd
 ```
 
-## 设置默认tcp堵塞控制/qos算法/swapiness
+> /etc/systemd/resolved.conf
+
 ```
-/etc/sysctl.d/99-sysctl.conf
-------------------------------------
-kernel.unprivileged_bpf_disabled = 0
+[Resolve]
+DNS=123.129.227.3#doh.apad.pro 103.2.57.5#ipublic.dns.iij.jp 101.102.103.104#101.101.101.101 1.1.1.1#cloudflare-dns.com 8.8.8.8#dns.google 9.9.9.9#dns.quad9.net
+Domains=~
+DNSSEC=allow-downgrade
+DNSOverTLS=yes
+MulticastDNS=yes
+LLMNR=yes
+Cache=yes
+```
+
+> /etc/sysctl.conf
+
+```conf
+#security
+kernel.core_pattern=|/bin/false
+kernel.unprivileged_bpf_disabled=0
+kernel.kptr_restrict=2
+kernel.yama.ptrace_scope=3
+kernel.kexec_load_disabled=1
+module.sig_enforce=1
+net.core.bpf_jit_harden=2
+
+# performance
 net.core.default_qdisc=cake
-net.ipv4.tcp_congestion_control=bbr
+net.ipv4.tcp_congestion_control=bbr2
+
+net.core.netdev_max_backlog = 16384
+net.core.rmem_default = 1048576
+net.core.rmem_max = 16777216
+net.core.wmem_default = 1048576
+net.core.wmem_max = 16777216
+net.core.optmem_max = 65536
+net.ipv4.tcp_rmem = 4096 1048576 2097152
+net.ipv4.tcp_wmem = 4096 65536 16777216
+net.ipv4.udp_rmem_min = 8192
+net.ipv4.udp_wmem_min = 8192
+net.ipv4.tcp_fastopen = 3
+net.ipv4.tcp_max_syn_backlog = 8192
+net.ipv4.tcp_max_tw_buckets = 2000000
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_fin_timeout = 10
+net.ipv4.tcp_slow_start_after_idle = 0
+net.ipv4.tcp_keepalive_time = 60
+net.ipv4.tcp_keepalive_intvl = 10
+net.ipv4.tcp_keepalive_probes = 6
+net.ipv4.tcp_mtu_probing = 1
+net.ipv4.tcp_sack = 1
 
 vm.swappiness=180
 vm.watermark_boost_factor=0
 vm.watermark_scale_factor=125
 vm.page-cluster=0
 
+vm.dirty_ratio=8
+vm.dirty_background_ratio=4
 vm.dirty_writeback_centisecs=1500
+vm.dirty_expire_centisecs=1500
 vm.laptop_mode=5
-```
-## 启用与内存大小相同的zram来启用suspend
-```
-/etc/systemd/zram-generator.conf
------------------------------------
-[zram0]
-zram-size = ram
-compression-algorithm = zstd
-fs-type = swap
+vm.vfs_cache_pressure = 50
 ```
 
-## X11
-用`sudo nvidia-xconfig`生成`/etc/X11/xorg.conf`  
-```
-a+n用户需要：
-/etc/X11/xorg.conf.d/20-amdgpu.conf
-----------------------------------
-Section "Device"
-	Identifier "AMD"
-	Driver "amdgpu"
-EndSection
+> /etc/modules-load.d/tcp_bbr.conf
+
+```conf
+tcp_bbr2
+zram
 ```
 
-## 休眠相关
-如果n卡用户休眠睡死请检查是否启用**对应**的服务
-`sudo systemctl enable nvidia-suspend.service`
+> /etc/fstab
 
-## btrfs 优化
 ```
-/etc/fstab
------------------------------------
-# /dev/nvme0n1p2
-UUID=0eaaae30-9c36-4716-b7df-6e6bcf035464	/         	btrfs     	rw,relatime,ssd,space_cache=v2,noatime,commit=120,compress=zstd,discard=async,subvolid=256,subvol=/@	      0 0
-
-# /dev/nvme0n1p1
-UUID=4835-FFD2      	/efi     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	  0 2
-
-# /dev/nvme0n1p2
-UUID=0eaaae30-9c36-4716-b7df-6e6bcf035464	/.snapshots	btrfs     	rw,relatime,ssd,space_cache=v2,noatime,commit=120,compress=zstd,discard=async,subvolid=260,subvol=/@.snapshots	0 0
-
-# /dev/nvme0n1p2
-UUID=0eaaae30-9c36-4716-b7df-6e6bcf035464	/home     	btrfs     	rw,relatime,ssd,space_cache=v2,noatime,commit=120,compress=zstd,discard=async,subvolid=257,subvol=/@home	0 0
-
-# /dev/nvme0n1p2
-UUID=0eaaae30-9c36-4716-b7df-6e6bcf035464	/var/cache/pacman/pkg	btrfs     rw,relatime,ssd,space_cache=v2,noatime,commit=120,compress=zstd,discard=async,subvolid=259,subvol=/@pkg	0 0
-
-# /dev/nvme0n1p2
-UUID=0eaaae30-9c36-4716-b7df-6e6bcf035464	/var/log  	btrfs     	rw,relatime,ssd,space_cache=v2,noatime,commit=120,compress=zstd,discard=async,subvolid=258,subvol=/@log	0 0
+<type>  <options>
+ntfs3 uid=1000,gid=1000,rw,user,exec,umask=000,prealloc
+btrfs rw,relatime,ssd,space_cache=v2,noatime,commit=120,compress=zstd,discard=async
 ```
-```bash
-sudo systemctl daemon-reload
-sudo systemctl enable fstrim.timer
+
+> /etc/udev/rules.d/ntfs3_by_default.rules
+
+```
+SUBSYSTEM=="block", ENV{ID_FS_TYPE}=="ntfs", ENV{ID_FS_TYPE}="ntfs3"
+```
+
+> /etc/environment
+
+```
+XMODIFIERS=@im=fcitx
+```
+
+> /etc/NetworkManager/conf.d/dns.conf
+
+```
+[main]
+dns=none
+```
+
+> kernel modules
+
+```
+amdgpu
+nvidia
+nvidia_modeset
+nvidia_uvm
+nvidia_drm
+```
+
+## distro specific
+
+```list
+#local-mirror
+deb http://mirrors.ustc.edu.cn/debian trixie main contrib non-free non-free-firmware
+deb http://mirrors.ustc.edu.cn/debian trixie-updates main contrib non-free non-free-firmware
+
+#main-source/updates/backports
+deb https://deb.debian.org/debian/ trixie main contrib non-free non-free-firmware
+deb https://deb.debian.org/debian/ trixie-updates main contrib non-free non-free-firmware
+deb https://deb.debian.org/debian/ trixie-backports main contrib non-free non-free-firmware
+
+#security
+deb http://deb.debian.org/debian-security/ trixie-security main contrib non-free non-free-firmware
+```
+
+## Another important thing
+
+```
+pacman -Qqe > pkgs.txt
+flatpak list --columns=app > flatpak.txt
+sudo apt list > debs.txt
+brew list > brew.txt
 ```

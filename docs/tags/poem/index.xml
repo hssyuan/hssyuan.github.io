@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>poem on Hydroakri&#39;s Blog</title>
-    <link>https://hydroakri.github.io/tags/poem/</link>
-    <description>Recent content in poem on Hydroakri&#39;s Blog</description>
+    <title>Poem on Hydroakri&#39;s Blog</title>
+    <link>http://localhost:1313/tags/poem/</link>
+    <description>Recent content in Poem on Hydroakri&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 21 Feb 2023 11:30:03 +0800</lastBuildDate><atom:link href="https://hydroakri.github.io/tags/poem/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 21 Feb 2023 11:30:03 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/poem/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>我们的赌注是没有赌注</title>
-      <link>https://hydroakri.github.io/posts/poems/fetch/</link>
+      <link>http://localhost:1313/posts/poems/fetch/</link>
       <pubDate>Tue, 21 Feb 2023 11:30:03 +0800</pubDate>
       
-      <guid>https://hydroakri.github.io/posts/poems/fetch/</guid>
+      <guid>http://localhost:1313/posts/poems/fetch/</guid>
       <description>齐谬尔: “一个没有人的个性世界(monde de qualites)、一个没有体验者的体验世界已经建立。最终，我们差不多会认为，在理想状况下，人不会再有任何私人经历，来自个人责任的美妙负担将会消解于可能之意义的玄奧之中。那种在很长时间里一直将人类当作宇宙中心，但自几个世纪以来已经逐渐消失的神人同性的观念，其分崩瓦解很有可能终于波及‘我’之本身:大部分人开始觉得，认为在一种经历中最重要的是自身对这种经历的体验，在一种行为中最重要的是作为行为的主体，这是一种幼稚的表现。”
 里尔克： 你尚未老朽，并且时间仍非太晚
 勒内夏尔： 在自己前方若无未知之物究竟如何生活？
@@ -29,10 +29,10 @@
     
     <item>
       <title>人都是悬崖上的旅者</title>
-      <link>https://hydroakri.github.io/posts/poems/poem/</link>
+      <link>http://localhost:1313/posts/poems/poem/</link>
       <pubDate>Wed, 21 Dec 2022 11:30:03 +0800</pubDate>
       
-      <guid>https://hydroakri.github.io/posts/poems/poem/</guid>
+      <guid>http://localhost:1313/posts/poems/poem/</guid>
       <description> 蒸腾上升的冷蒸汽越过太阳游丝穿过的弧顶 寂静火焰燃烧着遥远灰色琴音
 黑色飞鸟穿过你们共鸣的号角
 穿过共感平面上回溯的哀伤

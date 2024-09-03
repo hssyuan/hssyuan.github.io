@@ -1,18 +1,55 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>linux on Hydroakri&#39;s Blog</title>
-    <link>https://hydroakri.github.io/tags/linux/</link>
-    <description>Recent content in linux on Hydroakri&#39;s Blog</description>
+    <title>Linux on Hydroakri&#39;s Blog</title>
+    <link>http://localhost:1313/tags/linux/</link>
+    <description>Recent content in Linux on Hydroakri&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 09 Aug 2023 17:26:27 +0800</lastBuildDate><atom:link href="https://hydroakri.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 03 Sep 2024 13:25:27 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>archlinux 系统参数优化</title>
+      <link>http://localhost:1313/posts/linux/syssetings/</link>
+      <pubDate>Tue, 03 Sep 2024 13:25:27 +0800</pubDate>
+      
+      <guid>http://localhost:1313/posts/linux/syssetings/</guid>
+      <description>Useful utils earlyoom adguardhome warp-svc systemd-resolved gamemode ufw apparmor proxychains
+sudo systemctl daemon-reload sudo systemctl enable fstrim.timer sudo systemctl enable systemd-zram-setup@zram0.service sudo systemctl enable nvidia-suspend.service /etc/default/grub
+GRUB_CMDLINE_LINUX_DEFAULT=&amp;#34;rootfstype=xfs zswap.enabled=0 mem_sleep_default=s2idle radeon.dpm=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 amd_pstate=active mitigations=auto nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 apparmor=1 security=apparmor lockdown=integrity quiet splash&amp;#34; /etc/modprobe.d/nvidia-options.conf
+options nvidia-drm modeset=1 options nvidia NVreg_PreserveVideoMemoryAllocations=1 /etc/systemd/zram-generator.conf
+[zram0] zram-size = ram/2 compression-algorithm = zstd /etc/systemd/resolved.conf
+[Resolve] DNS=123.129.227.3#doh.apad.pro 103.2.57.5#ipublic.dns.iij.jp 101.102.103.104#101.101.101.101 1.1.1.1#cloudflare-dns.com 8.8.8.8#dns.google 9.9.9.9#dns.quad9.net Domains=~ DNSSEC=allow-downgrade DNSOverTLS=yes MulticastDNS=yes LLMNR=yes Cache=yes /etc/sysctl.</description>
+    </item>
+    
+    <item>
+      <title>在Debian&#43;自定义内核上启用安全启动</title>
+      <link>http://localhost:1313/posts/linux/secureboot/</link>
+      <pubDate>Mon, 02 Sep 2024 21:48:27 +0800</pubDate>
+      
+      <guid>http://localhost:1313/posts/linux/secureboot/</guid>
+      <description>注意： Debian/Fedora/Ubuntu 官方支持了安全启动，因此属于‘使用已签署的引导加载程序’，支持的方式为shim
+根据Debian wiki对安全启动的描述中可以得知，Debian自带了EFI系统签名因此无需手动注册，但是由dkms加载的内核模块没有经过MOK的注册，因此需要手动注册：
+sudo mokutil --import /var/lib/dkms/mok.pub #由MOK注册，执行完需要重启 接下来，由于使用的是自定义内核，所以内核也需要手动签名后由MOK注册：
+#创建一个机器所有者密钥（MOK）： openssl req -newkey rsa:4096 -nodes -keyout MOK.key -new -x509 -sha256 -days 3650 -subj &amp;#34;/CN=my Machine Owner Key/&amp;#34; -out MOK.crt openssl x509 -outform DER -in MOK.crt -out MOK.cer #手动签署你的引导加载程序（名为grubx64.efi）以及内核： sbsign --key MOK.key --cert MOK.crt --output /boot/vmlinuz-linux /boot/vmlinuz-linux sbsign --key MOK.key --cert MOK.crt --output esp/EFI/BOOT/grubx64.efi esp/EFI/BOOT/grubx64.efi sudo mokutil --import MOK.cer #由MOK注册，执行完需要重启 接下来创建initramfs-tools的钩子：
+#!/bin/sh set -e PREREQ=&amp;#34;&amp;#34; # 这个函数会在 initramfs-tools 处理时被调用 case $1 in prereqs) # 返回依赖项 echo &amp;#34;$PREREQ&amp;#34; exit 0 ;; *) # 处理脚本 ;; esac # 定义证书和密钥的路径 cert=&amp;#34;/path/to/your/certificate.</description>
+    </item>
+    
+    <item>
+      <title>NTFS 的一些小技巧</title>
+      <link>http://localhost:1313/posts/linux/ntfs/</link>
+      <pubDate>Mon, 02 Sep 2024 20:48:27 +0800</pubDate>
+      
+      <guid>http://localhost:1313/posts/linux/ntfs/</guid>
+      <description>鉴于内核在 5.15 之后合并了NTFS3的内核驱动使得读写能力大幅提升，可以把ntfs-3g扔掉了
+# sudo vi /etc/udev/rules.d/ntfs3_by_default.rules SUBSYSTEM==&amp;#34;block&amp;#34;, ENV{ID_FS_TYPE}==&amp;#34;ntfs&amp;#34;, ENV{ID_FS_TYPE}=&amp;#34;ntfs3&amp;#34; ENV{UDISKS_MOUNT_OPTIONS_DEFAULTS}=&amp;#34;uid=1000,gid=1000,rw,user,exec,umask=000&amp;#34; 注：选项是把NTFS3作为默认挂载驱动，并且挂载选项使用了proton建议的设置</description>
+    </item>
+    
     <item>
       <title>linux 使用 doh</title>
-      <link>https://hydroakri.github.io/posts/linux/doh/</link>
+      <link>http://localhost:1313/posts/linux/doh/</link>
       <pubDate>Wed, 09 Aug 2023 17:26:27 +0800</pubDate>
       
-      <guid>https://hydroakri.github.io/posts/linux/doh/</guid>
+      <guid>http://localhost:1313/posts/linux/doh/</guid>
       <description>在比较了archwiki关于dns的介绍后
 在smartdns/coredns/unbound/dnsencrypt-proxy之中选择了后者
 coredns和unbound对于桌面linux用户而言过于复杂且不好配置
@@ -31,10 +68,10 @@ nameserver ::1 nameserver 127.0.0.1 options edns0 然后chattr +i /etc/resolv.co
     
     <item>
       <title>基于KVM的虚拟显卡透传技术</title>
-      <link>https://hydroakri.github.io/posts/linux/passthrough/</link>
+      <link>http://localhost:1313/posts/linux/passthrough/</link>
       <pubDate>Wed, 02 Aug 2023 21:48:27 +0800</pubDate>
       
-      <guid>https://hydroakri.github.io/posts/linux/passthrough/</guid>
+      <guid>http://localhost:1313/posts/linux/passthrough/</guid>
       <description>0.准备工作&amp;amp;检查 显卡直通的前提条件是：
 NVIDIA 独立显卡本身要具有视频输出功能 机身上至少有一个连接到独立显卡的视频接口 安装kvm虚拟机，具体步骤参照本博客archlinux安装或archlinux wiki 强烈建议阅读本文时参照下面几篇文章：
 PCI_passthrough_via_OVMF_ARCHLINUX wiki
@@ -49,11 +86,11 @@ vfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.</desc
     </item>
     
     <item>
-      <title>我的常用开源软件生态</title>
-      <link>https://hydroakri.github.io/posts/linux/apps/</link>
+      <title>常用开源软件</title>
+      <link>http://localhost:1313/posts/linux/apps/</link>
       <pubDate>Wed, 22 Feb 2023 11:11:27 +0800</pubDate>
       
-      <guid>https://hydroakri.github.io/posts/linux/apps/</guid>
+      <guid>http://localhost:1313/posts/linux/apps/</guid>
       <description> 我的电脑双硬盘双系统，使用Windows 11 + ArchLinux
 在Windows上使用 scoop + winget / Archlinux 下使用 paru+pacman
 我尽可能使用开源/免费
@@ -72,20 +109,11 @@ Windows 把Windows 11 改为10的模样：ExplorerPatcher 使游戏窗口全屏�
     </item>
     
     <item>
-      <title>archlinux 系统参数优化</title>
-      <link>https://hydroakri.github.io/posts/linux/syssetings/</link>
-      <pubDate>Tue, 14 Feb 2023 13:56:27 +0800</pubDate>
-      
-      <guid>https://hydroakri.github.io/posts/linux/syssetings/</guid>
-      <description>一些系统设置 系统环境变量 # # This file is parsed by pam_env module # # Syntax: simple &amp;#34;KEY=VAL&amp;#34; pairs on separate lines # # ##for fcitx5 GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx XMODIFIERS=@im=fcitx SDL_IM_MODULE=fcitx GLFW_IM_MODULE=ibus #hydrland LIBVA_DRIVER_NAME=nvidia XDG_SESSION_TYPE=wayland GBM_BACKEND=nvidia-drm ##强制将使用 GBM 后端 __GLX_VENDOR_LIBRARY_NAME=nvidia ##强制将使用 GBM 后端 WLR_NO_HARDWARE_CURSORS=1 #enable nvidia vertical sync #__GL_SYNC_TO_VBLANK=1 # set backend as vulkan WLR_RENDERER=vulkan QT_QPA_PLATFORM=&amp;#34;wayland;xcb&amp;#34; GDK_BACKEND=wayland,x11 #for firefox on wayland MOZ_ENABLE_WAYLAND=1 #FOR QT THEME #QT_QPA_PLATFORMTHEME=qt5ct QT_STYLE_OVERRIDE=Breeze EDITOR=nvim VISUAL=nvim #DESKTOP_SESSION=gnome #DESKTOP_SESSION=plasma NVIDIA early KMS /etc/mkinitcpio.</description>
-    </item>
-    
-    <item>
       <title>Archlinux安装小记</title>
-      <link>https://hydroakri.github.io/posts/linux/archlinux/</link>
+      <link>http://localhost:1313/posts/linux/archlinux/</link>
       <pubDate>Thu, 17 Feb 2022 00:56:27 +0800</pubDate>
       
-      <guid>https://hydroakri.github.io/posts/linux/archlinux/</guid>
+      <guid>http://localhost:1313/posts/linux/archlinux/</guid>
       <description>创建安装介质 工具：rufus
 环境：windows
 去archlinux官网安装即可，推荐使用qBittorrent，下载速度会比直链快，毕竟是开源软件（去镜像站下载也可以）

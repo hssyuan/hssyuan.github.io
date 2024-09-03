@@ -1,42 +1,22 @@
 ---
 title: "About"
 # url: "/about"
----  
-<div align="center">  
+---
+
+<div align="center">
 
 > 为了已经消失的事情和不再到来的事情
 
 ![](https://img.shields.io/badge/Made%20with-%E2%98%AD%E2%99%A1%E2%92%B6-ff44ff?style=for-the-badge&logo=love&logoColor=white)
 
-### 📖 I (want to) read ..
-荷尔德林/勒内夏尔/博尔赫斯/卡尔维诺/巴塔耶  
-鲍德里亚/德波/本雅明  
-(伍尔夫/桑塔格/尼克兰德/Tiqqun/伊格尔顿)
-### 🎧 I listen ...
-后朋/自赏黑/古典/政治波普  
-Molchat Doma/维克多崔/頭脳警察/腰/Dopamine/Alcest/被迫害的失真  
-[Last.fm](https://www.last.fm/zh/user/hydroakri)
-### 🎥 I watch ..
-希腊新浪潮 安哲罗普洛斯 塔可夫斯基  
-“00年代的想象力” Evagelion 凉宫春日 魔圆 四叠半  
-
-### ⌘  I use ...
+### ⌘ I use ...
 
 ![Lineageos](https://img.shields.io/badge/lineageos-167C80?style=for-the-badge&logo=lineageos&logoColor=white)
 ![Arch](https://img.shields.io/badge/Arch%20Linux-1793D1?logo=arch-linux&logoColor=fff&style=for-the-badge)
 ![Windows 11](https://img.shields.io/badge/Windows%2011-%230079d5.svg?style=for-the-badge&logo=Windows%2011&logoColor=white)
 
-### 🎮 I play ...
- Dark Souls III  
- Black Souls  
- Disco Elysium  
- Hello Charlotte(series)  
- Tommorrow won't come for those without █████  
- BOTW  
- 血肉与混凝土  
- 细胞神曲  
-
 ### 📱 Find me on ..
+
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 ![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white)
 ![Mastodon](https://img.shields.io/badge/-MASTODON-%232B90D9?style=for-the-badge&logo=mastodon&logoColor=white)
