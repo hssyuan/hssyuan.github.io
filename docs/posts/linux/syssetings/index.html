@@ -5,9 +5,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>archlinux 系统参数优化 | Hydroakri&#39;s Blog</title>
+<title>Linux 优化 | Hydroakri&#39;s Blog</title>
 <meta name="keywords" content="linux" />
 <meta name="description" content="
+use ssh
+
+git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+
 Useful utils
 earlyoom adguardhome warp-svc systemd-resolved gamemode ufw apparmor proxychains
 
@@ -15,21 +19,11 @@ sudo systemctl daemon-reload
 sudo systemctl enable fstrim.timer
 sudo systemctl enable systemd-zram-setup@zram0.service
 sudo systemctl enable nvidia-suspend.service
+sudo systemctl enable systemd-resolved.service
 
 /etc/default/grub
 
-GRUB_CMDLINE_LINUX_DEFAULT=&#34;rootfstype=xfs zswap.enabled=0 mem_sleep_default=s2idle radeon.dpm=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 amd_pstate=active mitigations=auto nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 apparmor=1 security=apparmor lockdown=integrity quiet splash&#34;
-
-/etc/modprobe.d/nvidia-options.conf
-
-options nvidia-drm modeset=1
-options nvidia NVreg_PreserveVideoMemoryAllocations=1
-
-/etc/systemd/zram-generator.conf
-
-[zram0]
-zram-size = ram/2
-compression-algorithm = zstd
+GRUB_CMDLINE_LINUX_DEFAULT=&#34;zswap.enabled=0 radeon.dpm=1 amd_pstate=active processor.ignore_ppc=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 mem_sleep_default=s2idle nowatchdog nmi_watchdog=0 snd_hda_intel.power_save=1 iwlwifi.power_save=1 usbcore.autosuspend=60 mitigations=auto apparmor=1 security=apparmor lockdown=integrity quiet splash&#34;
 ">
 <meta name="author" content="">
 <link rel="canonical" href="https://hydroakri.github.io/posts/linux/syssetings/" />
@@ -81,8 +75,12 @@ compression-algorithm = zstd
         }
 
     </style>
-</noscript><meta property="og:title" content="archlinux 系统参数优化" />
+</noscript><meta property="og:title" content="Linux 优化" />
 <meta property="og:description" content="
+use ssh
+
+git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+
 Useful utils
 earlyoom adguardhome warp-svc systemd-resolved gamemode ufw apparmor proxychains
 
@@ -90,21 +88,11 @@ sudo systemctl daemon-reload
 sudo systemctl enable fstrim.timer
 sudo systemctl enable systemd-zram-setup@zram0.service
 sudo systemctl enable nvidia-suspend.service
+sudo systemctl enable systemd-resolved.service
 
 /etc/default/grub
 
-GRUB_CMDLINE_LINUX_DEFAULT=&#34;rootfstype=xfs zswap.enabled=0 mem_sleep_default=s2idle radeon.dpm=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 amd_pstate=active mitigations=auto nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 apparmor=1 security=apparmor lockdown=integrity quiet splash&#34;
-
-/etc/modprobe.d/nvidia-options.conf
-
-options nvidia-drm modeset=1
-options nvidia NVreg_PreserveVideoMemoryAllocations=1
-
-/etc/systemd/zram-generator.conf
-
-[zram0]
-zram-size = ram/2
-compression-algorithm = zstd
+GRUB_CMDLINE_LINUX_DEFAULT=&#34;zswap.enabled=0 radeon.dpm=1 amd_pstate=active processor.ignore_ppc=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 mem_sleep_default=s2idle nowatchdog nmi_watchdog=0 snd_hda_intel.power_save=1 iwlwifi.power_save=1 usbcore.autosuspend=60 mitigations=auto apparmor=1 security=apparmor lockdown=integrity quiet splash&#34;
 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://hydroakri.github.io/posts/linux/syssetings/" /><meta property="article:section" content="posts" />
@@ -112,8 +100,12 @@ compression-algorithm = zstd
 <meta property="article:modified_time" content="2024-09-03T13:25:27&#43;08:00" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="archlinux 系统参数优化"/>
+<meta name="twitter:title" content="Linux 优化"/>
 <meta name="twitter:description" content="
+use ssh
+
+git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+
 Useful utils
 earlyoom adguardhome warp-svc systemd-resolved gamemode ufw apparmor proxychains
 
@@ -121,21 +113,11 @@ sudo systemctl daemon-reload
 sudo systemctl enable fstrim.timer
 sudo systemctl enable systemd-zram-setup@zram0.service
 sudo systemctl enable nvidia-suspend.service
+sudo systemctl enable systemd-resolved.service
 
 /etc/default/grub
 
-GRUB_CMDLINE_LINUX_DEFAULT=&#34;rootfstype=xfs zswap.enabled=0 mem_sleep_default=s2idle radeon.dpm=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 amd_pstate=active mitigations=auto nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 apparmor=1 security=apparmor lockdown=integrity quiet splash&#34;
-
-/etc/modprobe.d/nvidia-options.conf
-
-options nvidia-drm modeset=1
-options nvidia NVreg_PreserveVideoMemoryAllocations=1
-
-/etc/systemd/zram-generator.conf
-
-[zram0]
-zram-size = ram/2
-compression-algorithm = zstd
+GRUB_CMDLINE_LINUX_DEFAULT=&#34;zswap.enabled=0 radeon.dpm=1 amd_pstate=active processor.ignore_ppc=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 mem_sleep_default=s2idle nowatchdog nmi_watchdog=0 snd_hda_intel.power_save=1 iwlwifi.power_save=1 usbcore.autosuspend=60 mitigations=auto apparmor=1 security=apparmor lockdown=integrity quiet splash&#34;
 "/>
 
 
@@ -153,7 +135,7 @@ compression-algorithm = zstd
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "archlinux 系统参数优化",
+      "name": "Linux 优化",
       "item": "https://hydroakri.github.io/posts/linux/syssetings/"
     }
   ]
@@ -163,14 +145,14 @@ compression-algorithm = zstd
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "archlinux 系统参数优化",
-  "name": "archlinux 系统参数优化",
-  "description": " Useful utils earlyoom adguardhome warp-svc systemd-resolved gamemode ufw apparmor proxychains\nsudo systemctl daemon-reload sudo systemctl enable fstrim.timer sudo systemctl enable systemd-zram-setup@zram0.service sudo systemctl enable nvidia-suspend.service /etc/default/grub\nGRUB_CMDLINE_LINUX_DEFAULT=\u0026#34;rootfstype=xfs zswap.enabled=0 mem_sleep_default=s2idle radeon.dpm=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 amd_pstate=active mitigations=auto nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 apparmor=1 security=apparmor lockdown=integrity quiet splash\u0026#34; /etc/modprobe.d/nvidia-options.conf\noptions nvidia-drm modeset=1 options nvidia NVreg_PreserveVideoMemoryAllocations=1 /etc/systemd/zram-generator.conf\n[zram0] zram-size = ram/2 compression-algorithm = zstd ",
+  "headline": "Linux 优化",
+  "name": "Linux 优化",
+  "description": " use ssh\ngit config --global url.ssh://git@github.com/.insteadOf https://github.com/ Useful utils earlyoom adguardhome warp-svc systemd-resolved gamemode ufw apparmor proxychains\nsudo systemctl daemon-reload sudo systemctl enable fstrim.timer sudo systemctl enable systemd-zram-setup@zram0.service sudo systemctl enable nvidia-suspend.service sudo systemctl enable systemd-resolved.service /etc/default/grub\nGRUB_CMDLINE_LINUX_DEFAULT=\u0026#34;zswap.enabled=0 radeon.dpm=1 amd_pstate=active processor.ignore_ppc=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 mem_sleep_default=s2idle nowatchdog nmi_watchdog=0 snd_hda_intel.power_save=1 iwlwifi.power_save=1 usbcore.autosuspend=60 mitigations=auto apparmor=1 security=apparmor lockdown=integrity quiet splash\u0026#34; ",
   "keywords": [
     "linux"
   ],
-  "articleBody": " Useful utils earlyoom adguardhome warp-svc systemd-resolved gamemode ufw apparmor proxychains\nsudo systemctl daemon-reload sudo systemctl enable fstrim.timer sudo systemctl enable systemd-zram-setup@zram0.service sudo systemctl enable nvidia-suspend.service /etc/default/grub\nGRUB_CMDLINE_LINUX_DEFAULT=\"rootfstype=xfs zswap.enabled=0 mem_sleep_default=s2idle radeon.dpm=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 amd_pstate=active mitigations=auto nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 apparmor=1 security=apparmor lockdown=integrity quiet splash\" /etc/modprobe.d/nvidia-options.conf\noptions nvidia-drm modeset=1 options nvidia NVreg_PreserveVideoMemoryAllocations=1 /etc/systemd/zram-generator.conf\n[zram0] zram-size = ram/2 compression-algorithm = zstd /etc/systemd/resolved.conf\n[Resolve] DNS=123.129.227.3#doh.apad.pro 103.2.57.5#ipublic.dns.iij.jp 101.102.103.104#101.101.101.101 1.1.1.1#cloudflare-dns.com 8.8.8.8#dns.google 9.9.9.9#dns.quad9.net Domains=~ DNSSEC=allow-downgrade DNSOverTLS=yes MulticastDNS=yes LLMNR=yes Cache=yes /etc/sysctl.conf\n#security kernel.core_pattern=|/bin/false kernel.unprivileged_bpf_disabled=0 kernel.kptr_restrict=2 kernel.yama.ptrace_scope=3 kernel.kexec_load_disabled=1 module.sig_enforce=1 net.core.bpf_jit_harden=2 # performance net.core.default_qdisc=cake net.ipv4.tcp_congestion_control=bbr2 net.core.netdev_max_backlog = 16384 net.core.rmem_default = 1048576 net.core.rmem_max = 16777216 net.core.wmem_default = 1048576 net.core.wmem_max = 16777216 net.core.optmem_max = 65536 net.ipv4.tcp_rmem = 4096 1048576 2097152 net.ipv4.tcp_wmem = 4096 65536 16777216 net.ipv4.udp_rmem_min = 8192 net.ipv4.udp_wmem_min = 8192 net.ipv4.tcp_fastopen = 3 net.ipv4.tcp_max_syn_backlog = 8192 net.ipv4.tcp_max_tw_buckets = 2000000 net.ipv4.tcp_tw_reuse = 1 net.ipv4.tcp_fin_timeout = 10 net.ipv4.tcp_slow_start_after_idle = 0 net.ipv4.tcp_keepalive_time = 60 net.ipv4.tcp_keepalive_intvl = 10 net.ipv4.tcp_keepalive_probes = 6 net.ipv4.tcp_mtu_probing = 1 net.ipv4.tcp_sack = 1 vm.swappiness=180 vm.watermark_boost_factor=0 vm.watermark_scale_factor=125 vm.page-cluster=0 vm.dirty_ratio=8 vm.dirty_background_ratio=4 vm.dirty_writeback_centisecs=1500 vm.dirty_expire_centisecs=1500 vm.laptop_mode=5 vm.vfs_cache_pressure = 50 /etc/modules-load.d/tcp_bbr.conf\ntcp_bbr2 zram /etc/fstab\nntfs3 uid=1000,gid=1000,rw,user,exec,umask=000,prealloc btrfs rw,relatime,ssd,space_cache=v2,noatime,commit=120,compress=zstd,discard=async /etc/udev/rules.d/ntfs3_by_default.rules\nSUBSYSTEM==\"block\", ENV{ID_FS_TYPE}==\"ntfs\", ENV{ID_FS_TYPE}=\"ntfs3\" /etc/environment\nXMODIFIERS=@im=fcitx /etc/NetworkManager/conf.d/dns.conf\n[main] dns=none kernel modules\namdgpu nvidia nvidia_modeset nvidia_uvm nvidia_drm distro specific #local-mirror deb http://mirrors.ustc.edu.cn/debian trixie main contrib non-free non-free-firmware deb http://mirrors.ustc.edu.cn/debian trixie-updates main contrib non-free non-free-firmware #main-source/updates/backports deb https://deb.debian.org/debian/ trixie main contrib non-free non-free-firmware deb https://deb.debian.org/debian/ trixie-updates main contrib non-free non-free-firmware deb https://deb.debian.org/debian/ trixie-backports main contrib non-free non-free-firmware #security deb http://deb.debian.org/debian-security/ trixie-security main contrib non-free non-free-firmware Another important thing pacman -Qqe \u003e pkgs.txt flatpak list --columns=app \u003e flatpak.txt sudo apt list \u003e debs.txt brew list \u003e brew.txt ",
-  "wordCount" : "257",
+  "articleBody": " use ssh\ngit config --global url.ssh://git@github.com/.insteadOf https://github.com/ Useful utils earlyoom adguardhome warp-svc systemd-resolved gamemode ufw apparmor proxychains\nsudo systemctl daemon-reload sudo systemctl enable fstrim.timer sudo systemctl enable systemd-zram-setup@zram0.service sudo systemctl enable nvidia-suspend.service sudo systemctl enable systemd-resolved.service /etc/default/grub\nGRUB_CMDLINE_LINUX_DEFAULT=\"zswap.enabled=0 radeon.dpm=1 amd_pstate=active processor.ignore_ppc=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 mem_sleep_default=s2idle nowatchdog nmi_watchdog=0 snd_hda_intel.power_save=1 iwlwifi.power_save=1 usbcore.autosuspend=60 mitigations=auto apparmor=1 security=apparmor lockdown=integrity quiet splash\" /etc/modprobe.d/nvidia-options.conf\noptions nvidia-drm modeset=1 options nvidia NVreg_PreserveVideoMemoryAllocations=1 /etc/systemd/zram-generator.conf\n[zram0] zram-size = ram/2 compression-algorithm = zstd /etc/systemd/resolved.conf\n[Resolve] DNS=123.129.227.3#doh.apad.pro 103.2.57.5#ipublic.dns.iij.jp 101.102.103.104#101.101.101.101 1.1.1.1#cloudflare-dns.com 8.8.8.8#dns.google 9.9.9.9#dns.quad9.net Domains=~ DNSSEC=allow-downgrade DNSOverTLS=yes MulticastDNS=yes LLMNR=yes Cache=yes /etc/sysctl.conf\n#security kernel.core_pattern=|/bin/false kernel.unprivileged_bpf_disabled=0 kernel.kptr_restrict=2 kernel.yama.ptrace_scope=3 kernel.kexec_load_disabled=1 module.sig_enforce=1 net.core.bpf_jit_harden=2 # performance net.core.default_qdisc=cake net.ipv4.tcp_congestion_control=bbr2 net.core.netdev_max_backlog = 16384 net.core.rmem_default = 1048576 net.core.rmem_max = 16777216 net.core.wmem_default = 1048576 net.core.wmem_max = 16777216 net.core.optmem_max = 65536 net.ipv4.tcp_rmem = 4096 1048576 2097152 net.ipv4.tcp_wmem = 4096 65536 16777216 net.ipv4.udp_rmem_min = 8192 net.ipv4.udp_wmem_min = 8192 net.ipv4.tcp_fastopen = 3 net.ipv4.tcp_max_syn_backlog = 8192 net.ipv4.tcp_max_tw_buckets = 2000000 net.ipv4.tcp_tw_reuse = 1 net.ipv4.tcp_fin_timeout = 10 net.ipv4.tcp_slow_start_after_idle = 0 net.ipv4.tcp_keepalive_time = 60 net.ipv4.tcp_keepalive_intvl = 10 net.ipv4.tcp_keepalive_probes = 6 net.ipv4.tcp_mtu_probing = 1 net.ipv4.tcp_sack = 1 vm.swappiness=180 vm.watermark_boost_factor=0 vm.watermark_scale_factor=125 vm.page-cluster=0 vm.dirty_ratio=8 vm.dirty_background_ratio=4 vm.dirty_writeback_centisecs=1500 vm.dirty_expire_centisecs=1500 vm.laptop_mode=5 vm.vfs_cache_pressure = 50 /etc/modules-load.d/tcp_bbr.conf\ntcp_bbr2 zram /etc/fstab\nntfs3 uid=1000,gid=1000,rw,user,exec,umask=000,prealloc btrfs rw,relatime,ssd,space_cache=v2,noatime,commit=120,compress=zstd,discard=async /etc/udev/rules.d/powersave.rules\nSUBSYSTEM==\"pci\", ATTR{power/control}=\"auto\" # 上述规则会关闭所有未使用的设备，但某些设备不会再次唤醒。要仅对已知可以工作的设备进行运行时电源管理，请使用对应供应商和设备ID的简单匹配（使用 lspci -nn 获取这些值) ACTION==\"add\", SUBSYSTEM==\"net\", KERNEL==\"wl*\", RUN+=\"/usr/bin/iw dev $name set power_save on\" # disable Wake-on-LAN /etc/udev/rules.d/ntfs3_by_default.rules\nSUBSYSTEM==\"block\", ENV{ID_FS_TYPE}==\"ntfs\", ENV{ID_FS_TYPE}=\"ntfs3\" /etc/environment\nXMODIFIERS=@im=fcitx /etc/NetworkManager/conf.d/dns.conf\n[main] dns=none kernel modules\namdgpu nvidia nvidia_modeset nvidia_uvm nvidia_drm distro specific #local-mirror deb http://mirrors.ustc.edu.cn/debian trixie main contrib non-free non-free-firmware deb http://mirrors.ustc.edu.cn/debian trixie-updates main contrib non-free non-free-firmware #main-source/updates/backports deb https://deb.debian.org/debian/ trixie main contrib non-free non-free-firmware deb https://deb.debian.org/debian/ trixie-updates main contrib non-free non-free-firmware deb https://deb.debian.org/debian/ trixie-backports main contrib non-free non-free-firmware #security deb http://deb.debian.org/debian-security/ trixie-security main contrib non-free non-free-firmware Another important thing pacman -Qqe \u003e pkgs.txt flatpak list --columns=app \u003e flatpak.txt sudo apt list \u003e debs.txt brew list \u003e brew.txt ",
+  "wordCount" : "290",
   "inLanguage": "en",
   "datePublished": "2024-09-03T13:25:27+08:00",
   "dateModified": "2024-09-03T13:25:27+08:00",
@@ -256,13 +238,17 @@ compression-algorithm = zstd
   <header class="post-header">
     
     <h1 class="post-title">
-      archlinux 系统参数优化
+      Linux 优化
     </h1>
     <div class="post-meta">&lt;span title=&#39;2024-09-03 13:25:27 &#43;0800 &#43;0800&#39;&gt;September 3, 2024&lt;/span&gt;
 
 </div>
   </header> 
   <div class="post-content"><blockquote>
+<p>use ssh</p>
+</blockquote>
+<pre tabindex="0"><code>git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+</code></pre><blockquote>
 <p>Useful utils
 <code>earlyoom</code> <code>adguardhome</code> <code>warp-svc</code> <code>systemd-resolved</code> <code>gamemode</code> <code>ufw</code> <code>apparmor</code> <code>proxychains</code></p>
 </blockquote>
@@ -270,10 +256,11 @@ compression-algorithm = zstd
 sudo systemctl enable fstrim.timer
 sudo systemctl enable systemd-zram-setup@zram0.service
 sudo systemctl enable nvidia-suspend.service
+sudo systemctl enable systemd-resolved.service
 </code></pre><blockquote>
 <p>/etc/default/grub</p>
 </blockquote>
-<pre tabindex="0"><code class="language-conf" data-lang="conf">GRUB_CMDLINE_LINUX_DEFAULT=&#34;rootfstype=xfs zswap.enabled=0 mem_sleep_default=s2idle radeon.dpm=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 amd_pstate=active mitigations=auto nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 apparmor=1 security=apparmor lockdown=integrity quiet splash&#34;
+<pre tabindex="0"><code class="language-conf" data-lang="conf">GRUB_CMDLINE_LINUX_DEFAULT=&#34;zswap.enabled=0 radeon.dpm=1 amd_pstate=active processor.ignore_ppc=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 mem_sleep_default=s2idle nowatchdog nmi_watchdog=0 snd_hda_intel.power_save=1 iwlwifi.power_save=1 usbcore.autosuspend=60 mitigations=auto apparmor=1 security=apparmor lockdown=integrity quiet splash&#34;
 </code></pre><blockquote>
 <p>/etc/modprobe.d/nvidia-options.conf</p>
 </blockquote>
@@ -356,6 +343,14 @@ zram
 <pre tabindex="0"><code>&lt;type&gt;  &lt;options&gt;
 ntfs3 uid=1000,gid=1000,rw,user,exec,umask=000,prealloc
 btrfs rw,relatime,ssd,space_cache=v2,noatime,commit=120,compress=zstd,discard=async
+</code></pre><blockquote>
+<p>/etc/udev/rules.d/powersave.rules</p>
+</blockquote>
+<pre tabindex="0"><code>SUBSYSTEM==&#34;pci&#34;, ATTR{power/control}=&#34;auto&#34;
+# 上述规则会关闭所有未使用的设备，但某些设备不会再次唤醒。要仅对已知可以工作的设备进行运行时电源管理，请使用对应供应商和设备ID的简单匹配（使用 lspci -nn 获取这些值)
+
+ACTION==&#34;add&#34;, SUBSYSTEM==&#34;net&#34;, KERNEL==&#34;wl*&#34;, RUN+=&#34;/usr/bin/iw dev $name set power_save on&#34;
+# disable Wake-on-LAN
 </code></pre><blockquote>
 <p>/etc/udev/rules.d/ntfs3_by_default.rules</p>
 </blockquote>

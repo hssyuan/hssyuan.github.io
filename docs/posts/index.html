@@ -150,18 +150,17 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2>archlinux 系统参数优化
+    <h2>Linux 优化
     </h2>
   </header>
   <section class="entry-content">
-    <p> Useful utils earlyoom adguardhome warp-svc systemd-resolved gamemode ufw apparmor proxychains
-sudo systemctl daemon-reload sudo systemctl enable fstrim.timer sudo systemctl enable systemd-zram-setup@zram0.service sudo systemctl enable nvidia-suspend.service /etc/default/grub
-GRUB_CMDLINE_LINUX_DEFAULT=&#34;rootfstype=xfs zswap.enabled=0 mem_sleep_default=s2idle radeon.dpm=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 amd_pstate=active mitigations=auto nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 apparmor=1 security=apparmor lockdown=integrity quiet splash&#34; /etc/modprobe.d/nvidia-options.conf
-options nvidia-drm modeset=1 options nvidia NVreg_PreserveVideoMemoryAllocations=1 /etc/systemd/zram-generator.conf
-[zram0] zram-size = ram/2 compression-algorithm = zstd ...</p>
+    <p> use ssh
+git config --global url.ssh://git@github.com/.insteadOf https://github.com/ Useful utils earlyoom adguardhome warp-svc systemd-resolved gamemode ufw apparmor proxychains
+sudo systemctl daemon-reload sudo systemctl enable fstrim.timer sudo systemctl enable systemd-zram-setup@zram0.service sudo systemctl enable nvidia-suspend.service sudo systemctl enable systemd-resolved.service /etc/default/grub
+GRUB_CMDLINE_LINUX_DEFAULT=&#34;zswap.enabled=0 radeon.dpm=1 amd_pstate=active processor.ignore_ppc=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 mem_sleep_default=s2idle nowatchdog nmi_watchdog=0 snd_hda_intel.power_save=1 iwlwifi.power_save=1 usbcore.autosuspend=60 mitigations=auto apparmor=1 security=apparmor lockdown=integrity quiet splash&#34; ...</p>
   </section>
   <footer class="entry-footer">&lt;span title=&#39;2024-09-03 13:25:27 &#43;0800 &#43;0800&#39;&gt;September 3, 2024&lt;/span&gt;</footer>
-  <a class="entry-link" aria-label="post link to archlinux 系统参数优化" href="https://hydroakri.github.io/posts/linux/syssetings/"></a>
+  <a class="entry-link" aria-label="post link to Linux 优化" href="https://hydroakri.github.io/posts/linux/syssetings/"></a>
 </article>
 
 <article class="post-entry"> 

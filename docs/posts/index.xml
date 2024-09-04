@@ -8,12 +8,16 @@
     <language>zh-cn</language>
     <lastBuildDate>Tue, 03 Sep 2024 13:25:27 +0800</lastBuildDate><atom:link href="https://hydroakri.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>archlinux 系统参数优化</title>
+      <title>Linux 优化</title>
       <link>https://hydroakri.github.io/posts/linux/syssetings/</link>
       <pubDate>Tue, 03 Sep 2024 13:25:27 +0800</pubDate>
       
       <guid>https://hydroakri.github.io/posts/linux/syssetings/</guid>
       <description>&lt;blockquote&gt;
+&lt;p&gt;use ssh&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
 &lt;p&gt;Useful utils
 &lt;code&gt;earlyoom&lt;/code&gt; &lt;code&gt;adguardhome&lt;/code&gt; &lt;code&gt;warp-svc&lt;/code&gt; &lt;code&gt;systemd-resolved&lt;/code&gt; &lt;code&gt;gamemode&lt;/code&gt; &lt;code&gt;ufw&lt;/code&gt; &lt;code&gt;apparmor&lt;/code&gt; &lt;code&gt;proxychains&lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -21,21 +25,11 @@
 sudo systemctl enable fstrim.timer
 sudo systemctl enable systemd-zram-setup@zram0.service
 sudo systemctl enable nvidia-suspend.service
+sudo systemctl enable systemd-resolved.service
 &lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
 &lt;p&gt;/etc/default/grub&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-conf&#34; data-lang=&#34;conf&#34;&gt;GRUB_CMDLINE_LINUX_DEFAULT=&amp;#34;rootfstype=xfs zswap.enabled=0 mem_sleep_default=s2idle radeon.dpm=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 amd_pstate=active mitigations=auto nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 apparmor=1 security=apparmor lockdown=integrity quiet splash&amp;#34;
-&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
-&lt;p&gt;/etc/modprobe.d/nvidia-options.conf&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;options nvidia-drm modeset=1
-options nvidia NVreg_PreserveVideoMemoryAllocations=1
-&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
-&lt;p&gt;/etc/systemd/zram-generator.conf&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[zram0]
-zram-size = ram/2
-compression-algorithm = zstd
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-conf&#34; data-lang=&#34;conf&#34;&gt;GRUB_CMDLINE_LINUX_DEFAULT=&amp;#34;zswap.enabled=0 radeon.dpm=1 amd_pstate=active processor.ignore_ppc=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 mem_sleep_default=s2idle nowatchdog nmi_watchdog=0 snd_hda_intel.power_save=1 iwlwifi.power_save=1 usbcore.autosuspend=60 mitigations=auto apparmor=1 security=apparmor lockdown=integrity quiet splash&amp;#34;
 &lt;/code&gt;&lt;/pr</description>
     </item>
     
