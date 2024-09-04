@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>在Debian&#43;自定义内核上启用安全启动 | Hydroakri&#39;s Blog</title>
 <meta name="keywords" content="linux" />
-<meta name="description" content="注意： Debian/Fedora/Ubuntu 官方支持了安全启动，因此属于‘使用已签署的引导加载程序’，支持的方式为shim
+<meta name="description" content="注意：
+Debian/Fedora/Ubuntu 官方支持了安全启动，因此属于‘使用已签署的引导加载程序’，支持的方式为shim
 根据Debian wiki对安全启动的描述中可以得知，Debian自带了EFI系统签名因此无需手动注册，但是由dkms加载的内核模块没有经过MOK的注册，因此需要手动注册：
-sudo mokutil --import /var/lib/dkms/mok.pub #由MOK注册，执行完需要重启 接下来，由于使用的是自定义内核，所以内核也需要手动签名后由MOK注册：
-#创建一个机器所有者密钥（MOK）： openssl req -newkey rsa:4096 -nodes -keyout MOK.key -new -x509 -sha256 -days 3650 -subj &#34;/CN=my Machine Owner Key/&#34; -out MOK.crt openssl x509 -outform DER -in MOK.crt -out MOK.cer #手动签署你的引导加载程序（名为grubx64.efi）以及内核： sbsign --key MOK.key --cert MOK.crt --output /boot/vmlinuz-linux /boot/vmlinuz-linux sbsign --key MOK.key --cert MOK.crt --output esp/EFI/BOOT/grubx64.efi esp/EFI/BOOT/grubx64.efi sudo mokutil --import MOK.cer #由MOK注册，执行完需要重启 接下来创建initramfs-tools的钩子：
-#!/bin/sh set -e PREREQ=&#34;&#34; # 这个函数会在 initramfs-tools 处理时被调用 case $1 in prereqs) # 返回依赖项 echo &#34;$PREREQ&#34; exit 0 ;; *) # 处理脚本 ;; esac # 定义证书和密钥的路径 cert=&#34;/path/to/your/certificate.">
+sudo mokutil --import /var/lib/dkms/mok.pub #由MOK注册，执行完需要重启
+接下来，由于使用的是自定义内核，所以内核也需要手动签名后由MOK注册：
+#创建一个机器所有者密钥（MOK）：
+openssl req -newkey rsa:4096 -nodes -keyout MOK.key -new -x509 -sha256 -days 3650 -subj &#34;/CN=my Machine Owner Key/&#34; -out MOK.crt
+openssl x509 -outform DER -in MOK.crt -out MOK.cer
+
+#手动签署你的引导加载程序（名为grubx64.efi）以及内核：
+sbsign --key MOK.key --cert MOK.crt --output /boot/vmlinuz-linux /boot/vmlinuz-linux
+sbsign --key MOK.key --cert MOK.crt --output esp/EFI/BOOT/grubx64.efi esp/EFI/BOOT/grubx64.efi
+
+sudo mokutil --import MOK.cer #由MOK注册，执行完需要重启
+">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/posts/linux/secureboot/" />
-<link crossorigin="anonymous" href="http://localhost:1313/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="http://localhost:1313/assets/js/highlight.min.2eadbb982468c11a433a3e291f01326f2ba43f065e256bf792dbd79640a92316.js" integrity="sha256-Lq27mCRowRpDOj4pHwEybyukPwZeJWv3ktvXlkCpIxY="
+<link rel="canonical" href="https://hydroakri.github.io/posts/linux/secureboot/" />
+<link crossorigin="anonymous" href="https://hydroakri.github.io/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="https://hydroakri.github.io/assets/js/highlight.min.2eadbb982468c11a433a3e291f01326f2ba43f065e256bf792dbd79640a92316.js" integrity="sha256-Lq27mCRowRpDOj4pHwEybyukPwZeJWv3ktvXlkCpIxY="
     onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="icon" href="https://hydroakri.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://hydroakri.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://hydroakri.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://hydroakri.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://hydroakri.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<meta name="generator" content="Hugo 0.133.1">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/linux/secureboot/" />
+<meta name="generator" content="Hugo 0.134.0">
+<link rel="alternate" hreflang="en" href="https://hydroakri.github.io/posts/linux/secureboot/" />
 <noscript>
     <style>
         #theme-toggle,
@@ -62,7 +72,95 @@ sudo mokutil --import /var/lib/dkms/mok.pub #由MOK注册，执行完需要重�
         }
 
     </style>
-</noscript>
+</noscript><meta property="og:title" content="在Debian&#43;自定义内核上启用安全启动" />
+<meta property="og:description" content="注意：
+Debian/Fedora/Ubuntu 官方支持了安全启动，因此属于‘使用已签署的引导加载程序’，支持的方式为shim
+根据Debian wiki对安全启动的描述中可以得知，Debian自带了EFI系统签名因此无需手动注册，但是由dkms加载的内核模块没有经过MOK的注册，因此需要手动注册：
+sudo mokutil --import /var/lib/dkms/mok.pub #由MOK注册，执行完需要重启
+接下来，由于使用的是自定义内核，所以内核也需要手动签名后由MOK注册：
+#创建一个机器所有者密钥（MOK）：
+openssl req -newkey rsa:4096 -nodes -keyout MOK.key -new -x509 -sha256 -days 3650 -subj &#34;/CN=my Machine Owner Key/&#34; -out MOK.crt
+openssl x509 -outform DER -in MOK.crt -out MOK.cer
+
+#手动签署你的引导加载程序（名为grubx64.efi）以及内核：
+sbsign --key MOK.key --cert MOK.crt --output /boot/vmlinuz-linux /boot/vmlinuz-linux
+sbsign --key MOK.key --cert MOK.crt --output esp/EFI/BOOT/grubx64.efi esp/EFI/BOOT/grubx64.efi
+
+sudo mokutil --import MOK.cer #由MOK注册，执行完需要重启
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hydroakri.github.io/posts/linux/secureboot/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-09-02T21:48:27&#43;08:00" />
+<meta property="article:modified_time" content="2024-09-02T21:48:27&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="在Debian&#43;自定义内核上启用安全启动"/>
+<meta name="twitter:description" content="注意：
+Debian/Fedora/Ubuntu 官方支持了安全启动，因此属于‘使用已签署的引导加载程序’，支持的方式为shim
+根据Debian wiki对安全启动的描述中可以得知，Debian自带了EFI系统签名因此无需手动注册，但是由dkms加载的内核模块没有经过MOK的注册，因此需要手动注册：
+sudo mokutil --import /var/lib/dkms/mok.pub #由MOK注册，执行完需要重启
+接下来，由于使用的是自定义内核，所以内核也需要手动签名后由MOK注册：
+#创建一个机器所有者密钥（MOK）：
+openssl req -newkey rsa:4096 -nodes -keyout MOK.key -new -x509 -sha256 -days 3650 -subj &#34;/CN=my Machine Owner Key/&#34; -out MOK.crt
+openssl x509 -outform DER -in MOK.crt -out MOK.cer
+
+#手动签署你的引导加载程序（名为grubx64.efi）以及内核：
+sbsign --key MOK.key --cert MOK.crt --output /boot/vmlinuz-linux /boot/vmlinuz-linux
+sbsign --key MOK.key --cert MOK.crt --output esp/EFI/BOOT/grubx64.efi esp/EFI/BOOT/grubx64.efi
+
+sudo mokutil --import MOK.cer #由MOK注册，执行完需要重启
+"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://hydroakri.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "在Debian+自定义内核上启用安全启动",
+      "item": "https://hydroakri.github.io/posts/linux/secureboot/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "在Debian+自定义内核上启用安全启动",
+  "name": "在Debian\u002b自定义内核上启用安全启动",
+  "description": "注意： Debian/Fedora/Ubuntu 官方支持了安全启动，因此属于‘使用已签署的引导加载程序’，支持的方式为shim\n根据Debian wiki对安全启动的描述中可以得知，Debian自带了EFI系统签名因此无需手动注册，但是由dkms加载的内核模块没有经过MOK的注册，因此需要手动注册：\nsudo mokutil --import /var/lib/dkms/mok.pub #由MOK注册，执行完需要重启 接下来，由于使用的是自定义内核，所以内核也需要手动签名后由MOK注册：\n#创建一个机器所有者密钥（MOK）： openssl req -newkey rsa:4096 -nodes -keyout MOK.key -new -x509 -sha256 -days 3650 -subj \u0026#34;/CN=my Machine Owner Key/\u0026#34; -out MOK.crt openssl x509 -outform DER -in MOK.crt -out MOK.cer #手动签署你的引导加载程序（名为grubx64.efi）以及内核： sbsign --key MOK.key --cert MOK.crt --output /boot/vmlinuz-linux /boot/vmlinuz-linux sbsign --key MOK.key --cert MOK.crt --output esp/EFI/BOOT/grubx64.efi esp/EFI/BOOT/grubx64.efi sudo mokutil --import MOK.cer #由MOK注册，执行完需要重启 ",
+  "keywords": [
+    "linux"
+  ],
+  "articleBody": "注意： Debian/Fedora/Ubuntu 官方支持了安全启动，因此属于‘使用已签署的引导加载程序’，支持的方式为shim\n根据Debian wiki对安全启动的描述中可以得知，Debian自带了EFI系统签名因此无需手动注册，但是由dkms加载的内核模块没有经过MOK的注册，因此需要手动注册：\nsudo mokutil --import /var/lib/dkms/mok.pub #由MOK注册，执行完需要重启 接下来，由于使用的是自定义内核，所以内核也需要手动签名后由MOK注册：\n#创建一个机器所有者密钥（MOK）： openssl req -newkey rsa:4096 -nodes -keyout MOK.key -new -x509 -sha256 -days 3650 -subj \"/CN=my Machine Owner Key/\" -out MOK.crt openssl x509 -outform DER -in MOK.crt -out MOK.cer #手动签署你的引导加载程序（名为grubx64.efi）以及内核： sbsign --key MOK.key --cert MOK.crt --output /boot/vmlinuz-linux /boot/vmlinuz-linux sbsign --key MOK.key --cert MOK.crt --output esp/EFI/BOOT/grubx64.efi esp/EFI/BOOT/grubx64.efi sudo mokutil --import MOK.cer #由MOK注册，执行完需要重启 接下来创建initramfs-tools的钩子：\n#!/bin/sh set -e PREREQ=\"\" # 这个函数会在 initramfs-tools 处理时被调用 case $1 in prereqs) # 返回依赖项 echo \"$PREREQ\" exit 0 ;; *) # 处理脚本 ;; esac # 定义证书和密钥的路径 cert=\"/path/to/your/certificate.crt\" key=\"/path/to/your/private.key\" # 扫描 /boot 目录下以 vmlinuz 开头的文件 for kernel in /boot/vmlinuz*; do if [ -f \"$kernel\" ]; then # 检查签名 if ! sbverify --cert \"$cert\" \"$kernel\" \u0026\u003e/dev/null; then echo \"Signing kernel: $kernel\" # 执行签名 sbsign --key \"$key\" --cert \"$cert\" --output \"$kernel\" \"$kernel\" else echo \"Kernel already signed: $kernel\" fi fi done ",
+  "wordCount" : "140",
+  "inLanguage": "en",
+  "datePublished": "2024-09-02T21:48:27+08:00",
+  "dateModified": "2024-09-02T21:48:27+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://hydroakri.github.io/posts/linux/secureboot/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Hydroakri's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://hydroakri.github.io/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 
 <body class="" id="top">
@@ -80,7 +178,7 @@ sudo mokutil --import /var/lib/dkms/mok.pub #由MOK注册，执行完需要重�
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="Hydroakri&#39;s Blog (Alt + H)">Hydroakri&#39;s Blog</a>
+            <a href="https://hydroakri.github.io/" accesskey="h" title="Hydroakri&#39;s Blog (Alt + H)">Hydroakri&#39;s Blog</a>
             <span class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -108,17 +206,17 @@ sudo mokutil --import /var/lib/dkms/mok.pub #由MOK注册，执行完需要重�
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/about" title="About">
+                <a href="https://hydroakri.github.io/about" title="About">
                     <span>About</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/archives" title="Archives">
+                <a href="https://hydroakri.github.io/archives" title="Archives">
                     <span>Archives</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/tags/" title="Tags">
+                <a href="https://hydroakri.github.io/tags/" title="Tags">
                     <span>Tags</span>
                 </a>
             </li>
@@ -193,14 +291,14 @@ sudo mokutil --import /var/lib/dkms/mok.pub #由MOK注册，执行完需要重�
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/linux/">Linux</a></li>
+      <li><a href="https://hydroakri.github.io/tags/linux/">Linux</a></li>
     </ul>
   </footer>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2024 <a href="http://localhost:1313/">Hydroakri&#39;s Blog</a></span>
+    <span>&copy; 2024 <a href="https://hydroakri.github.io/">Hydroakri&#39;s Blog</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

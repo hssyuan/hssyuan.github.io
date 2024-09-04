@@ -3,7 +3,9 @@ languageCode: 'zh-cn'
 title: "Hydroakri's Blog"
 theme: "PaperMod"
 publishDir: 'docs'
-paginate: '5'
+
+pagination:
+  pagerSize: 5
 
 markup:
   goldmark:

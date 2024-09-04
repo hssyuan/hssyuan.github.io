@@ -2,71 +2,71 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/posts/linux/syssetings/</loc>
+    <loc>https://hydroakri.github.io/posts/linux/syssetings/</loc>
     <lastmod>2024-09-03T13:25:27+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/</loc>
+    <loc>https://hydroakri.github.io/</loc>
     <lastmod>2024-09-03T13:25:27+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/linux/</loc>
+    <loc>https://hydroakri.github.io/tags/linux/</loc>
     <lastmod>2024-09-03T13:25:27+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/</loc>
+    <loc>https://hydroakri.github.io/posts/</loc>
     <lastmod>2024-09-03T13:25:27+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/</loc>
+    <loc>https://hydroakri.github.io/tags/</loc>
     <lastmod>2024-09-03T13:25:27+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/linux/secureboot/</loc>
+    <loc>https://hydroakri.github.io/posts/linux/secureboot/</loc>
     <lastmod>2024-09-02T21:48:27+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/linux/ntfs/</loc>
+    <loc>https://hydroakri.github.io/posts/linux/ntfs/</loc>
     <lastmod>2024-09-02T20:48:27+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/linux/doh/</loc>
+    <loc>https://hydroakri.github.io/posts/linux/doh/</loc>
     <lastmod>2023-08-09T17:26:27+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/linux/passthrough/</loc>
+    <loc>https://hydroakri.github.io/posts/linux/passthrough/</loc>
     <lastmod>2023-08-02T21:48:27+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/linux/apps/</loc>
+    <loc>https://hydroakri.github.io/posts/linux/apps/</loc>
     <lastmod>2023-02-22T11:11:27+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/misc/beast/</loc>
+    <loc>https://hydroakri.github.io/posts/misc/beast/</loc>
     <lastmod>2023-02-21T17:00:27+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/%E8%BD%AC%E8%BD%BD/</loc>
+    <loc>https://hydroakri.github.io/tags/%E8%BD%AC%E8%BD%BD/</loc>
     <lastmod>2023-02-21T17:00:27+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/poem/</loc>
+    <loc>https://hydroakri.github.io/tags/poem/</loc>
     <lastmod>2023-02-21T11:30:03+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/poems/fetch/</loc>
+    <loc>https://hydroakri.github.io/posts/poems/fetch/</loc>
     <lastmod>2023-02-21T11:30:03+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/poems/poem/</loc>
+    <loc>https://hydroakri.github.io/posts/poems/poem/</loc>
     <lastmod>2022-12-21T11:30:03+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/cpp/stringtochar/</loc>
+    <loc>https://hydroakri.github.io/posts/cpp/stringtochar/</loc>
     <lastmod>2022-11-11T20:31:27+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/cpp/</loc>
+    <loc>https://hydroakri.github.io/tags/cpp/</loc>
     <lastmod>2022-11-11T20:31:27+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/leetcode/</loc>
+    <loc>https://hydroakri.github.io/tags/leetcode/</loc>
     <lastmod>2022-11-11T20:31:27+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/linux/archlinux/</loc>
+    <loc>https://hydroakri.github.io/posts/linux/archlinux/</loc>
     <lastmod>2022-02-17T00:56:27+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/bm/</loc>
+    <loc>https://hydroakri.github.io/bm/</loc>
   </url><url>
-    <loc>http://localhost:1313/textshare/</loc>
+    <loc>https://hydroakri.github.io/textshare/</loc>
   </url><url>
-    <loc>http://localhost:1313/about/</loc>
+    <loc>https://hydroakri.github.io/about/</loc>
   </url><url>
-    <loc>http://localhost:1313/archives/</loc>
+    <loc>https://hydroakri.github.io/archives/</loc>
   </url><url>
-    <loc>http://localhost:1313/categories/</loc>
+    <loc>https://hydroakri.github.io/categories/</loc>
   </url>
 </urlset>

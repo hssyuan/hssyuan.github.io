@@ -2,258 +2,378 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on Hydroakri&#39;s Blog</title>
-    <link>http://localhost:1313/posts/</link>
+    <link>https://hydroakri.github.io/posts/</link>
     <description>Recent content in Posts on Hydroakri&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 03 Sep 2024 13:25:27 +0800</lastBuildDate><atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 03 Sep 2024 13:25:27 +0800</lastBuildDate><atom:link href="https://hydroakri.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>archlinux 系统参数优化</title>
-      <link>http://localhost:1313/posts/linux/syssetings/</link>
+      <link>https://hydroakri.github.io/posts/linux/syssetings/</link>
       <pubDate>Tue, 03 Sep 2024 13:25:27 +0800</pubDate>
       
-      <guid>http://localhost:1313/posts/linux/syssetings/</guid>
-      <description>Useful utils earlyoom adguardhome warp-svc systemd-resolved gamemode ufw apparmor proxychains
-sudo systemctl daemon-reload sudo systemctl enable fstrim.timer sudo systemctl enable systemd-zram-setup@zram0.service sudo systemctl enable nvidia-suspend.service /etc/default/grub
-GRUB_CMDLINE_LINUX_DEFAULT=&amp;#34;rootfstype=xfs zswap.enabled=0 mem_sleep_default=s2idle radeon.dpm=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 amd_pstate=active mitigations=auto nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 apparmor=1 security=apparmor lockdown=integrity quiet splash&amp;#34; /etc/modprobe.d/nvidia-options.conf
-options nvidia-drm modeset=1 options nvidia NVreg_PreserveVideoMemoryAllocations=1 /etc/systemd/zram-generator.conf
-[zram0] zram-size = ram/2 compression-algorithm = zstd /etc/systemd/resolved.conf
-[Resolve] DNS=123.129.227.3#doh.apad.pro 103.2.57.5#ipublic.dns.iij.jp 101.102.103.104#101.101.101.101 1.1.1.1#cloudflare-dns.com 8.8.8.8#dns.google 9.9.9.9#dns.quad9.net Domains=~ DNSSEC=allow-downgrade DNSOverTLS=yes MulticastDNS=yes LLMNR=yes Cache=yes /etc/sysctl.</description>
+      <guid>https://hydroakri.github.io/posts/linux/syssetings/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Useful utils
+&lt;code&gt;earlyoom&lt;/code&gt; &lt;code&gt;adguardhome&lt;/code&gt; &lt;code&gt;warp-svc&lt;/code&gt; &lt;code&gt;systemd-resolved&lt;/code&gt; &lt;code&gt;gamemode&lt;/code&gt; &lt;code&gt;ufw&lt;/code&gt; &lt;code&gt;apparmor&lt;/code&gt; &lt;code&gt;proxychains&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo systemctl daemon-reload
+sudo systemctl enable fstrim.timer
+sudo systemctl enable systemd-zram-setup@zram0.service
+sudo systemctl enable nvidia-suspend.service
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;/etc/default/grub&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-conf&#34; data-lang=&#34;conf&#34;&gt;GRUB_CMDLINE_LINUX_DEFAULT=&amp;#34;rootfstype=xfs zswap.enabled=0 mem_sleep_default=s2idle radeon.dpm=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 amd_pstate=active mitigations=auto nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 apparmor=1 security=apparmor lockdown=integrity quiet splash&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;/etc/modprobe.d/nvidia-options.conf&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;options nvidia-drm modeset=1
+options nvidia NVreg_PreserveVideoMemoryAllocations=1
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;/etc/systemd/zram-generator.conf&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[zram0]
+zram-size = ram/2
+compression-algorithm = zstd
+&lt;/code&gt;&lt;/pr</description>
     </item>
     
     <item>
       <title>在Debian&#43;自定义内核上启用安全启动</title>
-      <link>http://localhost:1313/posts/linux/secureboot/</link>
+      <link>https://hydroakri.github.io/posts/linux/secureboot/</link>
       <pubDate>Mon, 02 Sep 2024 21:48:27 +0800</pubDate>
       
-      <guid>http://localhost:1313/posts/linux/secureboot/</guid>
-      <description>注意： Debian/Fedora/Ubuntu 官方支持了安全启动，因此属于‘使用已签署的引导加载程序’，支持的方式为shim
-根据Debian wiki对安全启动的描述中可以得知，Debian自带了EFI系统签名因此无需手动注册，但是由dkms加载的内核模块没有经过MOK的注册，因此需要手动注册：
-sudo mokutil --import /var/lib/dkms/mok.pub #由MOK注册，执行完需要重启 接下来，由于使用的是自定义内核，所以内核也需要手动签名后由MOK注册：
-#创建一个机器所有者密钥（MOK）： openssl req -newkey rsa:4096 -nodes -keyout MOK.key -new -x509 -sha256 -days 3650 -subj &amp;#34;/CN=my Machine Owner Key/&amp;#34; -out MOK.crt openssl x509 -outform DER -in MOK.crt -out MOK.cer #手动签署你的引导加载程序（名为grubx64.efi）以及内核： sbsign --key MOK.key --cert MOK.crt --output /boot/vmlinuz-linux /boot/vmlinuz-linux sbsign --key MOK.key --cert MOK.crt --output esp/EFI/BOOT/grubx64.efi esp/EFI/BOOT/grubx64.efi sudo mokutil --import MOK.cer #由MOK注册，执行完需要重启 接下来创建initramfs-tools的钩子：
-#!/bin/sh set -e PREREQ=&amp;#34;&amp;#34; # 这个函数会在 initramfs-tools 处理时被调用 case $1 in prereqs) # 返回依赖项 echo &amp;#34;$PREREQ&amp;#34; exit 0 ;; *) # 处理脚本 ;; esac # 定义证书和密钥的路径 cert=&amp;#34;/path/to/your/certificate.</description>
+      <guid>https://hydroakri.github.io/posts/linux/secureboot/</guid>
+      <description>&lt;h2 id=&#34;注意&#34;&gt;注意：&lt;/h2&gt;
+&lt;p&gt;Debian/Fedora/Ubuntu 官方支持了安全启动，因此属于‘使用已签署的引导加载程序’，支持的方式为shim&lt;/p&gt;
+&lt;p&gt;根据Debian wiki对安全启动的描述中可以得知，Debian自带了EFI系统签名因此无需手动注册，但是由dkms加载的内核模块没有经过MOK的注册，因此需要手动注册：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mokutil --import /var/lib/dkms/mok.pub &lt;span style=&#34;color:#75715e&#34;&gt;#由MOK注册，执行完需要重启&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;接下来，由于使用的是自定义内核，所以内核也需要&lt;strong&gt;手动签名&lt;/strong&gt;后由MOK注册：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#创建一个机器所有者密钥（MOK）：&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;openssl req -newkey rsa:4096 -nodes -keyout MOK.key -new -x509 -sha256 -days &lt;span style=&#34;color:#ae81ff&#34;&gt;3650&lt;/span&gt; -subj &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/CN=my Machine Owner Key/&amp;#34;&lt;/span&gt; -out MOK.crt
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;openssl x509 -outform DER -in MOK.crt -out MOK.cer
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#手动签署你的引导加载程序（名为grubx64.efi）以及内核：&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sbsign --key MOK.key --cert MOK.crt --output /boot/vmlinuz-linux /boot/vmlinuz-linux
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sbsign --key MOK.key --cert MOK.crt --output esp/EFI/BOOT/grubx64.efi esp/EFI/BOOT/grubx64.efi
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mokutil --import MOK.cer &lt;span style=&#34;color:#75715e&#34;&gt;#由MOK注册，执行完需要重启&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pr</description>
     </item>
     
     <item>
       <title>NTFS 的一些小技巧</title>
-      <link>http://localhost:1313/posts/linux/ntfs/</link>
+      <link>https://hydroakri.github.io/posts/linux/ntfs/</link>
       <pubDate>Mon, 02 Sep 2024 20:48:27 +0800</pubDate>
       
-      <guid>http://localhost:1313/posts/linux/ntfs/</guid>
-      <description>鉴于内核在 5.15 之后合并了NTFS3的内核驱动使得读写能力大幅提升，可以把ntfs-3g扔掉了
-# sudo vi /etc/udev/rules.d/ntfs3_by_default.rules SUBSYSTEM==&amp;#34;block&amp;#34;, ENV{ID_FS_TYPE}==&amp;#34;ntfs&amp;#34;, ENV{ID_FS_TYPE}=&amp;#34;ntfs3&amp;#34; ENV{UDISKS_MOUNT_OPTIONS_DEFAULTS}=&amp;#34;uid=1000,gid=1000,rw,user,exec,umask=000&amp;#34; 注：选项是把NTFS3作为默认挂载驱动，并且挂载选项使用了proton建议的设置</description>
+      <guid>https://hydroakri.github.io/posts/linux/ntfs/</guid>
+      <description>&lt;p&gt;鉴于内核在 5.15 之后合并了NTFS3的内核驱动使得读写能力大幅提升，可以把ntfs-3g扔掉了&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-rules&#34; data-lang=&#34;rules&#34;&gt;# sudo vi /etc/udev/rules.d/ntfs3_by_default.rules
+
+SUBSYSTEM==&amp;#34;block&amp;#34;, ENV{ID_FS_TYPE}==&amp;#34;ntfs&amp;#34;, ENV{ID_FS_TYPE}=&amp;#34;ntfs3&amp;#34; ENV{UDISKS_MOUNT_OPTIONS_DEFAULTS}=&amp;#34;uid=1000,gid=1000,rw,user,exec,umask=000&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;注：选项是把NTFS3作为默认挂载驱动，并且挂载选项使用了&lt;a href=&#34;https://github.com/ValveSoftware/Proton/wiki/Using-a-NTFS-disk-with-Linux-and-Windows&#34;&gt;proton建议的设置&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>linux 使用 doh</title>
-      <link>http://localhost:1313/posts/linux/doh/</link>
+      <link>https://hydroakri.github.io/posts/linux/doh/</link>
       <pubDate>Wed, 09 Aug 2023 17:26:27 +0800</pubDate>
       
-      <guid>http://localhost:1313/posts/linux/doh/</guid>
-      <description>在比较了archwiki关于dns的介绍后
-在smartdns/coredns/unbound/dnsencrypt-proxy之中选择了后者
-coredns和unbound对于桌面linux用户而言过于复杂且不好配置
-而smartdns面对老前辈dnsencrypt-proxy而言缺少了自动获取doh源的功能
-安装 首先sudo -s进入root shell
-然后ss -lp &#39;sport = :domain&#39;查看端口是否被占用
-确保127.0.0.1:domain没有被占用即可
-如果有占用需要停止目前使用的dns服务
-例如systemctl disable systemd-resolved
-然后根据发行版安装二进制包
-配置文件的位置在/etc/dnscrypt-proxy/dnscrypt-proxy.toml 启动服务systemctl enable dnscrypt-proxy.service --now
-让dns服务器指向本地的dnscrypt-proxy 修改/etc/resolv.conf
-nameserver ::1 nameserver 127.0.0.1 options edns0 然后chattr +i /etc/resolv.conf来放置resolv.conf被networkmanager或其他网络服务覆写
-打开浏览器并前往dns leak test并进行扩展测试,如果结果显示您在配置文件中设置的服务器,则表示dnscrypt-proxy正在工作,否则出现问题。</description>
+      <guid>https://hydroakri.github.io/posts/linux/doh/</guid>
+      <description>&lt;p&gt;在比较了&lt;a href=&#34;https://wiki.archlinux.org/title/Domain_name_resolution&#34;&gt;archwiki&lt;/a&gt;关于dns的介绍后&lt;br&gt;
+在smartdns/coredns/unbound/dnsencrypt-proxy之中选择了后者&lt;br&gt;
+coredns和unbound对于桌面linux用户而言过于复杂且不好配置&lt;br&gt;
+而smartdns面对老前辈dnsencrypt-proxy而言缺少了自动获取doh源的功能&lt;/p&gt;
+&lt;h1 id=&#34;安装&#34;&gt;安装&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;首先&lt;code&gt;sudo -s&lt;/code&gt;进入root shell&lt;br&gt;
+然后&lt;code&gt;ss -lp &#39;sport = :domain&#39;&lt;/code&gt;查看端口是否被占用&lt;br&gt;
+确保&lt;code&gt;127.0.0.1:domain&lt;/code&gt;没有被占用即可&lt;br&gt;
+如果有占用需要停止目前使用的dns服务&lt;br&gt;
+例如&lt;code&gt;systemctl disable systemd-resolved&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;然后根据发行版安装二进制包&lt;br&gt;
+配置文件的位置在&lt;code&gt;/etc/dnscrypt-proxy/dnscrypt-proxy.toml&lt;/code&gt;
+启动服务&lt;code&gt;systemctl enable dnscrypt-proxy.service --now&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;让dns服务器指向本地的dnscrypt-proxy
+修改&lt;code&gt;/etc/resolv.conf&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-/etc/resolv.conf&#34; data-lang=&#34;/etc/resolv.conf&#34;&gt;nameserver ::1
+nameserver 127.0.0.1
+options edns0
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后&lt;code&gt;chattr +i /etc/resolv.conf&lt;/code&gt;来放置resolv.conf被networkmanager或其他网络服务覆写&lt;/p&gt;
+&lt;p&gt;打开浏览器并前往&lt;a href=&#34;https://www.dnsleaktest.com/&#34;&gt;dns leak test&lt;/a&gt;并进行扩展测试,如果结果显示您在配置文件中设置的服务器,则表示dnscrypt-proxy正在工作,否则出现问题。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>基于KVM的虚拟显卡透传技术</title>
-      <link>http://localhost:1313/posts/linux/passthrough/</link>
+      <link>https://hydroakri.github.io/posts/linux/passthrough/</link>
       <pubDate>Wed, 02 Aug 2023 21:48:27 +0800</pubDate>
       
-      <guid>http://localhost:1313/posts/linux/passthrough/</guid>
-      <description>0.准备工作&amp;amp;检查 显卡直通的前提条件是：
-NVIDIA 独立显卡本身要具有视频输出功能 机身上至少有一个连接到独立显卡的视频接口 安装kvm虚拟机，具体步骤参照本博客archlinux安装或archlinux wiki 强烈建议阅读本文时参照下面几篇文章：
-PCI_passthrough_via_OVMF_ARCHLINUX wiki
-Optimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通
-vanities/GPU-Passthrough-Arch-Linux-to-Windows10 Public
-KVM-GPU-Passthrough
-Optimus笔记本虚拟机显卡直通 Linux低延遲在Windows虛擬機玩遊戲 ～ QEMU/KVM ＋ VFIO雙GPU直通 ＋ Looking Glass安裝過程
-1.1开始 1.1隔离独显 1.1.1引导镜像的编辑 运行 lspci -nn | grep NVIDIA，获得类似如下输出,中括号里的八位是我们需要的
-01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) 编辑或创建/etc/modprobe.d/vfio.conf，ids后面写上面得到的八位，并用逗号间隔(也可以添加内核参数 vfio-pci.ids=...)
-options vfio-pci ids=10de:2520,10de:228e 修改/etc/mkinitcpio.conf，在MODULES里增加
-vfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.</description>
+      <guid>https://hydroakri.github.io/posts/linux/passthrough/</guid>
+      <description>&lt;h1 id=&#34;0准备工作检查&#34;&gt;0.准备工作&amp;amp;检查&lt;/h1&gt;
+&lt;p&gt;显卡直通的前提条件是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;NVIDIA 独立显卡本身要具有视频输出功能&lt;/li&gt;
+&lt;li&gt;机身上至少有一个连接到独立显卡的视频接口&lt;/li&gt;
+&lt;li&gt;安装kvm虚拟机，具体步骤参照本博客archlinux安装或archlinux wiki&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;强烈建议阅读本文时参照下面几篇文章：&lt;br&gt;
+&lt;a href=&#34;https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E7%A1%AC%E4%BB%B6%E8%A6%81%E6%B1%82&#34;&gt;PCI_passthrough_via_OVMF_ARCHLINUX wiki&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://lantian.pub/article/modify-computer/laptop-muxed-nvidia-passthrough.lantian/&#34;&gt;Optimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://github.com/vanities/GPU-Passthrough-Arch-Linux-to-Windows10&#34;&gt;vanities/GPU-Passthrough-Arch-Linux-to-Windows10
+Public&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://github.com/BigAnteater/KVM-GPU-Passthrough&#34;&gt;
+KVM-GPU-Passthrough&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://www.bwsl.wang/script/119.html&#34;&gt;Optimus笔记本虚拟机显卡直通&lt;/a&gt;
+&lt;a href=&#34;https://ivonblog.com/posts/qemu-kvm-vfio-gaming/&#34;&gt;Linux低延遲在Windows虛擬機玩遊戲 ～ QEMU/KVM ＋ VFIO雙GPU直通 ＋ Looking Glass安裝過程&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;11开始&#34;&gt;1.1开始&lt;/h1&gt;
+&lt;h2 id=&#34;11隔离独显&#34;&gt;1.1隔离独显&lt;/h2&gt;
+&lt;h3 id=&#34;111引导镜像的编辑&#34;&gt;1.1.1引导镜像的编辑&lt;/h3&gt;
+&lt;p&gt;运行 &lt;code&gt;lspci -nn | grep NVIDIA&lt;/code&gt;，获得类似如下输出,中括号里的八位是我们需要的&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1)
+01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1)
+&lt;/code&gt;&lt;/pr</description>
     </item>
     
     <item>
       <title>常用开源软件</title>
-      <link>http://localhost:1313/posts/linux/apps/</link>
+      <link>https://hydroakri.github.io/posts/linux/apps/</link>
       <pubDate>Wed, 22 Feb 2023 11:11:27 +0800</pubDate>
       
-      <guid>http://localhost:1313/posts/linux/apps/</guid>
-      <description> 我的电脑双硬盘双系统，使用Windows 11 + ArchLinux
-在Windows上使用 scoop + winget / Archlinux 下使用 paru+pacman
-我尽可能使用开源/免费
-全平台 网络加速：Watt Toolkit
-提供了多网站的网络加速 不局限于steam 我一般用来加速github 和 steam 编辑器：Neovim
-编辑器之神 没什么好说的 本地视频播放： mpv
-轻巧的一款本地播放器 支持字幕 我拿它来放电影看 视频录制：OBS 手机投屏：scrcpy
-基于命令行 连上手机开启adb调试以后敲命令就行 没有多余的依赖 流媒体：YesPlayMusic（网易云）,Cider(Apple Music),Spotify
-用 YesPlayMusic 多一点，因为它有原版网易云不支持的“连接到Last.FM”功能 GIT：LazyGit
-我的水平还不足以完全开发这个软件 不常用 配置文件管理：GNU STOW
-非常好用的配置文件管理，用软连接的方式链接到文件所在位置，源文件集中在一起，非常方便 系统监视器：Btop/Bottom 截图：Flameshot
-上游还没修Wayland下面的bug TAT 种子下载：Motrix
-非常好用 自带tracker list 即使它是electron我用能接受 代码分享：Silicon 终端：wezterm 密码管理：KeepassXC 隔空投送：Localsend
-好用，尤其是在AP隔离的校园网环境下 Linux Linux only 的软件我放在了我的Dotfile 仓库的介绍里面
-Windows 把Windows 11 改为10的模样：ExplorerPatcher 使游戏窗口全屏显示：Magpie 管理“此电脑”里删不掉的流氓“快捷方式”：MyComputerManager 平铺管理器：komorebi 系统优化：optimizer, Dism++ 让Windows拥有macOS的触发角功能: hotcorner Windows免费激活：Microsoft-Activation-Scripts 系统信息：systeminformer 桌面文件夹整理：TaskbarX 内存优化：memreduct WSL管理：LxRunOffline BTRFS: btrfs </description>
+      <guid>https://hydroakri.github.io/posts/linux/apps/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;我的电脑双硬盘双系统，使用Windows 11 + ArchLinux&lt;br&gt;
+在Windows上使用 scoop + winget / Archlinux 下使用 paru+pacman&lt;br&gt;
+我尽可能使用开源/免费&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;全平台&#34;&gt;全平台&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;网络加速：&lt;a href=&#34;https://steampp.net/&#34;&gt;Watt Toolkit&lt;/a&gt;&lt;br&gt;
+提供了多网站的网络加速 不局限于steam 我一般用来加速github 和 steam&lt;/li&gt;
+&lt;li&gt;编辑器：&lt;a href=&#34;https://neovim.io/&#34;&gt;Neovim&lt;/a&gt;&lt;br&gt;
+编辑器之神 没什么好说的&lt;/li&gt;
+&lt;li&gt;本地视频播放： &lt;a href=&#34;https://mpv.io/&#34;&gt;mpv&lt;/a&gt;&lt;br&gt;
+轻巧的一款本地播放器 支持字幕 我拿它来放电影看&lt;/li&gt;
+&lt;li&gt;视频录制：&lt;a href=&#34;https://obsproject.com/&#34;&gt;OBS&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;手机投屏：&lt;a href=&#34;https://github.com/Genymobile/scrcpy&#34;&gt;scrcpy&lt;/a&gt;&lt;br&gt;
+基于命令行 连上手机开启adb调试以后敲命令就行 没有多余的依赖&lt;/li&gt;
+&lt;li&gt;流媒体：&lt;a href=&#34;https://github.com/qier222/YesPlayMusic&#34;&gt;YesPlayMusic（网易云）&lt;/a&gt;,&lt;a href=&#34;https://cider.sh/&#34;&gt;Cider(Apple Music)&lt;/a&gt;,Spotify&lt;br&gt;
+用 YesPlayMusic 多一点，因为它有原版网易云不支持的“连接到Last.FM”功能&lt;/li&gt;
+&lt;li&gt;GIT：&lt;a href=&#34;https://github.com/jesseduffield/lazygit&#34;&gt;LazyGit&lt;/a&gt;&lt;br&gt;
+我的水平还不足以完全开发这个软件 不常用&lt;/li&gt;
+&lt;li&gt;配置文件管理：&lt;a href=&#34;https://www.gnu.org/software/stow/&#34;&gt;GNU STOW&lt;/a&gt;&lt;br&gt;
+非常好用的配置文件管理，用软连接的方式链接到文件所在位置，源文件集中在一起，非常方便&lt;/li&gt;
+&lt;li&gt;系统监视器：&lt;a href=&#34;https://github.com/aristocratos/btop&#34;&gt;Btop/Bottom&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;截图：&lt;a href=&#34;https://flameshot.org/&#34;&gt;Flameshot&lt;/a&gt;&lt;br&gt;
+上游还没修Wayland下面的bug TAT&lt;/li&gt;
+&lt;li&gt;种子下载：&lt;a href=&#34;https://motrix.app/&#34;&gt;Motrix&lt;/a&gt;&lt;br&gt;
+非常好用 自带tracker list 即使它是electron我用能接受&lt;/li&gt;
+&lt;li&gt;代码分享：&lt;a href=&#34;https://github.com/Aloxaf/silicon&#34;&gt;Silicon&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;终端：&lt;a href=&#34;https://wezfurlong.org/&#34;&gt;wezterm&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;密码管理：&lt;a href=&#34;https://keepassxc.org/&#34;&gt;KeepassXC&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;隔空投送：&lt;a href=&#34;https://github.com/localsend/localsend&#34;&gt;Localsend&lt;/a&gt;&lt;br&gt;
+好用，尤其是在AP隔离的校园网环境下&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;linux&#34;&gt;Linux&lt;/h1&gt;
+&lt;p&gt;Linux only 的软件我放在了我的&lt;a href=&#34;https://github.com/hydroakri/dotfiles&#34;&gt;Dotfile 仓库的介绍里面&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>在世界中心呼唤爱的野兽</title>
-      <link>http://localhost:1313/posts/misc/beast/</link>
+      <link>https://hydroakri.github.io/posts/misc/beast/</link>
       <pubDate>Tue, 21 Feb 2023 17:00:27 +0800</pubDate>
       
-      <guid>http://localhost:1313/posts/misc/beast/</guid>
-      <description>The Beast that Shouted Love at the Heart of the World （美）埃里森 哈兰 1969 我不拥有这篇文章/译文的版权。我不会因此获利，所有功劳归作者所有。此仅用于宣传目的，将应合法所有者的要求删除。
-威廉-斯特罗格住在巴尔的摩市的罗克斯顿区。每个月，除虫员都会照例来他家外的草坪喷洒除虫药剂。这一天，在与除虫员短暂地闲聊了一会儿以后，威廉-斯特罗格悄悄地从他的大卡车上偷取了一小罐马拉西昂———一种剧毒杀虫药。几天后的一个早上，威廉-斯特罗格跟在送牛奶工人的后面，将马拉西昂沿路倒进了七十多户人家的牛奶瓶中。六小时内，200多号人（包括女人和小孩）在痛苦的痉挛中绝望死去。
-接下来，在听闻自己那个住在布法罗的姨妈死于淋巴癌之后，威廉-斯特罗格急忙忙地把母亲的行李打包好将她送上了探望姨妈的飞机。他用一个韦斯特克罗克牌闹钟和四卷炸药做了一个简单却威力十足的定时炸弹，就放在她老母亲的那只三层小行李箱里。那架飞机在哈里斯堡到宾夕法尼亚中的半途爆炸了，总共有93个人在爆炸中丧生，其中也包括威廉-斯特罗格的老母亲。飞机着火的残骸坠入了一个公共泳池，又造成七个人意外死去。
-十一月的一个星期日，威廉-斯特罗格跑到33街的宝贝罗斯广场，和54000个观众一起涌入体育场观看巴尔的摩小驹对决绿湾工人队的比赛。在他的兜帽大衣下，他穿着一条厚实的灰色法兰绒运动长裤、一件海蓝色的高领毛衣和一件手工编织的爱尔兰羊绒套衫。第四节还剩下3分钟13秒时，比赛进入关键时刻，巴尔的摩小驹队以16：17紧咬比分，并在绿湾工人队的十八码线外发动了进攻。就在这时，斯特罗格挤着人群走出来走到座位上边的出口过道上，从他那兜帽大衣里笨拙地拿出一把美国陆军里流出来的M-3冲锋枪——那枪是他花了49.95美元从维吉尼亚州亚历山大的一个军火商买进 ，邮递寄来的。这时全场那另外53999名观众正踮起脚来欢呼观看，没有一个人注意到他——球正传到四分卫手上，他正准备突破防守发动一次极有可能成功的进球——这让斯特罗格开火瞄准变得更加容易了。他朝着下方那些观众的后背恣意地开火。直到愤怒的人群将他扑倒时，已经有45个人死在他的枪下。
-当玉夫座椭圆星系第一远征军降落在被他们命名为弗拉玛昂三号的这颗四等恒星的第二颗行星时，他们发现了一个高达37英寸的巨大人形雕像。那是一座由一种迄今尚未确认的蓝白色材料制成的人形雕像——其材料与其说是石头，更像是一种金属。那人象光着脚，身上披着一件看起来像是托加长袍1的衣物，
-雕像的头上包着一个小帽子，左手上握着一个形状奇怪的环球状设备（那设备是由另一种材料制成的）。人象的脸部带着让人起疑的狂喜表情。高高的颧骨，深陷的眼眶，一张小小的几乎是怪物的嘴巴以及一个硕大无比的鼻子，让他看上去甚是宏伟，睥睨着面前一片坑坑洼洼早已毁坏的异星城市。事后，第一远征军的每一名成员都在报告中提到了雕像的脸部那令人起疑的狂喜表情，虽然他们当中并没有任何一个人听说过威廉斯特罗格的名字。因为无论从时间上还是空间上来说，他们现在所处的星球都与地球相距太远了——无论是头顶黄铜色的月亮，还是远处垂暮夕阳的颜色，都与地球上的景色相差甚远。正因此，他们也就更加无从发现，这巨大雕像脸部的奇异表情居然和威廉-斯特罗格在法庭终审被宣判死刑时的表情一模一样。
-在那个宣判时刻，他顶着那副狂喜的表情，对着世界大声呼喊：“我爱着世界上的每一个人！我真心地爱着！上帝将会为我证明，我爱你们，我爱你们所有人…“
-永恒之地克罗斯文，神圣天堂，那是一个难以到达的地方，唯有穿越时间的间隙，超越空间的概念方能到达，那是宇宙中的另一个时空了。在那里，任何概念都已经不再重要，那是宇宙的永恒中心，那里没有任何苦痛愤怒，自然而然地像外界辐射着无尽智慧的复杂信息，汇聚着对称的优雅和永恒的和谐，一切都处于秩序井然的最佳状态。一切开始的地方，宇宙的中心，永恒之地克罗斯文。
-到底要怎样才能到达永恒之地克罗斯文呢？方法如下，只是“也许”。向未来跨越100年的时间可以到达。接下来，你还要在已知宇宙最遥远的尽头再猛地向外航行数十亿个秒差距的路途；你还得进行视差翘曲穿越过无数个平行宇宙。最后再由超越人类思维的头脑触发无限次跃迁，这样你就可以到达目的地了，永恒之地克罗斯文。
-紫色界里，一头怪物蹲伏在深水区里，绛红色的水流掩盖住了他拱形的身体。他是一头龙，身体蜷曲成一个球，结实的尾被巴压在身下；微小细密的骨盾鳞整齐地直立着，沿着拱形的后背一路延伸直到向上翘起的尾巴末端；短小的前肢交叠在他厚实的胸前。他有着七颗凶狗的头颅，每一张都酷似远古神话中的地狱看门犬克尔帕洛斯。他已经陷入饥饿与疯狂，每一颗头颅都机警地观察着周围等待着。
-他看到一道黄色的光突然出现，随机搜索着七头怪物的踪迹，正一点点地靠近他的位置。他已经知道他终究是逃不了，他任何移动的踪迹都会暴露他——那黄色的光束马上就能发现他。七头怪物已经吓坏了。那道光已经缓慢尝试了用了天真，人性以及九种其他的情绪来搜索，七头怪物只好将自己的这些情绪全部关闭。他明白了必须做点什么，使自己彻底消失。但紫色界里只剩下他一个了。紫色界曾经被短暂关闭过——或者说“净化过“——以净化这个世界里残存的所有情绪。要不是他在之前的几场杀戮中变得如此混乱，他根本不会还被困在这个已经被”净化“的世界里。
-但既然他被困在这个世界，他就已经无路可逃了，那搜索的光束迟早会找到他。之后他就将被彻底“净化”。
-七头怪物决定孤注一掷：他完全关闭了自己的头脑，七个头脑都一一关闭了，就像这整个紫色界一样陷入了死寂。他的思维停滞了，情感的火焰被熄灭，维护供给他思维的神经电路也毁坏了，就像一台威力无比的机器从全力峰值状态缓慢停止，他的思维慢慢停住，枯萎了，最后只剩下一片空白。他睡着了。
-在思维这个层次上，七头怪物已经死亡了，所以那黄色光束就算经过了他的位置也没有发现他。但抓捕七头怪物的人早已备好了后招，他们不像七头怪物一样疯狂混乱；他们理性沉着，细心考虑了任何一种可能。黄色光束接下来使用了热能搜索器，质量检测感应器，最终找寻到了在这个已被净化完毕的世界里出现的异星物质。
-他们找到了七头怪物，他已经死掉了，就像一颗太阳已被冷却下来。七头怪物根本不知道自己已经被定位，转移了，他被锁死在自己的躯体中。
-但当他再次睁开眼睛重新拥有思考，从彻底思维死亡造成的混乱中恢复过来时，他惧然发现自己被关在一个红色级别激活的“净化”箱里。从他的七颗头颅的喉咙里，发出了痛苦的尖叫哀鸣。
-然而，七头怪物根本无法发出任何声音，因为在他苏醒之前他的喉咙早已被挡板塞住。发不出声音这件事让他更加恐慌了。他被凝固在一个琥珀状物质中——要是时代往前推一会儿，在一个更早的时代，在另一个世界，另一块大陆，他也许只会简单地被皮带绑在一张医院病床上——但他是以红色警戒级别被关在永恒之地克罗斯文的“净化“箱里。他的“医院病床”不仅可以抑制愤怒，还没有重量，让人完全放松，并且可以透过他的皮肤直接向里输送抑制剂和镇定剂。他就要被“净化”了。
-林纳和赛夫走进了“净化”箱。赛夫是净化疗法的发明者，而林纳，他最为雄辩的克星，正想方设法想爬到“监管者”的职位上。他们慢慢地经过一个个“净化”箱，里面关着的东西有硕大无朋的丑陋蟾蜍，紧凑线框排列的水晶立方体，长有外骨骼的异形，伪足变形虫，还有那只七头龙。他们马上停下来凑近看那七头怪物。七头怪物就这样与林纳和赛夫对视着，用他的七个头颅从七个角度观看，但他却无法发出任何声音。
-“要是我需要一个确定的原因，这里就是一个。“林纳把头朝着七头怪物倾了倾。
-赛夫把一个采集棒插入那琥珀物质，过了一会又拿出来，快速地察看了一下这位病人的健康状况。“如果你需要一个警告，”赛夫轻轻地说，“这就是最严重的一个。”
-“不管如何，科学总是要向群众的意志弯腰的”，林纳说。
-“我很不情愿相信这样的事情，”赛夫依然用轻轻的声音回答。他的声音里有一股难以名状的奇特语调，似乎在努力压抑自己言语中的怒意。
-“我会让你看到那一天的。赛夫，相信我。我一定会让和谐促进议政团通过这项决议的。“
-”林纳，我和你认识多久了？“
-”自从你第三次重生。我那时是第二次。”
-“对，是这样。听我说，我曾经骗过你么？我曾经让你做过什么会伤害你自己利益的事情么？”
-“没有。至少我记得没有。”
-“那为什么你这次就不能听我的呢？”
-“那是因为我认为你是错的！我并不是个极端的投机者，赛夫，你知道的。我并不是想把这个拿做我升职的垫脚石，而是我真的认为这是我们永恒天堂最后的也是最好的机会了。“
-”但对其他人，对…对其他所有世界任何地方任何人都是巨大的灾难！是我们自己犯规了，而所有其他的世界都将付出毁灭的代价！“
-林纳展开一个辩解的手势，“不是犯规，是存活。”
-赛夫缓慢地摇了摇头，脸上带着疲惫，“我真希望我能净化这头怪兽。”
-“你不能吗？”
-赛夫耸耸肩，“我可以净化任何东西。但那净化的结果却并不值得这些。”
-那琥珀物质转变了颜色，净化箱从里面开始慢慢转变为深蓝色。“病人已经准备好了”，赛夫说，“以及，林纳，我还是想再恳求你一次，我希望我的恳求会有点用，拜托了，推迟到下一次会议再说吧。让我再多做几次实验。让我再仔细评估一下净化产生的废物会有什么样的影响，会造成哪些破坏。让我再准备一些报告再….“
-林纳无动于衷，他缓慢地摇摇头，沉着地说，“我，可以在旁边观看净化的过程吗？”
-赛夫长叹一声。他知道他失败了，“好的，当然。”
-净化箱携带着它里面的病人缓慢地上升，平滑地移动到赛夫和林娜之间的空间。看着箱里被禁锢的七头怪兽，赛夫欲言又止。但并没有什么值得说的。
-琥珀物质缓慢消失了，这两人的身体也慢慢消隐了。随后他们重新出现在净化箱里，和净化箱一起无声地降落在平台上。琥珀物质完全消失，露出了被其掩盖的七头怪兽。
-怪兽绝望地挣扎，七颗丑陋的头颅无助地颤动着。他的恐惧逐渐转换为无法遏制的疯狂，变成疯狂的深红色的狂怒。但他的挣扎依然没有任何用处，不过是勉强维持住自己的形状罢了。
-赛夫打开了自己左手腕流淌金色光芒手带上的一个开关。气流涌入净化箱里的声音充满了房间。平台上被不知从何处发出的银色光芒覆盖，就连空气本身都要被这光芒赶走。那光芒濯洗着七头龙，他的七个头颅无力地张开了嘴，露出了其中的尖牙。他的眼睛闭上了。
-针对他头颅的痛苦是巨大而可怕的，就如同被一千张利口啃食。他的整个大脑被缓慢挤压，压缩，最终清除了。
-赛夫和林纳看着净化箱里身体按脉搏起伏着的怪物，缓慢被一团火花闪耀的无色烟雾掩盖。“开始了”，赛夫多余地说到。
-林纳看向净化箱。怪物的七颗头颅在缓慢地摇晃，他已经开始转变了。随着净化箱逐渐被甚至要液化的无色烟雾逐渐汇集充盈，七头怪物发现维持自己的形体变得越来越难了。随着无色烟雾越来越稠密，怪物的实体越来越虚幻了。
-最后，怪物放弃了挣扎。烟雾涌进越来越快，怪物的形体震动着，收缩着，七头怪物的位置最后居然慢慢显现出一个人的形状。当净化箱的四分之三被充满时，七头怪物已经成为最后一点隐隐约约的阴影了，只能勉强看出这里之前曾有一个怪物存在；在另一方面，人的形状逐渐清晰。
-最后，当净化箱被充满时，就只剩下一个奄奄一息的男子了，他急促大口地呼吸着，眼睛紧闭，肌肉不由自主地颤动着。
-“他已经被净化了。”赛夫说。
-“全留在这个箱子里了？”林纳柔声问。
-“不，里面一点也没有了。”
-“那么里面的是什么？”
-“这不过是残渣罢了。完全无害。一点药剂就可以消灭剩下的这东西。那些危险的成分，危险情绪的本质，堕落场的能量，都已经没有了。已经彻底净化了。“
-林纳非常疑惑，这还是第一次。”那，那些东西去哪里了？“
-”告诉我，你热爱你的同胞吗？“
-”哦拜托了，赛夫，我问你那些东西去哪里了…什么时候被净化的？“
-”是我在问你，你到底在乎那些其他人吗？“</description>
+      <guid>https://hydroakri.github.io/posts/misc/beast/</guid>
+      <description>&lt;h4 id=&#34;the-beast-that-shouted-love-at-the-heart-of-the-world&#34;&gt;The Beast that Shouted Love at the Heart of the World&lt;/h4&gt;
+&lt;h4 id=&#34;美埃里森-哈兰-1969&#34;&gt;（美）埃里森 哈兰 1969&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;我不拥有这篇文章/译文的版权。我不会因此获利，所有功劳归作者所有。此仅用于宣传目的，将应合法所有者的要求删除。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;威廉-斯特罗格住在巴尔的摩市的罗克斯顿区。每个月，除虫员都会照例来他家外的草坪喷洒除虫药剂。这一天，在与除虫员短暂地闲聊了一会儿以后，威廉-斯特罗格悄悄地从他的大卡车上偷取了一小罐马拉西昂———一种剧毒杀虫药。几天后的一个早上，威廉-斯特罗格跟在送牛奶工人的后面，将马拉西昂沿路倒进了七十多户人家的牛奶瓶中。六小时内，200多号人（包括女人和小孩）在痛苦的痉挛中绝望死去。&lt;/p&gt;
+&lt;p&gt;接下来，在听闻自己那个住在布法罗的姨妈死于淋巴癌之后，威廉-斯特罗格急忙忙地把母亲的行李打包好将她送上了探望姨妈的飞机。他用一个韦斯特克罗克牌闹钟和四卷炸药做了一个简单却威力十足的定时炸弹，就放在她老母亲的那只三层小行李箱里。那架飞机在哈里斯堡到宾夕法尼亚中的半途爆炸了，总共有93个人在爆炸中丧生，其中也包括威廉-斯特罗格的老母亲。飞机着火的残骸坠入了一个公共泳池，又造成七个人意外死去。&lt;/p&gt;
+&lt;p&gt;十一月的一个星期日，威廉-斯特罗格跑到33街的宝贝罗斯广场，和54000个观众一起涌入体育场观看巴尔的摩小驹对决绿湾工人队的比赛。在他的兜帽大衣下，他穿着一条厚实的灰色法兰绒运动长裤、一件海蓝色的高领毛衣和一件手工编织的爱尔兰羊绒套衫。第四节还剩下3分钟13秒时，比赛进入关键时刻，巴尔的摩小驹队以16：17紧咬比分，并在绿湾工人队的十八码线外发动了进攻。就在这时，斯特罗格挤着人群走出来走到座位上边的出口过道上，从他那兜帽大衣里笨拙地拿出一把美国陆军里流出来的M-3冲锋枪——那枪是他花了49.95美元从维吉尼亚州亚历山大的一个军火商买进 ，邮递寄来的。这时全场那另外53999名观众正踮起脚来欢呼观看，没有一个人注意到他——球正传到四分卫手上，他正准备突破防守发动一次极有可能成功的进球——这让斯特罗格开火瞄准变得更加容易了。他朝着下方那些观众的后背恣意地开火。直到愤怒的人群将他扑倒时，已经有45个人死在他的枪下。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;当玉夫座椭圆星系第一远征军降落在被他们命名为弗拉玛昂三号的这颗四等恒星的第二颗行星时，他们发现了一个高达37英寸的巨大人形雕像。那是一座由一种迄今尚未确认的蓝白色材料制成的人形雕像——其材料与其说是石头，更像是一种金属。那人象光着脚，身上披着一件看起来像是托加长袍1的衣物，&lt;/p&gt;
+&lt;p&gt;雕像的头上包着一个小帽子，左手上握着一个形状奇怪的环球状设备（那设备是由另一种材料制成的）。人象的脸部带着让人起疑的狂喜表情。高高的颧骨，深陷的眼眶，一张小小的几乎是怪物的嘴巴以及一个硕大无比的鼻子，让他看上去甚是宏伟，睥睨着面前一片坑坑洼洼早已毁坏的异星城市。事后，第一远征军的每一名成员都在报告中提到了雕像的脸部那令人起疑的狂喜表情，虽然他们当中并没有任何一个人听说过威廉斯特罗格的名字。因为无论从时间上还是空间上来说，他们现在所处的星球都与地球相距太远了——无论是头顶黄铜色的月亮，还是远处垂暮夕阳的颜色，都与地球上的景色相差甚远。正因此，他们也就更加无从发现，这巨大雕像脸部的奇异表情居然和威廉-斯特罗格在法庭终审被宣判死刑时的表情一模一样。&lt;/p&gt;
+&lt;p&gt;在那个宣判时刻，他顶着那副狂喜的表情，对着世界大声呼喊：“我爱着世界上的每一个人！我真心地爱着！上帝将会为我证明，我爱你们，我爱你们所有人…“&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;永恒之地克罗斯文，神圣天堂，那是一个难以到达的地方，唯有穿越时间的间隙，超越空间的概念方能到达，那是宇宙中的另一个时空了。在那里，任何概念都已经不再重要，那是宇宙的永恒中心，那里没有任何苦痛愤怒，自然而然地像外界辐射着无尽智慧的复杂信息，汇聚着对称的优雅和永恒的和谐，一切都处于秩序井然的最佳状态。一切开始的地方，宇宙的中心，永恒之地克罗斯文。&lt;/p&gt;
+&lt;p&gt;到底要怎样才能到达永恒之地克罗斯文呢？方法如下，只是“也许”。向未来跨越100年的时间可以到达。接下来，你还要在已知宇宙最遥远的尽头再猛地向外航行数十亿个秒差距的路途；你还得进行视差翘曲穿越过无数个平行宇宙。最后再由超越人类思维的头脑触发无限次跃迁，这样你就可以到达目的地了，永恒之地克罗斯文。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;紫色界里，一头怪物蹲伏在深水区里，绛红色的水流掩盖住了他拱形的身体。他是一头龙，身体蜷曲成一个球，结实的尾被巴压在身下；微小细密的骨盾鳞整齐地直立着，沿着拱形的后背一路延伸直到向上翘起的尾巴末端；短小的前肢交叠在他厚实的胸前。他有着七颗凶狗的头颅，每一张都酷似远古神话中的地狱看门犬克尔帕洛斯。他已经陷入饥饿与疯狂，每一颗头颅都机警地观察着周围等待着。&lt;/p&gt;
+&lt;p&gt;他看到一道黄色的光突然出现，随机搜索着七头怪物的踪迹，正一点点地靠近他的位置。他已经知道他终究是逃不了，他任何移动的踪迹都会暴露他——那黄色的光束马上就能发现他。七头怪物已经吓坏了。那道光已经缓慢尝试了用了天真，人性以及九种其他的情绪来搜索，七头怪物只好将自己的这些情绪全部关闭。他明白了必须做点什么，使自己彻底消失。但紫色界里只剩下他一个了。紫色界曾经被短暂关闭过——或者说“净化过“——以净化这个世界里残存的所有情绪。要不是他在之前的几场杀戮中变得如此混乱，他根本不会还被困在这个已经被”净化“的世界里。&lt;/p&gt;
+&lt;p&gt;但既然他被困在这个世界，他就已经无路可逃了，那搜索的光束迟早会找到他。之后他就将被彻底“净化”。&lt;/p&gt;
+&lt;p&gt;七头怪物决定孤注一掷：他完全关闭了自己的头脑，七个头脑都一一关闭了，就像这整个紫色界一样陷入了死寂。他的思维停滞了，情感的火焰被熄灭，维护供给他思维的神经电路也毁坏了，就像一台威力无比的机器从全力峰值状态缓慢停止，他的思维慢慢停住，枯萎了，最后只剩下一片空白。他睡着了。&lt;/p&gt;
+&lt;p&gt;在思维这个层次上，七头怪物已经死亡了，所以那黄色光束就算经过了他的位置也没有发现他。但抓捕七头怪物的人早已备好了后招，他们不像七头怪物一样疯狂混乱；他们理性沉着，细心考虑了任何一种可能。黄色光束接下来使用了热能搜索器，质量检测感应器，最终找寻到了在这个已被净化完毕的世界里出现的异星物质。&lt;/p&gt;
+&lt;p&gt;他们找到了七头怪物，他已经死掉了，就像一颗太阳已被冷却下来。七头怪物根本不知道自己已经被定位，转移了，他被锁死在自己的躯体中。&lt;/p&gt;
+&lt;p&gt;但当他再次睁开眼睛重新拥有思考，从彻底思维死亡造成的混乱中恢复过来时，他惧然发现自己被关在一个红色级别激活的“净化”箱里。从他的七颗头颅的喉咙里，发出了痛苦的尖叫哀鸣。&lt;/p&gt;
+&lt;p&gt;然而，七头怪物根本无法发出任何声音，因为在他苏醒之前他的喉咙早已被挡板塞住。发不出声音这件事让他更加恐慌了。他被凝固在一个琥珀状物质中——要是时代往前推一会儿，在一个更早的时代，在另一个世界，另一块大陆，他也许只会简单地被皮带绑在一张医院病床上——但他是以红色警戒级别被关在永恒之地克罗斯文的“净化“箱里。他的“医院病床”不仅可以抑制愤怒，还没有重量，让人完全放松，并且可以透过他的皮肤直接向里输送抑制剂和镇定剂。他就要被“净化”了。&lt;/p&gt;
+&lt;p&gt;林纳和赛夫走进了“净化”箱。赛夫是净化疗法的发明者，而林纳，他最为雄辩的克星，正想方设法想爬到“监管者”的职位上。他们慢慢地经过一个个“净化”箱，里面关着的东西有硕大无朋的丑陋蟾蜍，紧凑线框排列的水晶立方体，长有外骨骼的异形，伪足变形虫，还有那只七头龙。他们马上停下来凑近看那七头怪物。七头怪物就这样与林纳和赛夫对视着，用他的七个头颅从七个角度观看，但他却无法发出任何声音。&lt;/p&gt;
+&lt;p&gt;“要是我需要一个确定的原因，这里就是一个。“林纳把头朝着七头怪物倾了倾。&lt;/p&gt;
+&lt;p&gt;赛夫把一个采集棒插入那琥珀物质，过了一会又拿出来，快速地察看了一下这位病人的健康状况。“如果你需要一个警告，”赛夫轻轻地说，“这就是最严重的一个。”&lt;/p&gt;
+&lt;p&gt;“不管如何，科学总是要向群众的意志弯腰的”，林纳说。&lt;/p&gt;
+&lt;p&gt;“我很不情愿相信这样的事情，”赛夫依然用轻轻的声音回答。他的声音里有一股难以名状的奇特语调，似乎在努力压抑自己言语中的怒意。&lt;/p&gt;
+&lt;p&gt;“我会让你看到那一天的。赛夫，相信我。我一定会让和谐促进议政团通过这项决议的。“&lt;/p&gt;
+&lt;p&gt;”林纳，我和你认识多久了？“&lt;/p&gt;
+&lt;p&gt;”自从你第三次重生。我那时是第二次。”&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>我们的赌注是没有赌注</title>
-      <link>http://localhost:1313/posts/poems/fetch/</link>
+      <link>https://hydroakri.github.io/posts/poems/fetch/</link>
       <pubDate>Tue, 21 Feb 2023 11:30:03 +0800</pubDate>
       
-      <guid>http://localhost:1313/posts/poems/fetch/</guid>
-      <description>齐谬尔: “一个没有人的个性世界(monde de qualites)、一个没有体验者的体验世界已经建立。最终，我们差不多会认为，在理想状况下，人不会再有任何私人经历，来自个人责任的美妙负担将会消解于可能之意义的玄奧之中。那种在很长时间里一直将人类当作宇宙中心，但自几个世纪以来已经逐渐消失的神人同性的观念，其分崩瓦解很有可能终于波及‘我’之本身:大部分人开始觉得，认为在一种经历中最重要的是自身对这种经历的体验，在一种行为中最重要的是作为行为的主体，这是一种幼稚的表现。”
-里尔克： 你尚未老朽，并且时间仍非太晚
-勒内夏尔： 在自己前方若无未知之物究竟如何生活？
-今日之人想让诗篇复刻他们由如此之少的思虑、如此之少的空间构造并被偏执烧焦的人生。
-因为他们再也无法以至高的力度自由展开行动，在这生怕被其同类摧毁的致命忧心中，因为他们了无生气的财产正把他们抑制并束缚，今日之人，衰弱的天性，尽管保持存活，丧失一切，直至他们姓名的粉末。
-诞生于对责任的呼唤与对滞留的焦虑，诗篇，从它布满泥浆与星辰的矿井中升起，将近乎沉静地见证，没有任何已属于它的事物真正存在于别处，在这个由对立物组成的反叛而孤独的世界中。
-迎来种子的土地是忧郁的。面临艰难险阻的种子是幸福的。
-如果我们栖居于闪电，它就是永恒之心
-“我曾在金风中漂泊，谢绝那此前让我历经极度心碎的村落的庇护。从停滞的生命散乱的湍流中我不断提炼厄瑞涅忠实的含义。美曾从它那任性的紧缚中奔涌而出，把玫瑰带给喷泉。” 雪令他惊奇。他俯身观察那精疲力竭的脸，只为长饮一份爱恋。然后他便远走，被这涌浪与羊毛的坚韧所撑持。
-荷尔德林： 神圣者是白昼：不是和黑夜相对照的白昼，或从高处照耀的光，或恩培多克勒向下寻求的火焰。它是白昼，但也先于白昼，并且总是先于它自身。它是破晓之前，是澄明之前的澄明，当我们抓住黎明的时候离，我们就离它最近。它是离破晓无限遥远的距离，但也是对我们而言最亲密的东西，它比一切的内在性还要内在。
-凯鲁亚克： 我们都敏感得无法生活下去：太冷，精疲力竭。周围生活气息浓厚。当我们从睡眠中醒来，没有生活下去的欲望。这是个制造病人的年代，他们都跟我一样虚弱。我们需要的是去往新土地的旅程。我将很快开始在新土地上生活。也许当我回来的时候，我已痊愈。
-布朗肖： 它不在世界之外，但它也不是世界本身：它是世界存在前事物的在场，是世界消失后事物的坚守，是在万物消逝后残余下来的东西的倔强，是在什么也不存在的时候出现的东西的哑然。</description>
+      <guid>https://hydroakri.github.io/posts/poems/fetch/</guid>
+      <description>&lt;h1 id=&#34;齐谬尔&#34;&gt;齐谬尔:&lt;/h1&gt;
+&lt;p&gt;“一个没有人的个性世界(monde de qualites)、一个没有体验者的体验世界已经建立。最终，我们差不多会认为，在理想状况下，人不会再有任何私人经历，来自个人责任的美妙负担将会消解于可能之意义的玄奧之中。那种在很长时间里一直将人类当作宇宙中心，但自几个世纪以来已经逐渐消失的神人同性的观念，其分崩瓦解很有可能终于波及‘我’之本身:大部分人开始觉得，认为在一种经历中最重要的是自身对这种经历的体验，在一种行为中最重要的是作为行为的主体，这是一种幼稚的表现。”&lt;/p&gt;
+&lt;h1 id=&#34;里尔克&#34;&gt;里尔克：&lt;/h1&gt;
+&lt;p&gt;你尚未老朽，并且时间仍非太晚&lt;/p&gt;
+&lt;h1 id=&#34;勒内夏尔&#34;&gt;勒内夏尔：&lt;/h1&gt;
+&lt;p&gt;在自己前方若无未知之物究竟如何生活？&lt;br&gt;
+今日之人想让诗篇复刻他们由如此之少的思虑、如此之少的空间构造并被偏执烧焦的人生。&lt;br&gt;
+因为他们再也无法以至高的力度自由展开行动，在这生怕被其同类摧毁的致命忧心中，因为他们了无生气的财产正把他们抑制并束缚，今日之人，衰弱的天性，尽管保持存活，丧失一切，直至他们姓名的粉末。&lt;br&gt;
+诞生于对责任的呼唤与对滞留的焦虑，诗篇，从它布满泥浆与星辰的矿井中升起，将近乎沉静地见证，没有任何已属于它的事物真正存在于别处，在这个由对立物组成的反叛而孤独的世界中。&lt;/p&gt;
+&lt;p&gt;迎来种子的土地是忧郁的。面临艰难险阻的种子是幸福的。&lt;/p&gt;
+&lt;p&gt;如果我们栖居于闪电，它就是永恒之心&lt;/p&gt;
+&lt;p&gt;“我曾在金风中漂泊，谢绝那此前让我历经极度心碎的村落的庇护。从停滞的生命散乱的湍流中我不断提炼厄瑞涅忠实的含义。美曾从它那任性的紧缚中奔涌而出，把玫瑰带给喷泉。”
+雪令他惊奇。他俯身观察那精疲力竭的脸，只为长饮一份爱恋。然后他便远走，被这涌浪与羊毛的坚韧所撑持。&lt;/p&gt;
+&lt;h1 id=&#34;荷尔德林&#34;&gt;荷尔德林：&lt;/h1&gt;
+&lt;p&gt;神圣者是白昼：不是和黑夜相对照的白昼，或从高处照耀的光，或恩培多克勒向下寻求的火焰。它是白昼，但也先于白昼，并且总是先于它自身。它是破晓之前，是澄明之前的澄明，当我们抓住黎明的时候离，我们就离它最近。它是离破晓无限遥远的距离，但也是对我们而言最亲密的东西，它比一切的内在性还要内在。&lt;/p&gt;
+&lt;h1 id=&#34;凯鲁亚克&#34;&gt;凯鲁亚克：&lt;/h1&gt;
+&lt;p&gt;我们都敏感得无法生活下去：太冷，精疲力竭。周围生活气息浓厚。当我们从睡眠中醒来，没有生活下去的欲望。这是个制造病人的年代，他们都跟我一样虚弱。我们需要的是去往新土地的旅程。我将很快开始在新土地上生活。也许当我回来的时候，我已痊愈。&lt;/p&gt;
+&lt;h1 id=&#34;布朗肖&#34;&gt;布朗肖：&lt;/h1&gt;
+&lt;p&gt;它不在世界之外，但它也不是世界本身：它是世界存在前事物的在场，是世界消失后事物的坚守，是在万物消逝后残余下来的东西的倔强，是在什么也不存在的时候出现的东西的哑然。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>人都是悬崖上的旅者</title>
-      <link>http://localhost:1313/posts/poems/poem/</link>
+      <link>https://hydroakri.github.io/posts/poems/poem/</link>
       <pubDate>Wed, 21 Dec 2022 11:30:03 +0800</pubDate>
       
-      <guid>http://localhost:1313/posts/poems/poem/</guid>
-      <description> 蒸腾上升的冷蒸汽越过太阳游丝穿过的弧顶 寂静火焰燃烧着遥远灰色琴音
-黑色飞鸟穿过你们共鸣的号角
-穿过共感平面上回溯的哀伤
-穿过闪电击中的盲人的胃
-穿过剩余的割伤和复活
-太阳七度烧焦她的躯体以求光能按时到达人们眼眸
-悬崖上的旅者 狂乱的风燃烧的风
-吹过海滩 进入盛夏
-一切尚未消失 知悉德墨忒尔传达的教诲在大地上生息
-秋雨飘入你那隐匿身躯的荒原
-然而春天迟迟未到
-所有人都得了热病，所有人都在发烧，我们躺在雪地里，时间在我们身体里滑动，损耗，而我们梦想的穿过世界的旅行却还未开始。很明显的是：所有人都在死亡，我们正在被雪地冻僵。在这发烧的梦中，燃烧着的一切都在遥远地说话，我们时而醒来，大哭，然后被泪水灼烧。 流向 流向
-改变 大海
-位于世界的前方的事物一片寒冷
-力和矢量在中心汇聚和集中，最终，身体无法与自身聚集的强力相抗诘，身体成为它自己的发声器官，身体在世界中延展和上升并跨越身体自身的创伤学和历史，在这里，主体的历史被不断地终结和重新开始，这最终展现为跨越数光年的吸积盘和巨大喷流，它不再是身体，它是生命本身
-早早拒绝死亡的人将世界作为喻体 </description>
+      <guid>https://hydroakri.github.io/posts/poems/poem/</guid>
+      <description>&lt;div align=&#34;center&#34;&gt;  
+&lt;div style=&#34;display:flex;justify-content:center;margin-left:20px;&#34;&gt;
+&lt;/div&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+蒸腾上升的冷蒸汽越过太阳游丝穿过的弧顶    
+&lt;p&gt;寂静火焰燃烧着遥远灰色琴音&lt;br&gt;
+黑色飞鸟穿过你们共鸣的号角&lt;br&gt;
+穿过共感平面上回溯的哀伤&lt;br&gt;
+穿过闪电击中的盲人的胃&lt;br&gt;
+穿过剩余的割伤和复活&lt;/p&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;p&gt;太阳七度烧焦她的躯体以求光能按时到达人们眼眸&lt;br&gt;
+悬崖上的旅者 狂乱的风燃烧的风&lt;br&gt;
+吹过海滩 进入盛夏&lt;/p&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+一切尚未消失   
+&lt;p&gt;知悉德墨忒尔传达的教诲在大地上生息&lt;br&gt;
+秋雨飘入你那隐匿身躯的荒原&lt;br&gt;
+然而春天迟迟未到&lt;/p&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+所有人都得了热病，所有人都在发烧，我们躺在雪地里，时间在我们身体里滑动，损耗，而我们梦想的穿过世界的旅行却还未开始。很明显的是：所有人都在死亡，我们正在被雪地冻僵。在这发烧的梦中，燃烧着的一切都在遥远地说话，我们时而醒来，大哭，然后被泪水灼烧。  
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;p&gt;流向 流向&lt;br&gt;
+改变 大海&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>c&#43;&#43;中string转char时的传参问题</title>
-      <link>http://localhost:1313/posts/cpp/stringtochar/</link>
+      <link>https://hydroakri.github.io/posts/cpp/stringtochar/</link>
       <pubDate>Fri, 11 Nov 2022 20:31:27 +0800</pubDate>
       
-      <guid>http://localhost:1313/posts/cpp/stringtochar/</guid>
-      <description>string类型字符串转char型时候的函数传参问题 力扣1704题 给你一个偶数长度的字符串 s 。将其拆分成长度相同的两半，前一半为 a ，后一半为 b 。
-两个字符串 相似 的前提是它们都含有相同数目的元音（&#39;a&#39;，&#39;e&#39;，&#39;i&#39;，&#39;o&#39;，&#39;u&#39;，&#39;A&#39;，&#39;E&#39;，&#39;I&#39;，&#39;O&#39;，&#39;U&#39;）。注意，s 可能同时含有大写和小写字母。
-如果 a 和 b 相似，返回 true ；否则，返回 false 。
-问题：当我试图使用哈希表来查找的时候，提示unordered_map的find()报错 Line 20: Char 29: error: no matching member function for call to &amp;#39;find&amp;#39; 解决：C++ map no matching member function for call to &amp;lsquo;find&amp;rsquo; when used for a string 类std::map的成员函数find的形参类型是const std::string &amp;amp;。但是使用的是char类型的参数，并且没有从char类型到std::string类型的隐式转换。 加入
-const char item[] = { s[i], &amp;#39;\0&amp;#39; }; 或者把原来的s[i]替换为std::string(1, s[i])
-class Solution { public: bool halvesAreAlike(string s) { unordered_map&amp;lt;string,string&amp;gt; hashtable{{&amp;#34;a&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;e&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;i&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;o&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;u&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;A&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;E&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;I&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;O&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;U&amp;#34;,&amp;#34;true&amp;#34;}}; int length = s.</description>
+      <guid>https://hydroakri.github.io/posts/cpp/stringtochar/</guid>
+      <description>&lt;h1 id=&#34;string类型字符串转char型时候的函数传参问题&#34;&gt;string类型字符串转char型时候的函数传参问题&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;力扣1704题 给你一个偶数长度的字符串 &lt;code&gt;s&lt;/code&gt; 。将其拆分成长度相同的两半，前一半为 &lt;code&gt;a&lt;/code&gt; ，后一半为 &lt;code&gt;b&lt;/code&gt; 。&lt;br&gt;
+两个字符串 相似 的前提是它们都含有相同数目的元音&lt;code&gt;（&#39;a&#39;，&#39;e&#39;，&#39;i&#39;，&#39;o&#39;，&#39;u&#39;，&#39;A&#39;，&#39;E&#39;，&#39;I&#39;，&#39;O&#39;，&#39;U&#39;）&lt;/code&gt;。注意，s 可能同时含有大写和小写字母。&lt;br&gt;
+如果 a 和 b 相似，返回 true ；否则，返回 false 。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;问题当我试图使用哈希表来查找的时候提示unordered_map的find报错&#34;&gt;问题：当我试图使用哈希表来查找的时候，提示unordered_map的find()报错&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Line 20: Char 29: error: no matching member function for call to &amp;#39;find&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;解决c-map-no-matching-member-function-for-call-to-find-when-used-for-a-stringhttpsstackoverflowcomquestions66347594c-map-no-matching-member-function-for-call-to-find-when-used-for-a-string&#34;&gt;解决：&lt;a href=&#34;https://stackoverflow.com/questions/66347594/c-map-no-matching-member-function-for-call-to-find-when-used-for-a-string&#34;&gt;C++ map no matching member function for call to &amp;lsquo;find&amp;rsquo; when used for a string&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;类std::map的成员函数find的形参类型是const std::string &amp;amp;。但是使用的是char类型的参数，并且没有从char类型到std::string类型的隐式转换。
+加入&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;const char item[] = { s[i], &amp;#39;\0&amp;#39; };
+&lt;/code&gt;&lt;/pr</description>
     </item>
     
     <item>
       <title>Archlinux安装小记</title>
-      <link>http://localhost:1313/posts/linux/archlinux/</link>
+      <link>https://hydroakri.github.io/posts/linux/archlinux/</link>
       <pubDate>Thu, 17 Feb 2022 00:56:27 +0800</pubDate>
       
-      <guid>http://localhost:1313/posts/linux/archlinux/</guid>
-      <description>创建安装介质 工具：rufus
-环境：windows
-去archlinux官网安装即可，推荐使用qBittorrent，下载速度会比直链快，毕竟是开源软件（去镜像站下载也可以）
-安装 保持安装u盘不用拔出，重启进入bios设置u盘启动优先
-再次重启就是arch安装u盘的界面了
-Q：但是我的archlinux安装盘在不断重启啊
-A：小问题，在grub选择页面按 e 然后在 linux 那一行的最后加上nomodeset来设置内核不加载容易出错的内核模块
-一切顺利的话就会看到红色的archiso 接着我们输入：
-archinstall 注意：archinstall 仅支持 UEFI 系统
-按照安装脚本给出的提示即可，这里提一些值得注意的
-ssd固态硬盘用户建议使用brtfs文件系统 时区手动输入的话是Asia/Shanghai 要让你的系统支持休眠/睡眠的话就要让zram的大小&amp;gt;=物理内存 安装完成后他会询问你是否要立即重启，此时你安装的如果是nvidia的闭源驱动，我们不要立刻重启
-在/etc/modprobe.d/下面新建.conf结尾的配置文件屏蔽内核中自带的nouveau开源驱动
-操作如下：
-cd /etc/modprobe.d/ nano blacklist.conf #系统只识别.conf的文件，所以文件名随意 添加内容如下：
-blacklist nouveau blacklist lbm-nouveau options nouveau modeset=0 即可重启
-配置 amdgpu核芯显卡+nvidia私有驱动（非独显直连）配置混合模式 并不需要bumblebee/optimus-manager/nvidia-xrun这种切换工具
-根据PRIME-Archwiki英文页面的说法
-先识别集成GPU BusID 得到以下结果
-lspci | grep -i VGA ----------------------------------------- 01:00.0 VGA compatible controller: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] (rev a1) 06:00.0 VGA compatible controller: Advanced Micro Devices, Inc.</description>
+      <guid>https://hydroakri.github.io/posts/linux/archlinux/</guid>
+      <description>&lt;h1 id=&#34;创建安装介质&#34;&gt;创建安装介质&lt;/h1&gt;
+&lt;p&gt;工具：rufus&lt;br&gt;
+环境：windows&lt;br&gt;
+去&lt;a href=&#34;https://archlinux.org/&#34;&gt;archlinux&lt;/a&gt;官网安装即可，推荐使用qBittorrent，下载速度会比直链快，毕竟是开源软件（去镜像站下载也可以）&lt;/p&gt;
+&lt;h1 id=&#34;安装&#34;&gt;安装&lt;/h1&gt;
+&lt;p&gt;保持安装u盘不用拔出，重启进入bios设置u盘启动优先&lt;br&gt;
+再次重启就是arch安装u盘的界面了&lt;/p&gt;
+&lt;p&gt;Q：但是我的archlinux安装盘在不断重启啊&lt;br&gt;
+A：小问题，在grub选择页面按 &lt;code&gt;e&lt;/code&gt; 然后在 &lt;code&gt;linux&lt;/code&gt; 那一行的最后加上&lt;code&gt;nomodeset&lt;/code&gt;来设置内核不加载容易出错的内核模块&lt;/p&gt;
+&lt;p&gt;一切顺利的话就会看到红色的&lt;code&gt;archiso&lt;/code&gt;
+接着我们输入：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;archinstall  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;注意：archinstall 仅支持 UEFI 系统&lt;/p&gt;
+&lt;p&gt;按照安装脚本给出的提示即可，这里提一些值得注意的&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ssd固态硬盘用户建议使用brtfs文件系统&lt;/li&gt;
+&lt;li&gt;时区手动输入的话是&lt;code&gt;Asia/Shanghai&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;要让你的系统支持休眠/睡眠的话就要让zram的大小&lt;code&gt;&amp;gt;=&lt;/code&gt;物理内存&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;安装完成后他会询问你是否要立即重启，此时你安装的如果是nvidia的闭源驱动，我们不要立刻重启&lt;br&gt;
+在&lt;code&gt;/etc/modprobe.d/&lt;/code&gt;下面新建&lt;code&gt;.conf&lt;/code&gt;结尾的配置文件屏蔽内核中自带的&lt;code&gt;nouveau&lt;/code&gt;开源驱动&lt;br&gt;
+操作如下：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cd /etc/modprobe.d/  
+nano blacklist.conf #系统只识别.conf的文件，所以文件名随意  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;添加内容如下：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; blacklist nouveau  
+ blacklist lbm-nouveau  
+ options nouveau modeset=0  
+&lt;/code&gt;&lt;/pr</description>
     </item>
     
   </channel>

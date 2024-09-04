@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>NTFS 的一些小技巧 | Hydroakri&#39;s Blog</title>
 <meta name="keywords" content="linux" />
 <meta name="description" content="鉴于内核在 5.15 之后合并了NTFS3的内核驱动使得读写能力大幅提升，可以把ntfs-3g扔掉了
-# sudo vi /etc/udev/rules.d/ntfs3_by_default.rules SUBSYSTEM==&#34;block&#34;, ENV{ID_FS_TYPE}==&#34;ntfs&#34;, ENV{ID_FS_TYPE}=&#34;ntfs3&#34; ENV{UDISKS_MOUNT_OPTIONS_DEFAULTS}=&#34;uid=1000,gid=1000,rw,user,exec,umask=000&#34; 注：选项是把NTFS3作为默认挂载驱动，并且挂载选项使用了proton建议的设置">
+# sudo vi /etc/udev/rules.d/ntfs3_by_default.rules
+
+SUBSYSTEM==&#34;block&#34;, ENV{ID_FS_TYPE}==&#34;ntfs&#34;, ENV{ID_FS_TYPE}=&#34;ntfs3&#34; ENV{UDISKS_MOUNT_OPTIONS_DEFAULTS}=&#34;uid=1000,gid=1000,rw,user,exec,umask=000&#34;
+注：选项是把NTFS3作为默认挂载驱动，并且挂载选项使用了proton建议的设置">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/posts/linux/ntfs/" />
-<link crossorigin="anonymous" href="http://localhost:1313/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="http://localhost:1313/assets/js/highlight.min.2eadbb982468c11a433a3e291f01326f2ba43f065e256bf792dbd79640a92316.js" integrity="sha256-Lq27mCRowRpDOj4pHwEybyukPwZeJWv3ktvXlkCpIxY="
+<link rel="canonical" href="https://hydroakri.github.io/posts/linux/ntfs/" />
+<link crossorigin="anonymous" href="https://hydroakri.github.io/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="https://hydroakri.github.io/assets/js/highlight.min.2eadbb982468c11a433a3e291f01326f2ba43f065e256bf792dbd79640a92316.js" integrity="sha256-Lq27mCRowRpDOj4pHwEybyukPwZeJWv3ktvXlkCpIxY="
     onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="icon" href="https://hydroakri.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://hydroakri.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://hydroakri.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://hydroakri.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://hydroakri.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<meta name="generator" content="Hugo 0.133.1">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/linux/ntfs/" />
+<meta name="generator" content="Hugo 0.134.0">
+<link rel="alternate" hreflang="en" href="https://hydroakri.github.io/posts/linux/ntfs/" />
 <noscript>
     <style>
         #theme-toggle,
@@ -59,7 +62,75 @@
         }
 
     </style>
-</noscript>
+</noscript><meta property="og:title" content="NTFS 的一些小技巧" />
+<meta property="og:description" content="鉴于内核在 5.15 之后合并了NTFS3的内核驱动使得读写能力大幅提升，可以把ntfs-3g扔掉了
+# sudo vi /etc/udev/rules.d/ntfs3_by_default.rules
+
+SUBSYSTEM==&#34;block&#34;, ENV{ID_FS_TYPE}==&#34;ntfs&#34;, ENV{ID_FS_TYPE}=&#34;ntfs3&#34; ENV{UDISKS_MOUNT_OPTIONS_DEFAULTS}=&#34;uid=1000,gid=1000,rw,user,exec,umask=000&#34;
+注：选项是把NTFS3作为默认挂载驱动，并且挂载选项使用了proton建议的设置" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hydroakri.github.io/posts/linux/ntfs/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-09-02T20:48:27&#43;08:00" />
+<meta property="article:modified_time" content="2024-09-02T20:48:27&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="NTFS 的一些小技巧"/>
+<meta name="twitter:description" content="鉴于内核在 5.15 之后合并了NTFS3的内核驱动使得读写能力大幅提升，可以把ntfs-3g扔掉了
+# sudo vi /etc/udev/rules.d/ntfs3_by_default.rules
+
+SUBSYSTEM==&#34;block&#34;, ENV{ID_FS_TYPE}==&#34;ntfs&#34;, ENV{ID_FS_TYPE}=&#34;ntfs3&#34; ENV{UDISKS_MOUNT_OPTIONS_DEFAULTS}=&#34;uid=1000,gid=1000,rw,user,exec,umask=000&#34;
+注：选项是把NTFS3作为默认挂载驱动，并且挂载选项使用了proton建议的设置"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://hydroakri.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "NTFS 的一些小技巧",
+      "item": "https://hydroakri.github.io/posts/linux/ntfs/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "NTFS 的一些小技巧",
+  "name": "NTFS 的一些小技巧",
+  "description": "鉴于内核在 5.15 之后合并了NTFS3的内核驱动使得读写能力大幅提升，可以把ntfs-3g扔掉了\n# sudo vi /etc/udev/rules.d/ntfs3_by_default.rules SUBSYSTEM==\u0026#34;block\u0026#34;, ENV{ID_FS_TYPE}==\u0026#34;ntfs\u0026#34;, ENV{ID_FS_TYPE}=\u0026#34;ntfs3\u0026#34; ENV{UDISKS_MOUNT_OPTIONS_DEFAULTS}=\u0026#34;uid=1000,gid=1000,rw,user,exec,umask=000\u0026#34; 注：选项是把NTFS3作为默认挂载驱动，并且挂载选项使用了proton建议的设置\n",
+  "keywords": [
+    "linux"
+  ],
+  "articleBody": "鉴于内核在 5.15 之后合并了NTFS3的内核驱动使得读写能力大幅提升，可以把ntfs-3g扔掉了\n# sudo vi /etc/udev/rules.d/ntfs3_by_default.rules SUBSYSTEM==\"block\", ENV{ID_FS_TYPE}==\"ntfs\", ENV{ID_FS_TYPE}=\"ntfs3\" ENV{UDISKS_MOUNT_OPTIONS_DEFAULTS}=\"uid=1000,gid=1000,rw,user,exec,umask=000\" 注：选项是把NTFS3作为默认挂载驱动，并且挂载选项使用了proton建议的设置\n",
+  "wordCount" : "12",
+  "inLanguage": "en",
+  "datePublished": "2024-09-02T20:48:27+08:00",
+  "dateModified": "2024-09-02T20:48:27+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://hydroakri.github.io/posts/linux/ntfs/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Hydroakri's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://hydroakri.github.io/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 
 <body class="" id="top">
@@ -77,7 +148,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="Hydroakri&#39;s Blog (Alt + H)">Hydroakri&#39;s Blog</a>
+            <a href="https://hydroakri.github.io/" accesskey="h" title="Hydroakri&#39;s Blog (Alt + H)">Hydroakri&#39;s Blog</a>
             <span class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -105,17 +176,17 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/about" title="About">
+                <a href="https://hydroakri.github.io/about" title="About">
                     <span>About</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/archives" title="Archives">
+                <a href="https://hydroakri.github.io/archives" title="Archives">
                     <span>Archives</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/tags/" title="Tags">
+                <a href="https://hydroakri.github.io/tags/" title="Tags">
                     <span>Tags</span>
                 </a>
             </li>
@@ -145,14 +216,14 @@ SUBSYSTEM==&#34;block&#34;, ENV{ID_FS_TYPE}==&#34;ntfs&#34;, ENV{ID_FS_TYPE}=&#3
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/linux/">Linux</a></li>
+      <li><a href="https://hydroakri.github.io/tags/linux/">Linux</a></li>
     </ul>
   </footer>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2024 <a href="http://localhost:1313/">Hydroakri&#39;s Blog</a></span>
+    <span>&copy; 2024 <a href="https://hydroakri.github.io/">Hydroakri&#39;s Blog</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

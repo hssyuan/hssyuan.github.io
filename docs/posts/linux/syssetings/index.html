@@ -1,32 +1,50 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>archlinux 系统参数优化 | Hydroakri&#39;s Blog</title>
 <meta name="keywords" content="linux" />
-<meta name="description" content="Useful utils earlyoom adguardhome warp-svc systemd-resolved gamemode ufw apparmor proxychains
-sudo systemctl daemon-reload sudo systemctl enable fstrim.timer sudo systemctl enable systemd-zram-setup@zram0.service sudo systemctl enable nvidia-suspend.service /etc/default/grub
-GRUB_CMDLINE_LINUX_DEFAULT=&#34;rootfstype=xfs zswap.enabled=0 mem_sleep_default=s2idle radeon.dpm=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 amd_pstate=active mitigations=auto nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 apparmor=1 security=apparmor lockdown=integrity quiet splash&#34; /etc/modprobe.d/nvidia-options.conf
-options nvidia-drm modeset=1 options nvidia NVreg_PreserveVideoMemoryAllocations=1 /etc/systemd/zram-generator.conf
-[zram0] zram-size = ram/2 compression-algorithm = zstd /etc/systemd/resolved.conf
-[Resolve] DNS=123.129.227.3#doh.apad.pro 103.2.57.5#ipublic.dns.iij.jp 101.102.103.104#101.101.101.101 1.1.1.1#cloudflare-dns.com 8.8.8.8#dns.google 9.9.9.9#dns.quad9.net Domains=~ DNSSEC=allow-downgrade DNSOverTLS=yes MulticastDNS=yes LLMNR=yes Cache=yes /etc/sysctl.">
+<meta name="description" content="
+Useful utils
+earlyoom adguardhome warp-svc systemd-resolved gamemode ufw apparmor proxychains
+
+sudo systemctl daemon-reload
+sudo systemctl enable fstrim.timer
+sudo systemctl enable systemd-zram-setup@zram0.service
+sudo systemctl enable nvidia-suspend.service
+
+/etc/default/grub
+
+GRUB_CMDLINE_LINUX_DEFAULT=&#34;rootfstype=xfs zswap.enabled=0 mem_sleep_default=s2idle radeon.dpm=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 amd_pstate=active mitigations=auto nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 apparmor=1 security=apparmor lockdown=integrity quiet splash&#34;
+
+/etc/modprobe.d/nvidia-options.conf
+
+options nvidia-drm modeset=1
+options nvidia NVreg_PreserveVideoMemoryAllocations=1
+
+/etc/systemd/zram-generator.conf
+
+[zram0]
+zram-size = ram/2
+compression-algorithm = zstd
+">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/posts/linux/syssetings/" />
-<link crossorigin="anonymous" href="http://localhost:1313/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="http://localhost:1313/assets/js/highlight.min.2eadbb982468c11a433a3e291f01326f2ba43f065e256bf792dbd79640a92316.js" integrity="sha256-Lq27mCRowRpDOj4pHwEybyukPwZeJWv3ktvXlkCpIxY="
+<link rel="canonical" href="https://hydroakri.github.io/posts/linux/syssetings/" />
+<link crossorigin="anonymous" href="https://hydroakri.github.io/assets/css/stylesheet.min.c88963fe2d79462000fd0fb1b3737783c32855d340583e4523343f8735c787f0.css" integrity="sha256-yIlj/i15RiAA/Q&#43;xs3N3g8MoVdNAWD5FIzQ/hzXHh/A=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="https://hydroakri.github.io/assets/js/highlight.min.2eadbb982468c11a433a3e291f01326f2ba43f065e256bf792dbd79640a92316.js" integrity="sha256-Lq27mCRowRpDOj4pHwEybyukPwZeJWv3ktvXlkCpIxY="
     onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="icon" href="https://hydroakri.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://hydroakri.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://hydroakri.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://hydroakri.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://hydroakri.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<meta name="generator" content="Hugo 0.133.1">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/linux/syssetings/" />
+<meta name="generator" content="Hugo 0.134.0">
+<link rel="alternate" hreflang="en" href="https://hydroakri.github.io/posts/linux/syssetings/" />
 <noscript>
     <style>
         #theme-toggle,
@@ -63,7 +81,113 @@ options nvidia-drm modeset=1 options nvidia NVreg_PreserveVideoMemoryAllocations
         }
 
     </style>
-</noscript>
+</noscript><meta property="og:title" content="archlinux 系统参数优化" />
+<meta property="og:description" content="
+Useful utils
+earlyoom adguardhome warp-svc systemd-resolved gamemode ufw apparmor proxychains
+
+sudo systemctl daemon-reload
+sudo systemctl enable fstrim.timer
+sudo systemctl enable systemd-zram-setup@zram0.service
+sudo systemctl enable nvidia-suspend.service
+
+/etc/default/grub
+
+GRUB_CMDLINE_LINUX_DEFAULT=&#34;rootfstype=xfs zswap.enabled=0 mem_sleep_default=s2idle radeon.dpm=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 amd_pstate=active mitigations=auto nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 apparmor=1 security=apparmor lockdown=integrity quiet splash&#34;
+
+/etc/modprobe.d/nvidia-options.conf
+
+options nvidia-drm modeset=1
+options nvidia NVreg_PreserveVideoMemoryAllocations=1
+
+/etc/systemd/zram-generator.conf
+
+[zram0]
+zram-size = ram/2
+compression-algorithm = zstd
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://hydroakri.github.io/posts/linux/syssetings/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-09-03T13:25:27&#43;08:00" />
+<meta property="article:modified_time" content="2024-09-03T13:25:27&#43;08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="archlinux 系统参数优化"/>
+<meta name="twitter:description" content="
+Useful utils
+earlyoom adguardhome warp-svc systemd-resolved gamemode ufw apparmor proxychains
+
+sudo systemctl daemon-reload
+sudo systemctl enable fstrim.timer
+sudo systemctl enable systemd-zram-setup@zram0.service
+sudo systemctl enable nvidia-suspend.service
+
+/etc/default/grub
+
+GRUB_CMDLINE_LINUX_DEFAULT=&#34;rootfstype=xfs zswap.enabled=0 mem_sleep_default=s2idle radeon.dpm=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 amd_pstate=active mitigations=auto nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 apparmor=1 security=apparmor lockdown=integrity quiet splash&#34;
+
+/etc/modprobe.d/nvidia-options.conf
+
+options nvidia-drm modeset=1
+options nvidia NVreg_PreserveVideoMemoryAllocations=1
+
+/etc/systemd/zram-generator.conf
+
+[zram0]
+zram-size = ram/2
+compression-algorithm = zstd
+"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://hydroakri.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "archlinux 系统参数优化",
+      "item": "https://hydroakri.github.io/posts/linux/syssetings/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "archlinux 系统参数优化",
+  "name": "archlinux 系统参数优化",
+  "description": " Useful utils earlyoom adguardhome warp-svc systemd-resolved gamemode ufw apparmor proxychains\nsudo systemctl daemon-reload sudo systemctl enable fstrim.timer sudo systemctl enable systemd-zram-setup@zram0.service sudo systemctl enable nvidia-suspend.service /etc/default/grub\nGRUB_CMDLINE_LINUX_DEFAULT=\u0026#34;rootfstype=xfs zswap.enabled=0 mem_sleep_default=s2idle radeon.dpm=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 amd_pstate=active mitigations=auto nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 apparmor=1 security=apparmor lockdown=integrity quiet splash\u0026#34; /etc/modprobe.d/nvidia-options.conf\noptions nvidia-drm modeset=1 options nvidia NVreg_PreserveVideoMemoryAllocations=1 /etc/systemd/zram-generator.conf\n[zram0] zram-size = ram/2 compression-algorithm = zstd ",
+  "keywords": [
+    "linux"
+  ],
+  "articleBody": " Useful utils earlyoom adguardhome warp-svc systemd-resolved gamemode ufw apparmor proxychains\nsudo systemctl daemon-reload sudo systemctl enable fstrim.timer sudo systemctl enable systemd-zram-setup@zram0.service sudo systemctl enable nvidia-suspend.service /etc/default/grub\nGRUB_CMDLINE_LINUX_DEFAULT=\"rootfstype=xfs zswap.enabled=0 mem_sleep_default=s2idle radeon.dpm=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 amd_pstate=active mitigations=auto nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 apparmor=1 security=apparmor lockdown=integrity quiet splash\" /etc/modprobe.d/nvidia-options.conf\noptions nvidia-drm modeset=1 options nvidia NVreg_PreserveVideoMemoryAllocations=1 /etc/systemd/zram-generator.conf\n[zram0] zram-size = ram/2 compression-algorithm = zstd /etc/systemd/resolved.conf\n[Resolve] DNS=123.129.227.3#doh.apad.pro 103.2.57.5#ipublic.dns.iij.jp 101.102.103.104#101.101.101.101 1.1.1.1#cloudflare-dns.com 8.8.8.8#dns.google 9.9.9.9#dns.quad9.net Domains=~ DNSSEC=allow-downgrade DNSOverTLS=yes MulticastDNS=yes LLMNR=yes Cache=yes /etc/sysctl.conf\n#security kernel.core_pattern=|/bin/false kernel.unprivileged_bpf_disabled=0 kernel.kptr_restrict=2 kernel.yama.ptrace_scope=3 kernel.kexec_load_disabled=1 module.sig_enforce=1 net.core.bpf_jit_harden=2 # performance net.core.default_qdisc=cake net.ipv4.tcp_congestion_control=bbr2 net.core.netdev_max_backlog = 16384 net.core.rmem_default = 1048576 net.core.rmem_max = 16777216 net.core.wmem_default = 1048576 net.core.wmem_max = 16777216 net.core.optmem_max = 65536 net.ipv4.tcp_rmem = 4096 1048576 2097152 net.ipv4.tcp_wmem = 4096 65536 16777216 net.ipv4.udp_rmem_min = 8192 net.ipv4.udp_wmem_min = 8192 net.ipv4.tcp_fastopen = 3 net.ipv4.tcp_max_syn_backlog = 8192 net.ipv4.tcp_max_tw_buckets = 2000000 net.ipv4.tcp_tw_reuse = 1 net.ipv4.tcp_fin_timeout = 10 net.ipv4.tcp_slow_start_after_idle = 0 net.ipv4.tcp_keepalive_time = 60 net.ipv4.tcp_keepalive_intvl = 10 net.ipv4.tcp_keepalive_probes = 6 net.ipv4.tcp_mtu_probing = 1 net.ipv4.tcp_sack = 1 vm.swappiness=180 vm.watermark_boost_factor=0 vm.watermark_scale_factor=125 vm.page-cluster=0 vm.dirty_ratio=8 vm.dirty_background_ratio=4 vm.dirty_writeback_centisecs=1500 vm.dirty_expire_centisecs=1500 vm.laptop_mode=5 vm.vfs_cache_pressure = 50 /etc/modules-load.d/tcp_bbr.conf\ntcp_bbr2 zram /etc/fstab\nntfs3 uid=1000,gid=1000,rw,user,exec,umask=000,prealloc btrfs rw,relatime,ssd,space_cache=v2,noatime,commit=120,compress=zstd,discard=async /etc/udev/rules.d/ntfs3_by_default.rules\nSUBSYSTEM==\"block\", ENV{ID_FS_TYPE}==\"ntfs\", ENV{ID_FS_TYPE}=\"ntfs3\" /etc/environment\nXMODIFIERS=@im=fcitx /etc/NetworkManager/conf.d/dns.conf\n[main] dns=none kernel modules\namdgpu nvidia nvidia_modeset nvidia_uvm nvidia_drm distro specific #local-mirror deb http://mirrors.ustc.edu.cn/debian trixie main contrib non-free non-free-firmware deb http://mirrors.ustc.edu.cn/debian trixie-updates main contrib non-free non-free-firmware #main-source/updates/backports deb https://deb.debian.org/debian/ trixie main contrib non-free non-free-firmware deb https://deb.debian.org/debian/ trixie-updates main contrib non-free non-free-firmware deb https://deb.debian.org/debian/ trixie-backports main contrib non-free non-free-firmware #security deb http://deb.debian.org/debian-security/ trixie-security main contrib non-free non-free-firmware Another important thing pacman -Qqe \u003e pkgs.txt flatpak list --columns=app \u003e flatpak.txt sudo apt list \u003e debs.txt brew list \u003e brew.txt ",
+  "wordCount" : "257",
+  "inLanguage": "en",
+  "datePublished": "2024-09-03T13:25:27+08:00",
+  "dateModified": "2024-09-03T13:25:27+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://hydroakri.github.io/posts/linux/syssetings/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Hydroakri's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://hydroakri.github.io/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 
 <body class="" id="top">
@@ -81,7 +205,7 @@ options nvidia-drm modeset=1 options nvidia NVreg_PreserveVideoMemoryAllocations
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="Hydroakri&#39;s Blog (Alt + H)">Hydroakri&#39;s Blog</a>
+            <a href="https://hydroakri.github.io/" accesskey="h" title="Hydroakri&#39;s Blog (Alt + H)">Hydroakri&#39;s Blog</a>
             <span class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -109,17 +233,17 @@ options nvidia-drm modeset=1 options nvidia NVreg_PreserveVideoMemoryAllocations
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/about" title="About">
+                <a href="https://hydroakri.github.io/about" title="About">
                     <span>About</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/archives" title="Archives">
+                <a href="https://hydroakri.github.io/archives" title="Archives">
                     <span>Archives</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/tags/" title="Tags">
+                <a href="https://hydroakri.github.io/tags/" title="Tags">
                     <span>Tags</span>
                 </a>
             </li>
@@ -276,14 +400,14 @@ brew list &gt; brew.txt
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/linux/">Linux</a></li>
+      <li><a href="https://hydroakri.github.io/tags/linux/">Linux</a></li>
     </ul>
   </footer>
 </article>
     </main>
     
 <footer class="footer">
-    <span>&copy; 2024 <a href="http://localhost:1313/">Hydroakri&#39;s Blog</a></span>
+    <span>&copy; 2024 <a href="https://hydroakri.github.io/">Hydroakri&#39;s Blog</a></span>
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &

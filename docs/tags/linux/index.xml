@@ -2,137 +2,224 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Linux on Hydroakri&#39;s Blog</title>
-    <link>http://localhost:1313/tags/linux/</link>
+    <link>https://hydroakri.github.io/tags/linux/</link>
     <description>Recent content in Linux on Hydroakri&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 03 Sep 2024 13:25:27 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 03 Sep 2024 13:25:27 +0800</lastBuildDate><atom:link href="https://hydroakri.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>archlinux 系统参数优化</title>
-      <link>http://localhost:1313/posts/linux/syssetings/</link>
+      <link>https://hydroakri.github.io/posts/linux/syssetings/</link>
       <pubDate>Tue, 03 Sep 2024 13:25:27 +0800</pubDate>
       
-      <guid>http://localhost:1313/posts/linux/syssetings/</guid>
-      <description>Useful utils earlyoom adguardhome warp-svc systemd-resolved gamemode ufw apparmor proxychains
-sudo systemctl daemon-reload sudo systemctl enable fstrim.timer sudo systemctl enable systemd-zram-setup@zram0.service sudo systemctl enable nvidia-suspend.service /etc/default/grub
-GRUB_CMDLINE_LINUX_DEFAULT=&amp;#34;rootfstype=xfs zswap.enabled=0 mem_sleep_default=s2idle radeon.dpm=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 amd_pstate=active mitigations=auto nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 apparmor=1 security=apparmor lockdown=integrity quiet splash&amp;#34; /etc/modprobe.d/nvidia-options.conf
-options nvidia-drm modeset=1 options nvidia NVreg_PreserveVideoMemoryAllocations=1 /etc/systemd/zram-generator.conf
-[zram0] zram-size = ram/2 compression-algorithm = zstd /etc/systemd/resolved.conf
-[Resolve] DNS=123.129.227.3#doh.apad.pro 103.2.57.5#ipublic.dns.iij.jp 101.102.103.104#101.101.101.101 1.1.1.1#cloudflare-dns.com 8.8.8.8#dns.google 9.9.9.9#dns.quad9.net Domains=~ DNSSEC=allow-downgrade DNSOverTLS=yes MulticastDNS=yes LLMNR=yes Cache=yes /etc/sysctl.</description>
+      <guid>https://hydroakri.github.io/posts/linux/syssetings/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Useful utils
+&lt;code&gt;earlyoom&lt;/code&gt; &lt;code&gt;adguardhome&lt;/code&gt; &lt;code&gt;warp-svc&lt;/code&gt; &lt;code&gt;systemd-resolved&lt;/code&gt; &lt;code&gt;gamemode&lt;/code&gt; &lt;code&gt;ufw&lt;/code&gt; &lt;code&gt;apparmor&lt;/code&gt; &lt;code&gt;proxychains&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo systemctl daemon-reload
+sudo systemctl enable fstrim.timer
+sudo systemctl enable systemd-zram-setup@zram0.service
+sudo systemctl enable nvidia-suspend.service
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;/etc/default/grub&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-conf&#34; data-lang=&#34;conf&#34;&gt;GRUB_CMDLINE_LINUX_DEFAULT=&amp;#34;rootfstype=xfs zswap.enabled=0 mem_sleep_default=s2idle radeon.dpm=1 nvidia_drm.modeset=1 nvidia_drm.fbdev=1 amd_pstate=active mitigations=auto nowatchdog processor.ignore_ppc=1 nmi_watchdog=0 apparmor=1 security=apparmor lockdown=integrity quiet splash&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;/etc/modprobe.d/nvidia-options.conf&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;options nvidia-drm modeset=1
+options nvidia NVreg_PreserveVideoMemoryAllocations=1
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;/etc/systemd/zram-generator.conf&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[zram0]
+zram-size = ram/2
+compression-algorithm = zstd
+&lt;/code&gt;&lt;/pr</description>
     </item>
     
     <item>
       <title>在Debian&#43;自定义内核上启用安全启动</title>
-      <link>http://localhost:1313/posts/linux/secureboot/</link>
+      <link>https://hydroakri.github.io/posts/linux/secureboot/</link>
       <pubDate>Mon, 02 Sep 2024 21:48:27 +0800</pubDate>
       
-      <guid>http://localhost:1313/posts/linux/secureboot/</guid>
-      <description>注意： Debian/Fedora/Ubuntu 官方支持了安全启动，因此属于‘使用已签署的引导加载程序’，支持的方式为shim
-根据Debian wiki对安全启动的描述中可以得知，Debian自带了EFI系统签名因此无需手动注册，但是由dkms加载的内核模块没有经过MOK的注册，因此需要手动注册：
-sudo mokutil --import /var/lib/dkms/mok.pub #由MOK注册，执行完需要重启 接下来，由于使用的是自定义内核，所以内核也需要手动签名后由MOK注册：
-#创建一个机器所有者密钥（MOK）： openssl req -newkey rsa:4096 -nodes -keyout MOK.key -new -x509 -sha256 -days 3650 -subj &amp;#34;/CN=my Machine Owner Key/&amp;#34; -out MOK.crt openssl x509 -outform DER -in MOK.crt -out MOK.cer #手动签署你的引导加载程序（名为grubx64.efi）以及内核： sbsign --key MOK.key --cert MOK.crt --output /boot/vmlinuz-linux /boot/vmlinuz-linux sbsign --key MOK.key --cert MOK.crt --output esp/EFI/BOOT/grubx64.efi esp/EFI/BOOT/grubx64.efi sudo mokutil --import MOK.cer #由MOK注册，执行完需要重启 接下来创建initramfs-tools的钩子：
-#!/bin/sh set -e PREREQ=&amp;#34;&amp;#34; # 这个函数会在 initramfs-tools 处理时被调用 case $1 in prereqs) # 返回依赖项 echo &amp;#34;$PREREQ&amp;#34; exit 0 ;; *) # 处理脚本 ;; esac # 定义证书和密钥的路径 cert=&amp;#34;/path/to/your/certificate.</description>
+      <guid>https://hydroakri.github.io/posts/linux/secureboot/</guid>
+      <description>&lt;h2 id=&#34;注意&#34;&gt;注意：&lt;/h2&gt;
+&lt;p&gt;Debian/Fedora/Ubuntu 官方支持了安全启动，因此属于‘使用已签署的引导加载程序’，支持的方式为shim&lt;/p&gt;
+&lt;p&gt;根据Debian wiki对安全启动的描述中可以得知，Debian自带了EFI系统签名因此无需手动注册，但是由dkms加载的内核模块没有经过MOK的注册，因此需要手动注册：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mokutil --import /var/lib/dkms/mok.pub &lt;span style=&#34;color:#75715e&#34;&gt;#由MOK注册，执行完需要重启&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;接下来，由于使用的是自定义内核，所以内核也需要&lt;strong&gt;手动签名&lt;/strong&gt;后由MOK注册：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#创建一个机器所有者密钥（MOK）：&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;openssl req -newkey rsa:4096 -nodes -keyout MOK.key -new -x509 -sha256 -days &lt;span style=&#34;color:#ae81ff&#34;&gt;3650&lt;/span&gt; -subj &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/CN=my Machine Owner Key/&amp;#34;&lt;/span&gt; -out MOK.crt
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;openssl x509 -outform DER -in MOK.crt -out MOK.cer
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#手动签署你的引导加载程序（名为grubx64.efi）以及内核：&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sbsign --key MOK.key --cert MOK.crt --output /boot/vmlinuz-linux /boot/vmlinuz-linux
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sbsign --key MOK.key --cert MOK.crt --output esp/EFI/BOOT/grubx64.efi esp/EFI/BOOT/grubx64.efi
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo mokutil --import MOK.cer &lt;span style=&#34;color:#75715e&#34;&gt;#由MOK注册，执行完需要重启&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pr</description>
     </item>
     
     <item>
       <title>NTFS 的一些小技巧</title>
-      <link>http://localhost:1313/posts/linux/ntfs/</link>
+      <link>https://hydroakri.github.io/posts/linux/ntfs/</link>
       <pubDate>Mon, 02 Sep 2024 20:48:27 +0800</pubDate>
       
-      <guid>http://localhost:1313/posts/linux/ntfs/</guid>
-      <description>鉴于内核在 5.15 之后合并了NTFS3的内核驱动使得读写能力大幅提升，可以把ntfs-3g扔掉了
-# sudo vi /etc/udev/rules.d/ntfs3_by_default.rules SUBSYSTEM==&amp;#34;block&amp;#34;, ENV{ID_FS_TYPE}==&amp;#34;ntfs&amp;#34;, ENV{ID_FS_TYPE}=&amp;#34;ntfs3&amp;#34; ENV{UDISKS_MOUNT_OPTIONS_DEFAULTS}=&amp;#34;uid=1000,gid=1000,rw,user,exec,umask=000&amp;#34; 注：选项是把NTFS3作为默认挂载驱动，并且挂载选项使用了proton建议的设置</description>
+      <guid>https://hydroakri.github.io/posts/linux/ntfs/</guid>
+      <description>&lt;p&gt;鉴于内核在 5.15 之后合并了NTFS3的内核驱动使得读写能力大幅提升，可以把ntfs-3g扔掉了&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-rules&#34; data-lang=&#34;rules&#34;&gt;# sudo vi /etc/udev/rules.d/ntfs3_by_default.rules
+
+SUBSYSTEM==&amp;#34;block&amp;#34;, ENV{ID_FS_TYPE}==&amp;#34;ntfs&amp;#34;, ENV{ID_FS_TYPE}=&amp;#34;ntfs3&amp;#34; ENV{UDISKS_MOUNT_OPTIONS_DEFAULTS}=&amp;#34;uid=1000,gid=1000,rw,user,exec,umask=000&amp;#34;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;注：选项是把NTFS3作为默认挂载驱动，并且挂载选项使用了&lt;a href=&#34;https://github.com/ValveSoftware/Proton/wiki/Using-a-NTFS-disk-with-Linux-and-Windows&#34;&gt;proton建议的设置&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>linux 使用 doh</title>
-      <link>http://localhost:1313/posts/linux/doh/</link>
+      <link>https://hydroakri.github.io/posts/linux/doh/</link>
       <pubDate>Wed, 09 Aug 2023 17:26:27 +0800</pubDate>
       
-      <guid>http://localhost:1313/posts/linux/doh/</guid>
-      <description>在比较了archwiki关于dns的介绍后
-在smartdns/coredns/unbound/dnsencrypt-proxy之中选择了后者
-coredns和unbound对于桌面linux用户而言过于复杂且不好配置
-而smartdns面对老前辈dnsencrypt-proxy而言缺少了自动获取doh源的功能
-安装 首先sudo -s进入root shell
-然后ss -lp &#39;sport = :domain&#39;查看端口是否被占用
-确保127.0.0.1:domain没有被占用即可
-如果有占用需要停止目前使用的dns服务
-例如systemctl disable systemd-resolved
-然后根据发行版安装二进制包
-配置文件的位置在/etc/dnscrypt-proxy/dnscrypt-proxy.toml 启动服务systemctl enable dnscrypt-proxy.service --now
-让dns服务器指向本地的dnscrypt-proxy 修改/etc/resolv.conf
-nameserver ::1 nameserver 127.0.0.1 options edns0 然后chattr +i /etc/resolv.conf来放置resolv.conf被networkmanager或其他网络服务覆写
-打开浏览器并前往dns leak test并进行扩展测试,如果结果显示您在配置文件中设置的服务器,则表示dnscrypt-proxy正在工作,否则出现问题。</description>
+      <guid>https://hydroakri.github.io/posts/linux/doh/</guid>
+      <description>&lt;p&gt;在比较了&lt;a href=&#34;https://wiki.archlinux.org/title/Domain_name_resolution&#34;&gt;archwiki&lt;/a&gt;关于dns的介绍后&lt;br&gt;
+在smartdns/coredns/unbound/dnsencrypt-proxy之中选择了后者&lt;br&gt;
+coredns和unbound对于桌面linux用户而言过于复杂且不好配置&lt;br&gt;
+而smartdns面对老前辈dnsencrypt-proxy而言缺少了自动获取doh源的功能&lt;/p&gt;
+&lt;h1 id=&#34;安装&#34;&gt;安装&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;首先&lt;code&gt;sudo -s&lt;/code&gt;进入root shell&lt;br&gt;
+然后&lt;code&gt;ss -lp &#39;sport = :domain&#39;&lt;/code&gt;查看端口是否被占用&lt;br&gt;
+确保&lt;code&gt;127.0.0.1:domain&lt;/code&gt;没有被占用即可&lt;br&gt;
+如果有占用需要停止目前使用的dns服务&lt;br&gt;
+例如&lt;code&gt;systemctl disable systemd-resolved&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;然后根据发行版安装二进制包&lt;br&gt;
+配置文件的位置在&lt;code&gt;/etc/dnscrypt-proxy/dnscrypt-proxy.toml&lt;/code&gt;
+启动服务&lt;code&gt;systemctl enable dnscrypt-proxy.service --now&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;让dns服务器指向本地的dnscrypt-proxy
+修改&lt;code&gt;/etc/resolv.conf&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-/etc/resolv.conf&#34; data-lang=&#34;/etc/resolv.conf&#34;&gt;nameserver ::1
+nameserver 127.0.0.1
+options edns0
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后&lt;code&gt;chattr +i /etc/resolv.conf&lt;/code&gt;来放置resolv.conf被networkmanager或其他网络服务覆写&lt;/p&gt;
+&lt;p&gt;打开浏览器并前往&lt;a href=&#34;https://www.dnsleaktest.com/&#34;&gt;dns leak test&lt;/a&gt;并进行扩展测试,如果结果显示您在配置文件中设置的服务器,则表示dnscrypt-proxy正在工作,否则出现问题。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>基于KVM的虚拟显卡透传技术</title>
-      <link>http://localhost:1313/posts/linux/passthrough/</link>
+      <link>https://hydroakri.github.io/posts/linux/passthrough/</link>
       <pubDate>Wed, 02 Aug 2023 21:48:27 +0800</pubDate>
       
-      <guid>http://localhost:1313/posts/linux/passthrough/</guid>
-      <description>0.准备工作&amp;amp;检查 显卡直通的前提条件是：
-NVIDIA 独立显卡本身要具有视频输出功能 机身上至少有一个连接到独立显卡的视频接口 安装kvm虚拟机，具体步骤参照本博客archlinux安装或archlinux wiki 强烈建议阅读本文时参照下面几篇文章：
-PCI_passthrough_via_OVMF_ARCHLINUX wiki
-Optimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通
-vanities/GPU-Passthrough-Arch-Linux-to-Windows10 Public
-KVM-GPU-Passthrough
-Optimus笔记本虚拟机显卡直通 Linux低延遲在Windows虛擬機玩遊戲 ～ QEMU/KVM ＋ VFIO雙GPU直通 ＋ Looking Glass安裝過程
-1.1开始 1.1隔离独显 1.1.1引导镜像的编辑 运行 lspci -nn | grep NVIDIA，获得类似如下输出,中括号里的八位是我们需要的
-01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1) 01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1) 编辑或创建/etc/modprobe.d/vfio.conf，ids后面写上面得到的八位，并用逗号间隔(也可以添加内核参数 vfio-pci.ids=...)
-options vfio-pci ids=10de:2520,10de:228e 修改/etc/mkinitcpio.conf，在MODULES里增加
-vfio_pci vfio vfio_iommu_type1 vfio_virqfd 还需要确保/etc/mkinitcpio.</description>
+      <guid>https://hydroakri.github.io/posts/linux/passthrough/</guid>
+      <description>&lt;h1 id=&#34;0准备工作检查&#34;&gt;0.准备工作&amp;amp;检查&lt;/h1&gt;
+&lt;p&gt;显卡直通的前提条件是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;NVIDIA 独立显卡本身要具有视频输出功能&lt;/li&gt;
+&lt;li&gt;机身上至少有一个连接到独立显卡的视频接口&lt;/li&gt;
+&lt;li&gt;安装kvm虚拟机，具体步骤参照本博客archlinux安装或archlinux wiki&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;强烈建议阅读本文时参照下面几篇文章：&lt;br&gt;
+&lt;a href=&#34;https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E7%A1%AC%E4%BB%B6%E8%A6%81%E6%B1%82&#34;&gt;PCI_passthrough_via_OVMF_ARCHLINUX wiki&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://lantian.pub/article/modify-computer/laptop-muxed-nvidia-passthrough.lantian/&#34;&gt;Optimus MUXed 笔记本上的 NVIDIA 虚拟机显卡直通&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://github.com/vanities/GPU-Passthrough-Arch-Linux-to-Windows10&#34;&gt;vanities/GPU-Passthrough-Arch-Linux-to-Windows10
+Public&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://github.com/BigAnteater/KVM-GPU-Passthrough&#34;&gt;
+KVM-GPU-Passthrough&lt;/a&gt;&lt;br&gt;
+&lt;a href=&#34;https://www.bwsl.wang/script/119.html&#34;&gt;Optimus笔记本虚拟机显卡直通&lt;/a&gt;
+&lt;a href=&#34;https://ivonblog.com/posts/qemu-kvm-vfio-gaming/&#34;&gt;Linux低延遲在Windows虛擬機玩遊戲 ～ QEMU/KVM ＋ VFIO雙GPU直通 ＋ Looking Glass安裝過程&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;11开始&#34;&gt;1.1开始&lt;/h1&gt;
+&lt;h2 id=&#34;11隔离独显&#34;&gt;1.1隔离独显&lt;/h2&gt;
+&lt;h3 id=&#34;111引导镜像的编辑&#34;&gt;1.1.1引导镜像的编辑&lt;/h3&gt;
+&lt;p&gt;运行 &lt;code&gt;lspci -nn | grep NVIDIA&lt;/code&gt;，获得类似如下输出,中括号里的八位是我们需要的&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] [10de:2520] (rev a1)
+01:00.1 Audio device [0403]: NVIDIA Corporation Device [10de:228e] (rev a1)
+&lt;/code&gt;&lt;/pr</description>
     </item>
     
     <item>
       <title>常用开源软件</title>
-      <link>http://localhost:1313/posts/linux/apps/</link>
+      <link>https://hydroakri.github.io/posts/linux/apps/</link>
       <pubDate>Wed, 22 Feb 2023 11:11:27 +0800</pubDate>
       
-      <guid>http://localhost:1313/posts/linux/apps/</guid>
-      <description> 我的电脑双硬盘双系统，使用Windows 11 + ArchLinux
-在Windows上使用 scoop + winget / Archlinux 下使用 paru+pacman
-我尽可能使用开源/免费
-全平台 网络加速：Watt Toolkit
-提供了多网站的网络加速 不局限于steam 我一般用来加速github 和 steam 编辑器：Neovim
-编辑器之神 没什么好说的 本地视频播放： mpv
-轻巧的一款本地播放器 支持字幕 我拿它来放电影看 视频录制：OBS 手机投屏：scrcpy
-基于命令行 连上手机开启adb调试以后敲命令就行 没有多余的依赖 流媒体：YesPlayMusic（网易云）,Cider(Apple Music),Spotify
-用 YesPlayMusic 多一点，因为它有原版网易云不支持的“连接到Last.FM”功能 GIT：LazyGit
-我的水平还不足以完全开发这个软件 不常用 配置文件管理：GNU STOW
-非常好用的配置文件管理，用软连接的方式链接到文件所在位置，源文件集中在一起，非常方便 系统监视器：Btop/Bottom 截图：Flameshot
-上游还没修Wayland下面的bug TAT 种子下载：Motrix
-非常好用 自带tracker list 即使它是electron我用能接受 代码分享：Silicon 终端：wezterm 密码管理：KeepassXC 隔空投送：Localsend
-好用，尤其是在AP隔离的校园网环境下 Linux Linux only 的软件我放在了我的Dotfile 仓库的介绍里面
-Windows 把Windows 11 改为10的模样：ExplorerPatcher 使游戏窗口全屏显示：Magpie 管理“此电脑”里删不掉的流氓“快捷方式”：MyComputerManager 平铺管理器：komorebi 系统优化：optimizer, Dism++ 让Windows拥有macOS的触发角功能: hotcorner Windows免费激活：Microsoft-Activation-Scripts 系统信息：systeminformer 桌面文件夹整理：TaskbarX 内存优化：memreduct WSL管理：LxRunOffline BTRFS: btrfs </description>
+      <guid>https://hydroakri.github.io/posts/linux/apps/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;我的电脑双硬盘双系统，使用Windows 11 + ArchLinux&lt;br&gt;
+在Windows上使用 scoop + winget / Archlinux 下使用 paru+pacman&lt;br&gt;
+我尽可能使用开源/免费&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;全平台&#34;&gt;全平台&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;网络加速：&lt;a href=&#34;https://steampp.net/&#34;&gt;Watt Toolkit&lt;/a&gt;&lt;br&gt;
+提供了多网站的网络加速 不局限于steam 我一般用来加速github 和 steam&lt;/li&gt;
+&lt;li&gt;编辑器：&lt;a href=&#34;https://neovim.io/&#34;&gt;Neovim&lt;/a&gt;&lt;br&gt;
+编辑器之神 没什么好说的&lt;/li&gt;
+&lt;li&gt;本地视频播放： &lt;a href=&#34;https://mpv.io/&#34;&gt;mpv&lt;/a&gt;&lt;br&gt;
+轻巧的一款本地播放器 支持字幕 我拿它来放电影看&lt;/li&gt;
+&lt;li&gt;视频录制：&lt;a href=&#34;https://obsproject.com/&#34;&gt;OBS&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;手机投屏：&lt;a href=&#34;https://github.com/Genymobile/scrcpy&#34;&gt;scrcpy&lt;/a&gt;&lt;br&gt;
+基于命令行 连上手机开启adb调试以后敲命令就行 没有多余的依赖&lt;/li&gt;
+&lt;li&gt;流媒体：&lt;a href=&#34;https://github.com/qier222/YesPlayMusic&#34;&gt;YesPlayMusic（网易云）&lt;/a&gt;,&lt;a href=&#34;https://cider.sh/&#34;&gt;Cider(Apple Music)&lt;/a&gt;,Spotify&lt;br&gt;
+用 YesPlayMusic 多一点，因为它有原版网易云不支持的“连接到Last.FM”功能&lt;/li&gt;
+&lt;li&gt;GIT：&lt;a href=&#34;https://github.com/jesseduffield/lazygit&#34;&gt;LazyGit&lt;/a&gt;&lt;br&gt;
+我的水平还不足以完全开发这个软件 不常用&lt;/li&gt;
+&lt;li&gt;配置文件管理：&lt;a href=&#34;https://www.gnu.org/software/stow/&#34;&gt;GNU STOW&lt;/a&gt;&lt;br&gt;
+非常好用的配置文件管理，用软连接的方式链接到文件所在位置，源文件集中在一起，非常方便&lt;/li&gt;
+&lt;li&gt;系统监视器：&lt;a href=&#34;https://github.com/aristocratos/btop&#34;&gt;Btop/Bottom&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;截图：&lt;a href=&#34;https://flameshot.org/&#34;&gt;Flameshot&lt;/a&gt;&lt;br&gt;
+上游还没修Wayland下面的bug TAT&lt;/li&gt;
+&lt;li&gt;种子下载：&lt;a href=&#34;https://motrix.app/&#34;&gt;Motrix&lt;/a&gt;&lt;br&gt;
+非常好用 自带tracker list 即使它是electron我用能接受&lt;/li&gt;
+&lt;li&gt;代码分享：&lt;a href=&#34;https://github.com/Aloxaf/silicon&#34;&gt;Silicon&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;终端：&lt;a href=&#34;https://wezfurlong.org/&#34;&gt;wezterm&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;密码管理：&lt;a href=&#34;https://keepassxc.org/&#34;&gt;KeepassXC&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;隔空投送：&lt;a href=&#34;https://github.com/localsend/localsend&#34;&gt;Localsend&lt;/a&gt;&lt;br&gt;
+好用，尤其是在AP隔离的校园网环境下&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;linux&#34;&gt;Linux&lt;/h1&gt;
+&lt;p&gt;Linux only 的软件我放在了我的&lt;a href=&#34;https://github.com/hydroakri/dotfiles&#34;&gt;Dotfile 仓库的介绍里面&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Archlinux安装小记</title>
-      <link>http://localhost:1313/posts/linux/archlinux/</link>
+      <link>https://hydroakri.github.io/posts/linux/archlinux/</link>
       <pubDate>Thu, 17 Feb 2022 00:56:27 +0800</pubDate>
       
-      <guid>http://localhost:1313/posts/linux/archlinux/</guid>
-      <description>创建安装介质 工具：rufus
-环境：windows
-去archlinux官网安装即可，推荐使用qBittorrent，下载速度会比直链快，毕竟是开源软件（去镜像站下载也可以）
-安装 保持安装u盘不用拔出，重启进入bios设置u盘启动优先
-再次重启就是arch安装u盘的界面了
-Q：但是我的archlinux安装盘在不断重启啊
-A：小问题，在grub选择页面按 e 然后在 linux 那一行的最后加上nomodeset来设置内核不加载容易出错的内核模块
-一切顺利的话就会看到红色的archiso 接着我们输入：
-archinstall 注意：archinstall 仅支持 UEFI 系统
-按照安装脚本给出的提示即可，这里提一些值得注意的
-ssd固态硬盘用户建议使用brtfs文件系统 时区手动输入的话是Asia/Shanghai 要让你的系统支持休眠/睡眠的话就要让zram的大小&amp;gt;=物理内存 安装完成后他会询问你是否要立即重启，此时你安装的如果是nvidia的闭源驱动，我们不要立刻重启
-在/etc/modprobe.d/下面新建.conf结尾的配置文件屏蔽内核中自带的nouveau开源驱动
-操作如下：
-cd /etc/modprobe.d/ nano blacklist.conf #系统只识别.conf的文件，所以文件名随意 添加内容如下：
-blacklist nouveau blacklist lbm-nouveau options nouveau modeset=0 即可重启
-配置 amdgpu核芯显卡+nvidia私有驱动（非独显直连）配置混合模式 并不需要bumblebee/optimus-manager/nvidia-xrun这种切换工具
-根据PRIME-Archwiki英文页面的说法
-先识别集成GPU BusID 得到以下结果
-lspci | grep -i VGA ----------------------------------------- 01:00.0 VGA compatible controller: NVIDIA Corporation GA106M [GeForce RTX 3060 Mobile / Max-Q] (rev a1) 06:00.0 VGA compatible controller: Advanced Micro Devices, Inc.</description>
+      <guid>https://hydroakri.github.io/posts/linux/archlinux/</guid>
+      <description>&lt;h1 id=&#34;创建安装介质&#34;&gt;创建安装介质&lt;/h1&gt;
+&lt;p&gt;工具：rufus&lt;br&gt;
+环境：windows&lt;br&gt;
+去&lt;a href=&#34;https://archlinux.org/&#34;&gt;archlinux&lt;/a&gt;官网安装即可，推荐使用qBittorrent，下载速度会比直链快，毕竟是开源软件（去镜像站下载也可以）&lt;/p&gt;
+&lt;h1 id=&#34;安装&#34;&gt;安装&lt;/h1&gt;
+&lt;p&gt;保持安装u盘不用拔出，重启进入bios设置u盘启动优先&lt;br&gt;
+再次重启就是arch安装u盘的界面了&lt;/p&gt;
+&lt;p&gt;Q：但是我的archlinux安装盘在不断重启啊&lt;br&gt;
+A：小问题，在grub选择页面按 &lt;code&gt;e&lt;/code&gt; 然后在 &lt;code&gt;linux&lt;/code&gt; 那一行的最后加上&lt;code&gt;nomodeset&lt;/code&gt;来设置内核不加载容易出错的内核模块&lt;/p&gt;
+&lt;p&gt;一切顺利的话就会看到红色的&lt;code&gt;archiso&lt;/code&gt;
+接着我们输入：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;archinstall  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;注意：archinstall 仅支持 UEFI 系统&lt;/p&gt;
+&lt;p&gt;按照安装脚本给出的提示即可，这里提一些值得注意的&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ssd固态硬盘用户建议使用brtfs文件系统&lt;/li&gt;
+&lt;li&gt;时区手动输入的话是&lt;code&gt;Asia/Shanghai&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;要让你的系统支持休眠/睡眠的话就要让zram的大小&lt;code&gt;&amp;gt;=&lt;/code&gt;物理内存&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;安装完成后他会询问你是否要立即重启，此时你安装的如果是nvidia的闭源驱动，我们不要立刻重启&lt;br&gt;
+在&lt;code&gt;/etc/modprobe.d/&lt;/code&gt;下面新建&lt;code&gt;.conf&lt;/code&gt;结尾的配置文件屏蔽内核中自带的&lt;code&gt;nouveau&lt;/code&gt;开源驱动&lt;br&gt;
+操作如下：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cd /etc/modprobe.d/  
+nano blacklist.conf #系统只识别.conf的文件，所以文件名随意  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;添加内容如下：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt; blacklist nouveau  
+ blacklist lbm-nouveau  
+ options nouveau modeset=0  
+&lt;/code&gt;&lt;/pr</description>
     </item>
     
   </channel>

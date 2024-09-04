@@ -2,23 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Cpp on Hydroakri&#39;s Blog</title>
-    <link>http://localhost:1313/tags/cpp/</link>
+    <link>https://hydroakri.github.io/tags/cpp/</link>
     <description>Recent content in Cpp on Hydroakri&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Fri, 11 Nov 2022 20:31:27 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/cpp/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 11 Nov 2022 20:31:27 +0800</lastBuildDate><atom:link href="https://hydroakri.github.io/tags/cpp/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>c&#43;&#43;中string转char时的传参问题</title>
-      <link>http://localhost:1313/posts/cpp/stringtochar/</link>
+      <link>https://hydroakri.github.io/posts/cpp/stringtochar/</link>
       <pubDate>Fri, 11 Nov 2022 20:31:27 +0800</pubDate>
       
-      <guid>http://localhost:1313/posts/cpp/stringtochar/</guid>
-      <description>string类型字符串转char型时候的函数传参问题 力扣1704题 给你一个偶数长度的字符串 s 。将其拆分成长度相同的两半，前一半为 a ，后一半为 b 。
-两个字符串 相似 的前提是它们都含有相同数目的元音（&#39;a&#39;，&#39;e&#39;，&#39;i&#39;，&#39;o&#39;，&#39;u&#39;，&#39;A&#39;，&#39;E&#39;，&#39;I&#39;，&#39;O&#39;，&#39;U&#39;）。注意，s 可能同时含有大写和小写字母。
-如果 a 和 b 相似，返回 true ；否则，返回 false 。
-问题：当我试图使用哈希表来查找的时候，提示unordered_map的find()报错 Line 20: Char 29: error: no matching member function for call to &amp;#39;find&amp;#39; 解决：C++ map no matching member function for call to &amp;lsquo;find&amp;rsquo; when used for a string 类std::map的成员函数find的形参类型是const std::string &amp;amp;。但是使用的是char类型的参数，并且没有从char类型到std::string类型的隐式转换。 加入
-const char item[] = { s[i], &amp;#39;\0&amp;#39; }; 或者把原来的s[i]替换为std::string(1, s[i])
-class Solution { public: bool halvesAreAlike(string s) { unordered_map&amp;lt;string,string&amp;gt; hashtable{{&amp;#34;a&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;e&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;i&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;o&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;u&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;A&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;E&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;I&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;O&amp;#34;,&amp;#34;true&amp;#34;},{&amp;#34;U&amp;#34;,&amp;#34;true&amp;#34;}}; int length = s.</description>
+      <guid>https://hydroakri.github.io/posts/cpp/stringtochar/</guid>
+      <description>&lt;h1 id=&#34;string类型字符串转char型时候的函数传参问题&#34;&gt;string类型字符串转char型时候的函数传参问题&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;力扣1704题 给你一个偶数长度的字符串 &lt;code&gt;s&lt;/code&gt; 。将其拆分成长度相同的两半，前一半为 &lt;code&gt;a&lt;/code&gt; ，后一半为 &lt;code&gt;b&lt;/code&gt; 。&lt;br&gt;
+两个字符串 相似 的前提是它们都含有相同数目的元音&lt;code&gt;（&#39;a&#39;，&#39;e&#39;，&#39;i&#39;，&#39;o&#39;，&#39;u&#39;，&#39;A&#39;，&#39;E&#39;，&#39;I&#39;，&#39;O&#39;，&#39;U&#39;）&lt;/code&gt;。注意，s 可能同时含有大写和小写字母。&lt;br&gt;
+如果 a 和 b 相似，返回 true ；否则，返回 false 。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;问题当我试图使用哈希表来查找的时候提示unordered_map的find报错&#34;&gt;问题：当我试图使用哈希表来查找的时候，提示unordered_map的find()报错&lt;/h3&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Line 20: Char 29: error: no matching member function for call to &amp;#39;find&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;解决c-map-no-matching-member-function-for-call-to-find-when-used-for-a-stringhttpsstackoverflowcomquestions66347594c-map-no-matching-member-function-for-call-to-find-when-used-for-a-string&#34;&gt;解决：&lt;a href=&#34;https://stackoverflow.com/questions/66347594/c-map-no-matching-member-function-for-call-to-find-when-used-for-a-string&#34;&gt;C++ map no matching member function for call to &amp;lsquo;find&amp;rsquo; when used for a string&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;类std::map的成员函数find的形参类型是const std::string &amp;amp;。但是使用的是char类型的参数，并且没有从char类型到std::string类型的隐式转换。
+加入&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;const char item[] = { s[i], &amp;#39;\0&amp;#39; };
+&lt;/code&gt;&lt;/pr</description>
     </item>
     
   </channel>
